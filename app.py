@@ -32,6 +32,7 @@ store = web.session.DBStore(db, session_tablename)
 
 if web.config.get('_session') is None:
     session = web.session.Session(app, store, initializer={'_userid': -1})
+    web.config._session = session
 else:
     session = web.config._session
 
