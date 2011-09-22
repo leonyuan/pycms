@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" > 
+<head> 
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /> 
+<meta http-equiv="X-UA-Compatible" content="chrome=1"> 
+<title>注册</title>
+<style type="text/css"> 
+</style>
+</head>
+
+<body>
+<div id="main"> 
+<form action="/signup" id="signup_form" method="post"> 
+    <div class="login_area">
+        <dl>
+            <dd class="login_text mRight8">用户名：</dd>
+            <dd class="login_write"><input name="username" id="username" value="" type="text" maxlength="12"/><br /></dd>
+        </dl>
+        <dl>
+            <dd class="login_text mRight8">设置密码：</dd>
+            <dd class="login_write"><input name="password" id="password" value="" type="password" maxlength="16"/><br /><span id="pwd-info">6-16个字符</span></dd>
+        </dl>
+
+        <dl>
+            <dd class="login_text mRight8">重输密码：</dd>
+            <dd class="login_write"><input name="password2"  id="password2" value="" type="password" /><br /><span id="rpwd-info">请再输一次上面的密码</span></dd>
+        </dl>
+        <dl>
+            <dd class="login_text mRight8">您的E-MAIL：</dd>
+            <dd class="login_write"><input name="email" id="email" value="" type="text" maxlength="30"/><br /></dd>
+        </dl>
+        <dl>
+            <p><input class="login_btn" border="none" value="注 册" type="submit" /></p>
+            <p class="c7"><input class="mRight8 mTop4" type="checkbox" checked="checked"/>我已阅读并接受《<a href="#" title="使用协议">使用协议</a>》</p>
+        </dl>
+    </div>
+</form>
+</div>
+</body> 
+</html> 

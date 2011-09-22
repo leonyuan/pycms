@@ -1,0 +1,8 @@
+    % for menu in menus:
+    <h3 class="f14">${menu.name}</h3>
+    <ul>
+      % for sub in menu.children:
+      <li id="_MP${sub.id}" class="sub_menu"><a href="javascript:_MP(${sub.id},'${sub.url()}');" hidefocus="true" style="outline:none;">${sub.name}</a></li>
+      % endfor
+    </ul>
+    % endfor

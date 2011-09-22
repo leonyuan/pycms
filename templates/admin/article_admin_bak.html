@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="generator" content="HTML Tidy, see www.w3.org" />
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta content="IE=7" http-equiv="X-UA-Compatible" />
+
+    <title>pycms - 后台管理中心</title>
+    <link type="text/css" rel="stylesheet" href="${static_url}/css/reset.css" />
+    <link type="text/css" rel="stylesheet" href="${static_url}/css/zh-cn-system.css" />
+    <link type="text/css" rel="stylesheet" href="${static_url}/css/table_form.css" />
+    <link type="text/css" rel="stylesheet" href="${static_url}/css/dialog.css" />
+    <script src="${static_url}/js/dialog.js" type="text/javascript" language="javascript" />
+
+<style type="text/css">
+.ui_dialog_wrap {visibility: hidden}
+
+.ui_title_icon,.ui_content,.ui_dialog_icon,.ui_btns span {
+    display: inline-block;
+    *zoom: 1;
+    *display: inline
+}
+
+.ui_dialog {text-align: left;position: absolute;top: 0}
+
+.ui_dialog table {border: 0; margin: 0; border-collapse: collapse}
+
+.ui_dialog td {padding: 0}
+
+.ui_title_icon,.ui_dialog_icon {vertical-align: middle; _font-size: 0}
+
+.ui_title_text {overflow: hidden; cursor: default}
+
+.ui_close {
+    display: block;
+    position: absolute;
+    outline: none
+}
+
+.ui_content_wrap {
+    text-align: center
+}
+
+.ui_content {
+    margin: 10px;
+    text-align: left
+}
+
+.ui_iframe .ui_content {
+    margin: 0;
+    *padding: 0;
+    display: block;
+    height: 100%;
+    position: relative
+}
+
+.ui_iframe .ui_content iframe {
+    border: none;
+    overflow: auto
+}
+
+.ui_content_mask {
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #FFF;
+    filter: alpha(opacity = 0);
+    opacity: 0
+}
+
+.ui_bottom {
+    position: relative
+}
+
+.ui_resize {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    cursor: nw-resize;
+    _font-size: 0
+}
+
+.ui_btns {
+    text-align: right;
+    white-space: nowrap
+}
+
+.ui_btns span {
+    margin: 5px 10px
+}
+
+.ui_btns button {
+    cursor: pointer
+}
+
+* .ui_ie6_select_mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter: alpha(opacity = 0)
+}
+
+.ui_loading .ui_content_wrap {
+    position: relative;
+    min-width: 9em;
+    min-height: 3.438em
+}
+
+.ui_loading .ui_btns {
+    display: none
+}
+
+.ui_loading_tip {
+    visibility: hidden;
+    width: 5em;
+    height: 1.2em;
+    text-align: center;
+    line-height: 1.2em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -0.6em 0 0 -2.5em
+}
+
+.ui_loading .ui_loading_tip,.ui_loading .ui_content_mask {
+    visibility: visible
+}
+
+.ui_loading .ui_content_mask {
+    filter: alpha(opacity = 100);
+    opacity: 1
+}
+
+.ui_move .ui_title_text {
+    cursor: move
+}
+
+.ui_page_move .ui_content_mask {
+    visibility: visible
+}
+
+.ui_move_temp {
+    visibility: hidden;
+    position: absolute;
+    cursor: move
+}
+
+.ui_move_temp div {
+    height: 100%
+}
+
+html &gt;body .ui_fixed .ui_move_temp {
+    position: fixed
+}
+
+html &gt;body .ui_fixed .ui_dialog {
+    position: fixed
+}
+
+* .ui_ie6_fixed {
+    background: url(*) fixed
+}
+
+* .ui_ie6_fixed body {
+    height: 100%
+}
+
+* html .ui_fixed {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: expression(documentElement.scrollLeft +
+        documentElement.clientWidth-this.offsetWidth);
+    top: expression(documentElement.scrollTop +
+        documentElement.clientHeight-this.offsetHeight)
+}
+
+* .ui_page_lock select,* .ui_page_lock .ui_ie6_select_mask {
+    visibility: hidden
+}
+
+* .ui_page_lock .ui_content select {
+    visibility: visible;
+}
+
+.ui_overlay {
+    visibility: hidden;
+    _display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: alpha(opacity = 0);
+    opacity: 0;
+    _overflow: hidden
+}
+
+.ui_lock .ui_overlay {
+    visibility: visible;
+    _display: block
+}
+
+.ui_overlay div {
+    height: 100%
+}
+
+* html body {
+    margin: 0
+}
+</style>
+<script src="${static_url}/js/jquery.min.js" type="text/javascript" language="javascript"></script>
+<script src="${static_url}/js/admin_common.js" type="text/javascript" language="javascript"></script>
+<script src="${static_url}/js/styleswitch.js" type="text/javascript" language="javascript"></script>
+
+<script type="text/javascript">
+    window.focus();
+    var pc_hash = 'UaPUc2';
+</script>
+<style type="text/css">
+html {
+    _overflow-y: scroll
+}
+</style>
+<style type="text/css">
+.showMsg {
+    border: 1px solid #1e64c8;
+    zoom: 1;
+    width: 450px;
+    height: 172px;
+    position: absolute;
+    top: 44%;
+    left: 50%;
+    margin: -87px 0 0 -225px
+}
+
+.showMsg h5 {
+    background-image:
+        url(${static_url}/images/msg_img/msg.png);
+    background-repeat: no-repeat;
+    color: #fff;
+    padding-left: 35px;
+    height: 25px;
+    line-height: 26px;
+    *line-height: 28px;
+    overflow: hidden;
+    font-size: 14px;
+    text-align: left
+}
+
+.showMsg .content {
+    margin-top: 50px;
+    font-size: 14px;
+    height: 64px;
+    position: relative
+}
+
+#search_div {
+    position: absolute;
+    top: 23px;
+    border: 1px solid #dfdfdf;
+    text-align: left;
+    padding: 1px;
+    left: 89px;
+    *left: 88px;
+    width: 263px;
+    *width: 260px;
+    background-color: #FFF;
+    display: none;
+    font-size: 12px
+}
+
+#search_div li {
+    line-height: 24px;
+}
+
+#search_div li a {
+    padding-left: 6px;
+    display: block
+}
+
+#search_div li a:hover {
+    background-color: #e2eaff
+}
+</style>
+  </head>
+
+  <body>
+    <div style="text-align: center" class="showMsg">
+      <h5>操作提示</h5>
+
+      <div class="content">点选左侧栏目树中的栏目名称开始文章管理</div>
+    </div>
+<script type="text/javascript">
+
+if(window.top.$("#current_pos").data('clicknum')==1 || window.top.$("#current_pos").data('clicknum')==null) {
+    parent.document.getElementById('display_center_id').style.display='';
+    parent.document.getElementById('center_frame').src = '/admin/category_tree';
+    window.top.$("#current_pos").data('clicknum',0);
+}
+$(document).ready(function(){
+    setInterval(closeParent,5000);
+});
+function closeParent() {
+    if($('#closeParentTime').html() == '') {
+        window.top.$(".left_menu").addClass("left_menu_on");
+        window.top.$("#openClose").addClass("close");
+        window.top.$("html").addClass("on");
+        $('#closeParentTime').html('1');
+        window.top.$("#openClose").data('clicknum',1);
+    }
+}
+$().ready(
+    function(){
+        $('#cat_search').keyup(
+            function(){
+                var value = $("#cat_search").val();
+                if (value.length &gt; 0){
+                    $.getJSON('?m=admin&amp;c=category&amp;a=public_ajax_search', {catname: value}, function(data){
+                        if (data != null) {
+                            var str = '';
+                            $.each(data, function(i,n){
+                                if(n.type=='0') {
+                                    str += '&lt;li&gt;&lt;a href="?m=content&amp;c=content&amp;a=init&amp;menuid=822&amp;catid='+n.catid+'&amp;pc_hash='+pc_hash+'"&gt;'+n.catname+'&lt;/a&gt;&lt;/li&gt;';
+                                } else {
+                                    str += '&lt;li&gt;&lt;a href="?m=content&amp;c=content&amp;a=add&amp;menuid=822&amp;catid='+n.catid+'&amp;pc_hash='+pc_hash+'"&gt;'+n.catname+'&lt;/a&gt;&lt;/li&gt;';
+                                }
+                            });
+                            $('#search_div').html(str);
+                            $('#search_div').show();
+                        } else {
+                            $('#search_div').hide();
+                        }
+                    });
+                } else {
+                    $('#search_div').hide();
+                }
+            }
+        );
+    }
+)
+
+</script>
+
+    <div class="ui_dialog_wrap " id="" style="z-index: 1000000; visibility: hidden;">
+      <div class="ui_dialog" style="">
+        <table class="">
+          <tbody>
+            <tr>
+              <td class="ui_border ui_td_00">
+              </td>
+
+              <td class="ui_border ui_td_01">
+              </td>
+
+              <td class="ui_border ui_td_02">
+              </td>
+            </tr>
+
+            <tr>
+              <td class="ui_border ui_td_10">
+              </td>
+
+              <td class="ui_td_11">
+                <table class="ui_dialog_main">
+                  <tbody>
+                    <tr>
+                      <td class="ui_title_wrap">
+                        <div class="ui_title">
+                          <a class="ui_close" href="#" accesskey="c">×</a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td class="ui_content_wrap">
+                        <div class="ui_loading_tip">
+                          Loading..
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td class="ui_bottom_wrap">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+
+              <td class="ui_border ui_td_12">
+              </td>
+            </tr>
+
+            <tr>
+              <td class="ui_border ui_td_20">
+              </td>
+
+              <td class="ui_border ui_td_21">
+              </td>
+
+              <td class="ui_border ui_td_22">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+

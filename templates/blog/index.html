@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" > 
+<head> 
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /> 
+<meta http-equiv="X-UA-Compatible" content="chrome=1"> 
+<title>blog list</title>
+<style type="text/css"> 
+</style>
+</head>
+<body>
+    <div id="main"> 
+    <span>userid:${_userid}</span>
+<h1>Blog articles</h1>
+<a href="new">New</a>
+<ul>
+% for article in articles:
+    <li>
+        <a href="view/${article.id}">${article.title}</a> 
+        from ${article.articleed_time}
+          ${article.content}
+        <a href="edit/${article.id}">Edit</a>
+        <a href="del/${article.id}">Del</a>
+    </li>
+% endfor
+</ul>
+</div>
+</body> 
+</html> 

@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+
+<title>pycms 后台管理中心</title>
+<link href="${static_url}/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="${static_url}/css/admin.css" rel="stylesheet" type="text/css" />
+<link href="${static_url}/css/table_form.css"	rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="${static_url}/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="${static_url}/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="${static_url}/js/styleswitch.js"></script>
+<script type="text/javascript">
+    window.focus();
+    var pc_hash = 'UaPUc2';
+    window.onload = function(){
+        var html_a = document.getElementsByTagName('a');
+        var num = html_a.length;
+        for(var i=0;i<num;i++) {
+            var href = html_a[i].href;
+            if(href && href.indexOf('javascript:') == -1) {
+                if(href.indexOf('?') != -1) {
+                    html_a[i].href = href+'&pc_hash='+pc_hash;
+                } else {
+                    html_a[i].href = href+'?pc_hash='+pc_hash;
+                }
+            }
+        }
+
+        var html_form = document.forms;
+        var num = html_form.length;
+        for(var i=0;i<num;i++) {
+            var newNode = document.createElement("input");
+            newNode.name = 'pc_hash';
+            newNode.type = 'hidden';
+            newNode.value = pc_hash;
+            html_form[i].appendChild(newNode);
+        }
+    }
+</script>
+<style type="text/css">
+html {
+	_overflow-y: scroll
+}
+</style>
+<link rel="stylesheet" href="${static_url}/css/jquery.treeview.css" type="text/css" />
+<style type="text/css">
+.filetree * {white-space: nowrap;}
+.filetree span.folder,.filetree span.file {display: auto; padding: 1px 0 1px 16px;}
+</style>
+<script type="text/javascript" src="${static_url}/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="${static_url}/js/jquery.treeview.js"></script>
+<script type="text/javascript" language="JavaScript">
+    $(document).ready(function(){
+        $("#category_tree").treeview({
+            control: "#treecontrol",
+            persist: "cookie",
+            cookieId: "treeview-black"
+        });
+    });
+
+    function open_list(obj) {
+        window.top.$("#current_pos_attr").html($(obj).html());
+    }
+</script>
+
+</head>
+
+<body>
+	<div id="treecontrol">
+		<span style="display: none"><a href="#"></a> <a href="#"></a>
+		</span> <a href="#"><img
+			src="${static_url}/images/minus.gif" /> <img
+			src="${static_url}/images/application_side_expand.png" />
+			展开/收缩</a>
+	</div>
+
+	<ul class="filetree treeview">
+		<li class="collapsable"><span><img
+				src="${static_url}/images/icon/box-exclaim.gif"
+				width="15" height="14" />&nbsp;<a
+				href='?m=content&amp;c=content&amp;a=public_checkall&amp;menuid=822'
+				target='right'>审核内容</a>
+		</span>
+		</li>
+	</ul>
+
+    <ul id="category_tree" class="filetree ">
+        ${category_tree_html}
+    </ul>
+		<li id='6'><span class=''><a target='right'
+				href='?m=content&amp;c=content&amp;menuid=822&amp;catid=6'
+				onclick="javascript:openwinx("><img
+					src='${static_url}/images/add_content.gif'
+					alt='添加' />
+			</a> <a
+				href='?m=content&amp;c=content&amp;a=init&amp;menuid=822&amp;catid=6'
+				target='right' onclick='open_list(this)'>国内</a>
+		</span>
+		</li>
+
+		<li id='7'><span class=''><a target='right'
+				href='?m=content&amp;c=content&amp;menuid=822&amp;catid=7'
+				onclick="javascript:openwinx("><img
+					src='${static_url}/images/add_content.gif'
+					alt='添加' />
+			</a> <a
+				href='?m=content&amp;c=content&amp;a=init&amp;menuid=822&amp;catid=7'
+				target='right' onclick='open_list(this)'>下载</a>
+		</span>
+		</li>
+
+		<li id='8'><span class=''><a target='right'
+				href='?m=content&amp;c=content&amp;menuid=822&amp;catid=8'
+				onclick="javascript:openwinx("><img
+					src='${static_url}/images/add_content.gif'
+					alt='添加' />
+			</a> <a
+				href='?m=content&amp;c=content&amp;a=init&amp;menuid=822&amp;catid=8'
+				target='right' onclick='open_list(this)'>图片</a>
+		</span>
+		</li>
+
+		<li id='9'><span class='folder'>行业新闻</span>
+
+			<ul>
+				<li id='12'><span class='folder'>数据库</span>
+
+					<ul>
+						<li id='13'><span class=''><a target='right'
+								href='?m=content&amp;c=content&amp;menuid=822&amp;catid=13'
+								onclick="javascript:openwinx("><img
+									src='${static_url}/images/add_content.gif'
+									alt='添加' />
+							</a> <a
+								href='?m=content&amp;c=content&amp;a=init&amp;menuid=822&amp;catid=13'
+								target='right' onclick='open_list(this)'>Mysql</a>
+						</span>
+						</li>
+
+						<li id='14'><span class=''><a target='right'
+								href='?m=content&amp;c=content&amp;menuid=822&amp;catid=14'
+								onclick="javascript:openwinx("><img
+									src='${static_url}/images/add_content.gif'
+									alt='添加' />
+							</a> <a
+								href='?m=content&amp;c=content&amp;a=init&amp;menuid=822&amp;catid=14'
+								target='right' onclick='open_list(this)'>Oracle</a>
+						</span>
+						</li>
+					</ul></li>
+
+				<li id='10'><span class='folder'>操作系统</span>
+
+					<ul>
+						<li id='11'><span class=''><a target='right'
+								href='?m=content&amp;c=content&amp;menuid=822&amp;catid=11'
+								onclick="javascript:openwinx("><img
+									src='${static_url}/images/add_content.gif'
+									alt='添加' />
+							</a> <a
+								href='?m=content&amp;c=content&amp;a=init&amp;menuid=822&amp;catid=11'
+								target='right' onclick='open_list(this)'>Linux</a>
+						</span>
+						</li>
+					</ul></li>
+			</ul>
+		</li>
+	</ul>
+</body>
+</html>
+

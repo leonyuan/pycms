@@ -1,0 +1,66 @@
+<%inherit file="category_base.html"/>
+
+<form method="post" action="?m=admin&amp;c=category&amp;a=add" id="myform" name="myform">
+<div class="pad-10">
+<div class="col-tab">
+<ul class="tabBut cu-li">
+<li onclick="SwapTab('setting','on','',6,1);" class="on" id="tab_setting_1">基本选项</li>
+</ul>
+<div class="contentList pad-10" id="div_setting_1" style="display: block;">
+
+<table width="100%" class="table_form ">
+ <tbody>
+ 		<tr>
+        <th width="200">请选择模板：</th>
+        <td>
+            <select onchange="change_tpl(this.value)" id="template_id" name="template_id">
+                <option value="">请选择模板</option>
+                % for t in templates:
+                <option value="${t.id}" ${'selected="selected"' if str(form.d.template_id) == str(t.id) else ''}>${t.name}</option>
+                % endfor
+            </select>
+		 	<div id="modelidTip" class="onShow">请选择模型</div></td>
+      </tr>
+      <tr>
+        <th width="200">上级栏目：</th>
+        <td>
+            <select id="parent_id" name="parent_id">
+                <option value="">≡ 作为一级栏目 ≡</option>
+                % for cate in categories:
+                <option value="${cate.id}" ${'selected="selected"' if str(form.d.parent_id) == str(cate.id) else ''}>${cate.prefix+cate.name}</option>
+                % endfor
+            </select>
+        </td>
+      </tr>
+     
+      <tr>
+        <th>栏目名称：</th>
+        <td>
+            <span id="normal_add"><input type="text" value="${_s(form.d.name)}" class="input-text" id="name" name="name"><div id="catnameTip" class="onShow">请输入栏目名称</div></span>
+		</td>
+      </tr>
+	<tr id="catdir_tr">
+        <th>英文缩写：</th>
+        <td><input type="text" value="${_s(form.d.slug)}" class="input-text" id="slug" name="slug"><div id="catdirTip" class="onShow">请输入英文缩写</div></td>
+      </tr>
+	<tr>
+        <th>栏目图片：</th>
+        <td><script src="http://localhost/phpcms/statics/js/swfupload/swf2ckeditor.js" type="text/javascript"></script><input type="text" class="input-text" size="50" value="" id="image" name="info[image]">  <input type="button" value="上传图片" onclick="javascript:flashupload('image_images', '附件上传','image',submit_images,'1,jpg|jpeg|gif|bmp|png,1,,,0','content','','40b5333df0707b621d30f03e0236d899')" class="button"></td>
+      </tr>
+	<tr>
+        <th>描述：</th>
+        <td>
+		<textarea style="width:300px;height:60px;" maxlength="255" name="info[description]"></textarea>
+		</td>
+      </tr>
+</tbody></table>
+
+</div>
+
+ <div class="bk15"></div>
+	<input type="hidden" value="" name="catid">
+  <input type="submit" class="button" value="提交" name="dosubmit">
+</div>
+</div>
+<input type="hidden" name="pc_hash" value="6armko">
+</form>

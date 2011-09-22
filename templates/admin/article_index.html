@@ -1,0 +1,41 @@
+<%inherit file="article_base.html"/>
+
+<form name="myform" action="?m=admin&c=category&a=listorder" method="post">
+<div class="pad_10">
+<div class="bk10"></div>
+
+<div class="table-list">
+    <table width="100%" cellspacing="0" >
+        <thead>
+            <tr>
+            <th width="30">id</th>
+            <th>标题</th>
+            <th>点击量</th>
+            <th>发布人</th>
+            <th>更新时间</th>
+          	<th align='center'>管理操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            % for article in articles:
+            <tr>
+                <td>${article.id}</td>
+                <td>${article.name}</td>
+                <td></td>
+                <td>${article.user.username}</td>
+                <td align='center'></td>
+                <td align='center' >
+                    <a href="edit/${article.id}">修改</a> |
+                    <a href="javascript:confirmurl('delete/${article.id}?1=1','确认要删除${article.name}吗？')">删除</a>
+                </td>
+		    </tr>
+            % endfor
+		</tbody>
+    </table>
+
+    <div class="btn">
+	<input type="hidden" name="pc_hash" value="6armko" />
+	</div>  </div>
+</div>
+</div>
+</form>
