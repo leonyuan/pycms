@@ -6,3 +6,8 @@ db_name = 'pycms'
 db_user = 'dev'
 db_password = '1234'
 db_host = 'localhost'
+
+try:
+    from local_config import *
+except ImportError:
+    pass
