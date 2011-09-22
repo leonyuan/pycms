@@ -39,17 +39,16 @@ class login:
         if errcode != ERRCODE_OK:
             if errcode == ERRCODE_USER_NOTEXISTS:
                 req.err(u'用户未注册')
-            elif errcode == ERRCODE_PASSWORD_NOTCORRECT: 
+            elif errcode == ERRCODE_PASSWORD_NOTCORRECT:
                 req.err(u'密码错误')
-            elif errcode == ERRCODE_NOTSUPERUSER: 
+            elif errcode == ERRCODE_NOTSUPERUSER:
                 req.err(u'不是管理员用户')
 
             req.update({
                 'form': form,
                 })
             return render.login(**req)
- 
-        web.debug('====user:%s' % user)
+
         auth_login(user)
         raise web.seeother('/')
 

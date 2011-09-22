@@ -28,8 +28,12 @@ urls = (
 
 app = web.application(urls, globals())
 db = web.database(dbn=db_engine, user=db_user, pw=db_password, db=db_name)
-store = web.session.DBStore(db, 'session')
-session = web.session.Session(app, store, initializer={'_userid': -1})
+store = web.session.DBStore(db, session_tablename)
+
+if web.config.get('_session') is None:
+    session = web.session.Session(app, store, initializer={'_userid': -1})
+else:
+    session = web.config._session
 
 def session_hook():
     web.ctx.session = session

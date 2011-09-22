@@ -8,7 +8,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 
 dburl = '%s://%s:%s@%s/%s?charset=utf8' % (db_engine, db_user, db_password, db_host, db_name)
-engine = create_engine(dburl, echo=True) #echo: if True print all sql statement, else False.
+engine = create_engine(dburl, echo=debug) #echo: if True print all sql statement, else False.
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
 

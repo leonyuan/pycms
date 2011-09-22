@@ -15,7 +15,6 @@ class TemplateForm(web.form.Form):
         return o
 
     def render(self):
-        print '====start render form %s, %s ' % (self.template_name, self.d)
         return self._render(d=self.d)
 
 admin_login_form = web.form.Form(
