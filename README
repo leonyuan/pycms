@@ -1,2 +1,29 @@
+================
+Welcome to pycms
+================
+
 Pycms is a free and open source content management system written in python programming language. It is built on web.py framework.
 
+
+Installation
+============
+
+1. Set up database
+  Configure the settings relatived database in the file "common/config.py"
+    $vim common/config.py
+
+  run the "setup-env.sh" script in command line:
+    $source setup-env.sh
+  
+  Change to the "account" directory and run its database creation
+    $cd account
+    $python model.py
+
+  Change to the "blog" directory and run its database creation
+    $cd blog
+    $python model.py
+
+2. Start the application for development
+    $python app.py
+
+    then open web browser input http://localhost:8080 to test.
