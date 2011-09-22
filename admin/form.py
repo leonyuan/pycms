@@ -1,6 +1,8 @@
 #encoding=utf-8
 import web
+from web import form
 from admin.util import render
+from admin.widget import MyTextbox, MyPassword
 
 
 class TemplateForm(web.form.Form):
@@ -17,24 +19,29 @@ class TemplateForm(web.form.Form):
     def render(self):
         return self._render(d=self.d)
 
+vnotnull = form.Validator(u"请输入${description}", bool)
+vpass = form.regexp(r".{3,20}$", u'密码长度为3到20个字符')
+vemail = form.regexp(r".*@.*", u"要求有效的email地址")
+vsamepass = form.Validator(u"两次输入的密码必须相同", lambda i: i.password == i.password2)
+
 admin_login_form = web.form.Form(
-    web.form.Textbox('username', web.form.notnull, size=20, description=u"用户名:"),
-    web.form.Password('password', web.form.notnull, size=20, description=u"密码:"),
+    MyTextbox('username', vnotnull, size=20, description=u"用户名"),
+    MyPassword('password', vnotnull, size=20, description=u"密码"),
     web.form.Button('login', html=u'登录'),
 )
 
 template_form = web.form.Form(  #TemplateForm(
-    web.form.Textbox('name', web.form.notnull, size=20, description=u"模板名称:"),
-    web.form.Textbox('file', web.form.notnull, size=20, description=u"模板文件:"),
+    MyTextbox('name', vnotnull, size=20, description=u"模板名称"),
+    MyTextbox('file', vnotnull, size=20, description=u"模板文件"),
     web.form.Button('submit', html=u'提交'),
     template_name='template_form',
 )
 
 category_form = web.form.Form(
-    web.form.Textbox('parent_id', size=20, description=u"上级栏目:"),
-    web.form.Textbox('name', web.form.notnull, size=20, description=u"栏目名称:"),
-    web.form.Textbox('slug', web.form.notnull, size=20, description=u"英文缩写:"),
-    web.form.Textbox('template_id', web.form.notnull, size=20, description=u"所用模板:"),
+    MyTextbox('parent_id', size=20, description=u"上级栏目"),
+    MyTextbox('name', vnotnull, size=20, description=u"栏目名称"),
+    MyTextbox('slug', vnotnull, size=20, description=u"英文缩写"),
+    MyTextbox('template_id', vnotnull, size=20, description=u"所用模板"),
     web.form.Button('submit', html=u'提交'),
 )
 

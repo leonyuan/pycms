@@ -69,11 +69,20 @@ class Context:
             self.data[k] = []
         self.data[k].append(m)
 
-    def err(self, m):
-        self._doerr(ERROR_KEY, m)
+    def err(self, msg):
+        self._doerr(ERROR_KEY, msg)
 
-    def verr(self, m):
-        self._doerr(VALIDATE_ERROR_KEY, m)
+    def verr(self, fld, msg):
+        if not VALIDATE_ERROR_KEY in self.data:
+            self.data[VALIDATE_ERROR_KEY] = {}
+        self.data[VALIDATE_ERROR_KEY][fld] = msg
 
 
 context = Context
+
+def save_verr(req, form):
+    for fld in form.inputs:
+        if fld.note:
+            req.verr(fld.name, fld.note)
+
+

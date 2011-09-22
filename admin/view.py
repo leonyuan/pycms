@@ -5,7 +5,7 @@ from account.auth import is_logined, authenticate, login as auth_login, logout a
 from admin.util import is_admin_logined, admin_authenticate, render, ERRCODE_NOTSUPERUSER, admin_login_required
 from admin.form import admin_login_form
 from admin.menu import get_menus, get_menu_namepath
-
+from common.util import save_verr
 
 class index:
     @admin_login_required
@@ -31,18 +31,23 @@ class login:
 
     def POST(self):
         form = admin_login_form()
+        req = web.ctx.req
         if not form.validates():
-            return render.login(form=form)
+            save_verr(req, form)
+            req.update({
+                'form': form,
+                })
+            web.debug('=====req.data:', req.data)
+            return render.login(**req)
         data = web.input()
         errcode, user = admin_authenticate(data.username, data.password)
-        req = web.ctx.req
         if errcode != ERRCODE_OK:
             if errcode == ERRCODE_USER_NOTEXISTS:
-                req.err(u'用户未注册')
+                req.verr('username', u'用户未注册')
             elif errcode == ERRCODE_PASSWORD_NOTCORRECT:
-                req.err(u'密码错误')
+                req.verr('password', u'密码错误')
             elif errcode == ERRCODE_NOTSUPERUSER:
-                req.err(u'不是管理员用户')
+                req.verr('username', u'不是管理员用户')
 
             req.update({
                 'form': form,

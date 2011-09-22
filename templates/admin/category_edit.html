@@ -11,7 +11,7 @@
 <table width="100%" class="table_form ">
  <tbody>
  		<tr>
-        <th width="200">请选择模板：</th>
+            <th width="200">${form.template_id.description}</th>
         <td>
             <select onchange="change_tpl(this.value)" id="template_id" name="template_id">
                 <option value="">请选择模板</option>
@@ -19,7 +19,10 @@
                 <option value="${t.id}" ${'selected="selected"' if str(form.d.template_id) == str(t.id) else ''}>${t.name}</option>
                 % endfor
             </select>
-		 	<div id="modelidTip" class="onShow">请选择模型</div></td>
+            % if form.template_id.note:
+            <div id="modelidTip" class="onShow">${form.template_id.note}</div>
+            % endif
+        </td>
       </tr>
       <tr>
         <th width="200">上级栏目：</th>
@@ -34,14 +37,22 @@
       </tr>
      
       <tr>
-        <th>栏目名称：</th>
+        <th>${form.name.description}</th>
         <td>
-            <span id="normal_add"><input type="text" value="${_s(form.d.name)}" class="input-text" id="name" name="name"><div id="catnameTip" class="onShow">请输入栏目名称</div></span>
+            <span id="normal_add"><input type="text" value="${_s(form.d.name)}" class="input-text" id="name" name="name">
+            % if form.name.note:
+            <div id="catnameTip" class="onShow">${form.name.note}</div>
+            % endif
+            </span>
 		</td>
       </tr>
 	<tr id="catdir_tr">
-        <th>英文缩写：</th>
-        <td><input type="text" value="${_s(form.d.slug)}" class="input-text" id="slug" name="slug"><div id="catdirTip" class="onShow">请输入英文缩写</div></td>
+        <th>${form.slug.description}</th>
+        <td><input type="text" value="${_s(form.d.slug)}" class="input-text" id="slug" name="slug">
+            % if form.slug.note:
+            <div id="catdirTip" class="onShow">${form.slug.note}</div>
+            % endif
+        </td>
       </tr>
 	<tr>
         <th>栏目图片：</th>
