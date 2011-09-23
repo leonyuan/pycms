@@ -2,11 +2,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from account.model import User, Permission
-from common import Session
+from common import DBSession
 
 
 def main():
-    session = Session()
+    session = DBSession()
 
     p1=Permission(u'内容', 'content')
     p2=Permission(u'用户', 'user')

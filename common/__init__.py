@@ -10,10 +10,10 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 dburl = '%s://%s:%s@%s/%s?charset=utf8' % (db_engine, db_user, db_password, db_host, db_name)
 engine = create_engine(dburl, echo=debug) #echo: if True print all sql statement, else False.
 Base = declarative_base()
-Session = sessionmaker(bind=engine)
+DBSession = sessionmaker(bind=engine)
 
 def load_sqla(handler):
-    web.ctx.orm = scoped_session(Session)
+    web.ctx.orm = scoped_session(DBSession)
     try:
         return handler()
     except web.HTTPError:

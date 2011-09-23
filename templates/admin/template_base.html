@@ -1,38 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=7" />
-<title>PyCMS 后台管理中心</title>
-<link href="${static_url}/css/reset.css" rel="stylesheet" type="text/css" />
-<link href="${static_url}/css/admin.css" rel="stylesheet" type="text/css" />
-<link href="${static_url}/css/table_form.css" rel="stylesheet" type="text/css" />
+<%inherit file="na_base.html"/>
 
-<script language="javascript" type="text/javascript" src="${static_url}/js/jquery.min.js"></script>
-<script language="javascript" type="text/javascript" src="${static_url}/js/admin_common.js"></script>
-<script language="javascript" type="text/javascript" src="${static_url}/js/styleswitch.js"></script>
-<script type="text/javascript">
-	window.focus();
-	var pc_hash = '6armko';
-</script>
-
-<style type="text/css">
-	html{_overflow-y:scroll}
-</style>
-</head>
-<body>
 <div class="subnav">
     <div class="content-menu ib-a blue line-x">
         <a href='/admin/template/index' ${'class="on"' if _ac=='index' else ''}><em>模板管理</em></a><span>|</span><a href='/admin/template/add' ${'class="on"' if _ac=='add' else ''}><em>添加模板</em></a>
     </div>
 </div>
 
-${self.body()}
+${next.body()}
 
-<script language="JavaScript">
-<!--
-	window.top.$('#display_center_id').css('display','none');
-//-->
-</script>
-</body>
-</html>

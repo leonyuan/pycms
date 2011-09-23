@@ -2,11 +2,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from account.model import User, Permission
-from common import Session
+from common import DBSession
 
 
 def main():
-    session = Session()
+    session = DBSession()
 
     admin = User('admin', 'admin@xxxx.com')
     admin.set_password('asdfjk')

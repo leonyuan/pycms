@@ -14,34 +14,6 @@
 <script language="javascript" type="text/javascript" src="${static_url}/js/jquery.min.js"></script>
 <script language="javascript" type="text/javascript" src="${static_url}/js/admin_common.js"></script>
 <script language="javascript" type="text/javascript" src="${static_url}/js/styleswitch.js"></script>
-<script type="text/javascript">
-    window.focus();
-    var pc_hash = 'UaPUc2';
-    window.onload = function(){
-        var html_a = document.getElementsByTagName('a');
-        var num = html_a.length;
-        for(var i=0;i<num;i++) {
-            var href = html_a[i].href;
-            if(href && href.indexOf('javascript:') == -1) {
-                if(href.indexOf('?') != -1) {
-                    html_a[i].href = href+'&pc_hash='+pc_hash;
-                } else {
-                    html_a[i].href = href+'?pc_hash='+pc_hash;
-                }
-            }
-        }
-
-        var html_form = document.forms;
-        var num = html_form.length;
-        for(var i=0;i<num;i++) {
-            var newNode = document.createElement("input");
-            newNode.name = 'pc_hash';
-            newNode.type = 'hidden';
-            newNode.value = pc_hash;
-            html_form[i].appendChild(newNode);
-        }
-    }
-</script>
 <style type="text/css">
 html {
 	_overflow-y: scroll

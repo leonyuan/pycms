@@ -4,7 +4,7 @@ Blog model defination.
 '''
 
 import web
-from sqlalchemy import Column, Integer, String, DateTime, TIMESTAMP, Text
+from sqlalchemy import Table, Column, Integer, String, DateTime, TIMESTAMP, Text
 from sqlalchemy.dialects.mysql import MEDIUMTEXT
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, backref
@@ -15,12 +15,6 @@ from common.dbutil import utcnow
 from account.model import User
 
 
-class CategoryArticleAssoc(Base):
-    __tablename__ = 'category_article_assoc'
-    category_id = Column(Integer, ForeignKey('category.id'), primary_key=True)
-    article_id = Column(Integer, ForeignKey('article.id'), primary_key=True)
-    category = relationship("Category", backref=backref('article_assocs'))
-
 
 class Template(Base):
     __tablename__ = 'template'
@@ -28,12 +22,18 @@ class Template(Base):
     name = Column(String(32), nullable=False)
     file = Column(String(100), nullable=False)
 
+    categories = relationship("Category", backref=backref('template'))
+
     def __init__(self, name):
         self.name = name
 
     def __repr__(self):
         return "<Template('%s')>" % (self.name)
 
+category_article_asso_table = Table('category_article_asso', Base.metadata,
+    Column('category_id', Integer, ForeignKey('category.id'), primary_key=True),
+    Column('article_id', Integer, ForeignKey('article.id'), primary_key=True)
+)
 
 class Category(Base):
     __tablename__ = 'category'
@@ -43,8 +43,8 @@ class Category(Base):
     template_id = Column(Integer, ForeignKey('template.id'))
     parent_id = Column(Integer, ForeignKey('category.id'))
 
-    template = relationship("Template", backref=backref('categories'))
     children = relationship("Category", order_by=id, cascade='delete', backref=backref('parent', remote_side=[id]))
+    articles = relationship("Article", secondary=category_article_asso_table, backref=backref('categories'))
 
     def __init__(self, name, slug):
         self.name = name
@@ -66,14 +66,13 @@ class Article(Base):
     updated_time = Column(TIMESTAMP, default=utcnow())
     user_id = Column(Integer, ForeignKey('user.id'))
 
-    user = relationship(User, backref=backref('entries', order_by=id))
-    categories = relationship("CategoryArticleAssoc", backref=backref('article', order_by=id))
+    user = relationship("User", backref=backref('articles', order_by=id))
 
     def __init__(self, title, content):
         self.title = title
         self.content = content
 
-    def __repr__(self):
+    def __unicode__(self):
         return "<Article('%s')>" % (self.title)
 
 template_table = Template.__table__

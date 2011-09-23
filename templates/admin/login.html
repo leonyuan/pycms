@@ -25,22 +25,25 @@
       <!-- Content -->
 
       <div id="content" class="colM">
+        % if form.note:
+        <p class="errornote">${form.note}</p>
+        % endif
         <div id="content-main">
-          <form action="" method="post" id="login-form">
+            <form action="" method="post" id="login-form">
             <div class="form-row">
               <span>
-                <label for="id_username">用户名：</label> <input type="text" name="username" id="id_username" value="${_s(form.d.username)}"/>
-                % if _verr and _verr.has_key('username'):
-                <div id="catnameTip" class="onShow">${_verr['username']}</div>
+                  <label for="id_username">${form.username.description}：</label> <input type="text" name="username" id="id_username" value="${_s(form.d.username)}"/>
+                % if form.username.note:
+                <div id="catnameTip" class="onShow">${form.username.note}</div>
                 % endif
               </span>
             </div>
 
             <div class="form-row">
               <span>
-                <label for="id_password">密码：</label> <input type="password" name="password" id="id_password" value="${_s(form.d.password)}" />
-                % if _verr and _verr.has_key('password'):
-                <div id="catnameTip" class="onShow">${_verr['password']}</div>
+                <label for="id_password">${form.password.description}：</label> <input type="password" name="password" id="id_password" value="${_s(form.d.password)}" />
+                % if form.password.note:
+                <div id="catnameTip" class="onShow">${form.password.note}</div>
                 % endif
               </span>
             </div>

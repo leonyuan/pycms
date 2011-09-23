@@ -189,7 +189,7 @@ body fieldset.blue legend{padding:3px 8px;font-weight:700;color:#347add; backgro
 .addContent .col-right select#template{max-width:188px;*width:188px;_width:188px}
 */
 
-.addContent{width:960px; margin:0 auto; overflow:hidden;}
+.addContent{margin:0 10px; overflow:hidden;}
 .addContent .col-auto{}
 .addContent .col-right{ width:204px; overflow:hidden; margin-left:6px;}
 .addContent .col-right .content h6{ border-bottom:1px solid #cfdce3; padding:8px 0 3px; margin-bottom:7px}

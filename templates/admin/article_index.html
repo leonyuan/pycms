@@ -20,13 +20,13 @@
             % for article in articles:
             <tr>
                 <td>${article.id}</td>
-                <td>${article.name}</td>
+                <td>${article.title}</td>
                 <td></td>
                 <td>${article.user.username}</td>
                 <td align='center'></td>
                 <td align='center' >
-                    <a href="edit/${article.id}">修改</a> |
-                    <a href="javascript:confirmurl('delete/${article.id}?1=1','确认要删除${article.name}吗？')">删除</a>
+                    <a href="edit/${article.id}?catid=${catid}">修改</a> |
+                    <a href="javascript:confirmurl('delete/${article.id}?1=1','确认要删除${article.title}吗？')">删除</a>
                 </td>
 		    </tr>
             % endfor

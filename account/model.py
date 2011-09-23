@@ -3,7 +3,7 @@ Account model defination.
 '''
 
 import web
-from sqlalchemy import Column, SmallInteger, Integer, Boolean, String, DateTime, TIMESTAMP, Text
+from sqlalchemy import Table, Column, SmallInteger, Integer, Boolean, String, DateTime, TIMESTAMP, Text
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import ForeignKey
 
@@ -25,6 +25,16 @@ class Session(Base):
         return "<Session('%s')>" % (self.session_id)
 
 
+permission_group_asso_table = Table('permission_group_asso', Base.metadata,
+    Column('permission_id', Integer, ForeignKey('permission.id'), primary_key=True),
+    Column('group_id', Integer, ForeignKey('group.id'), primary_key=True)
+)
+
+permission_user_asso_table = Table('permission_user_asso', Base.metadata,
+    Column('permission_id', Integer, ForeignKey('permission.id'), primary_key=True),
+    Column('user_id', Integer, ForeignKey('user.id'), primary_key=True)
+)
+
 class Permission(Base):
     __tablename__ = 'permission'
 
@@ -33,7 +43,10 @@ class Permission(Base):
     codename = Column(String(64), nullable=False)
     order = Column(SmallInteger)
     parent_id = Column(Integer, ForeignKey('permission.id'))
+
     children = relationship("Permission", backref=backref('parent', remote_side=[id]))
+    groups = relationship("Group", secondary=permission_group_asso_table, backref=backref('permissions'))
+    users = relationship("User", secondary=permission_user_asso_table, backref=backref('permissions'))
 
     def __init__(self, name, codename):
         self.name = name
@@ -49,13 +62,18 @@ class Permission(Base):
     def __unicode__(self):
         return "<Permission('%s', '%s')>" % (self.name, self.codename)
 
+group_user_asso_table = Table('group_user_asso', Base.metadata,
+    Column('group_id', Integer, ForeignKey('group.id'), primary_key=True),
+    Column('user_id', Integer, ForeignKey('user.id'), primary_key=True)
+)
+
 class Group(Base):
     __tablename__ = 'group'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(64), nullable=False)
 
-    permissions = relationship("PermissionGroupAssoc", backref=backref('group', order_by=id))
+    users = relationship("User", secondary=group_user_asso_table, backref=backref('groups'))
 
     def __init__(self, name):
         self.name = name
@@ -63,13 +81,6 @@ class Group(Base):
     def __repr__(self):
         return "<Group('%s')>" % (self.name)
 
-class PermissionGroupAssoc(Base):
-    __tablename__ = 'permission_group_assoc'
-
-    permission_id = Column(Integer, ForeignKey('permission.id'), primary_key=True)
-    group_id = Column(Integer, ForeignKey('group.id'), primary_key=True)
-
-    permission = relationship("Permission", backref=backref('group_assocs'))
 
 class User(Base):
     __tablename__ = 'user'
@@ -82,8 +93,6 @@ class User(Base):
     is_superuser = Column(Boolean, nullable=False, default=False)
     last_login = Column(TIMESTAMP, default=utcnow())
     joined_time = Column(TIMESTAMP, default=utcnow())
-
-    permissions = relationship("PermissionUserAssoc", backref=backref('user', order_by=id))
 
     def __init__(self, username, email):
         self.username = username
@@ -101,11 +110,6 @@ class User(Base):
     def __repr__(self):
         return "<User('%s', '%s')>" % (self.username, self.email)
 
-class PermissionUserAssoc(Base):
-    __tablename__ = 'permission_user_assoc'
-    permission_id = Column(Integer, ForeignKey('permission.id'), primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'), primary_key=True)
-    permission = relationship("Permission", backref=backref('user_assocs'))
 
 permission_table = Permission.__table__
 group_table = Group.__table__

@@ -19,6 +19,8 @@ urls = (
         '/category_tree', category.tree,
         '/article/admin', article.admin,
         '/article/index', article.index,
+        '/article/add', article.add,
+        '/article/edit/(\d+)', article.edit,
 )
 
 

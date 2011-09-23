@@ -1,8 +1,8 @@
 #encoding=utf-8
 import web
 from admin.util import render, admin_login_required
-from blog.dbutil import get_category, get_categories, category_tree, get_templates, save_category, del_category
-from admin.form import category_form
+from blog.dbutil import get_category, get_article, new_article, save_article, get_articles
+from admin.form import article_form
 
 
 class admin:
@@ -15,58 +15,66 @@ class index:
     @admin_login_required
     def GET(self):
         req = web.ctx.req
+        data = web.input()
+        catid = data.catid
+        articles = get_articles(catid)
         req.update({
-            'articles': [],
+            'articles': articles,
+            'catid': catid,
             })
         return render.article_index(**req)
 
 class add:
     @admin_login_required
     def GET(self):
-        form = category_form()
-        templates = get_templates()
-        categories = category_tree(None)
-        parent_id = web.input(parent_id=None).parent_id
-        form.parent_id.set_value(parent_id)
+        form = article_form()
+        data = web.input()
+        catid = data.catid
+        catname = get_category(catid).name
         req = web.ctx.req
         req.update({
             'form': form,
-            'templates': templates,
-            'categories': categories,
+            'catid': catid,
+            'catname': catname,
             })
-        return render.category_edit(**req)
+        return render.article_edit(**req)
 
     @admin_login_required
     def POST(self):
-        form = category_form()
+        form = article_form()
+        data = web.input()
+        catid = data.catid
         if not form.validates():
-            templates = get_templates()
-            categories = category_tree(None)
+            catname = get_category(catid).name
             req = web.ctx.req
             req.update({
                 'form': form,
-                'templates': templates,
-                'categories': categories,
-                })
-            return render.category_edit(**req)
-        save_category(-1, form.d)
-        raise web.seeother('/category/index')
+                'catid': catid,
+                'catname': catname,
+            })
+            return render.article_edit(**req)
+        form_data = form.d
+        form_data.user_id = web.ctx.session._userid
+        web.debug('=====form_data:', form_data)
+        new_article(form_data)
+        raise web.seeother('/article/index?catid=%s' % catid)
 
 class edit:
     @admin_login_required
     def GET(self, id):
-        form = category_form()
-        category = get_category(id)
-        templates = get_templates()
-        categories = category_tree(None)
-        form.fill(category)
+        form = article_form()
+        article = get_article(id)
+        form.fill(article)
+        data = web.input()
+        catid = data.catid
+        catname = get_category(catid).name
         req = web.ctx.req
         req.update({
             'form': form,
-            'templates': templates,
-            'categories': categories,
-            })
-        return render.category_edit(**req)
+            'catid': catid,
+            'catname': catname,
+        })
+        return render.article_edit(**req)
 
     @admin_login_required
     def POST(self, id):

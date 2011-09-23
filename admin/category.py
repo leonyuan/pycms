@@ -1,7 +1,7 @@
 #encoding=utf-8
 import web
 from admin.util import render, admin_login_required
-from blog.dbutil import get_category, get_categories, category_tree, category_tree2, get_templates, save_category, del_category
+from blog.dbutil import get_category, get_categories, category_tree, category_tree2, get_templates, new_category, save_category, del_category
 from admin.form import category_form
 
 
@@ -44,7 +44,7 @@ class add:
                 'categories': categories,
                 })
             return render.category_edit(**req)
-        save_category(-1, form.d)
+        new_category(form.d)
         raise web.seeother('/category/index')
 
 class edit:

@@ -11,10 +11,6 @@
 <script language="javascript" type="text/javascript" src="${static_url}/js/jquery.min.js"></script>
 <script language="javascript" type="text/javascript" src="${static_url}/js/admin_common.js"></script>
 <script language="javascript" type="text/javascript" src="${static_url}/js/styleswitch.js"></script>
-<script type="text/javascript">
-	window.focus();
-	var pc_hash = '6armko';
-</script>
 
 <style type="text/css">
 	html{_overflow-y:scroll}
@@ -24,7 +20,7 @@
 <%block name="action_nav">
 <div class="subnav">
     <div class="content-menu ib-a blue line-x">
-        <a href='/admin/article/index' ${'class="on"' if _ac=='index' else ''}><em>文章管理</em></a><span>|</span><a href='/admin/article/add' ${'class="on"' if _ac=='add' else ''}><em>添加文章</em></a>
+        <a href='/admin/article/index?catid=${catid}' ${'class="on"' if _ac=='index' else ''}><em>文章管理</em></a><span>|</span><a href='/admin/article/add?catid=${catid}' ${'class="on"' if _ac=='add' else ''}><em>添加文章</em></a>
     </div>
 </div>
 </%block>

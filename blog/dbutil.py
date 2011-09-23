@@ -2,7 +2,11 @@
 import web
 from sqlalchemy import func
 from blog.model import *
+from common.dbutil import populate
 
+#-------------------------------
+# some utility
+#-------------------------------
 
 #-------------------------------
 # template persistent method
@@ -42,17 +46,16 @@ def get_categories():
 def get_category(id):
     return web.ctx.orm.query(Category).get(id)
 
+def new_category(data):
+    save_category(-1, data)
+
 def save_category(id, data):
     if id == -1:
         category = Category('','')
     else:
         category = get_category(id)
 
-    for column in Category.__mapper__.columns:
-        if column.name == 'id':
-            continue
-        if getattr(data, column.name):
-            setattr(category, column.name, getattr(data, column.name))
+    populate(category, data, Category)
 
     if id == -1:
         web.ctx.orm.add(category)
@@ -95,7 +98,7 @@ def category_tree2(pid=None):
     cates = web.ctx.orm.query(Category).filter_by(parent_id=pid).all()
     html = ''
     for i, cate in enumerate(cates):
-        html += '<li><a href="article/index?cid=%s" target="right">%s</a>' % (cate.id, cate.name)
+        html += '<li><a href="article/index?catid=%s" target="right">%s</a>' % (cate.id, cate.name)
 
         if count_category_children(cate.id) > 0:
             html += '<ul>'
@@ -109,22 +112,35 @@ def category_tree2(pid=None):
 #-------------------------------
 # article persistent method
 #-------------------------------
-def new_article(title, content):
-    article = Article(title, content)
-    web.ctx.orm.add(article)
+def new_article(data):
+    save_article(-1, data)
 
 def get_article(id):
     return web.ctx.orm.query(Article).get(id)
 
-def get_articles():
-    return web.ctx.orm.query(Article).all()
+def get_articles(catid=None):
+    if catid is None:
+        return web.ctx.orm.query(Article).all()
+    else:
+        return web.ctx.orm.query(Article).filter(Article.categories.any(id=catid)).all()
 
-def save_article(id, title, content):
-    article = get_article(id)
-    article.title = title
-    article.content = content
-    web.ctx.orm.flush()
-    web.ctx.orm.commit()
+
+def save_article(id, data):
+    if id == -1:
+        article = Article('','')
+    else:
+        article = get_article(id)
+
+    populate(article, data, Article)
+
+    catid = data.catid
+    category = get_category(catid)
+    article.categories.append(category)
+
+    if id == -1:
+        web.ctx.orm.add(article)
+    else:
+        web.ctx.orm.flush()
 
 def del_article(id):
     article = get_article(id)

@@ -1,4 +1,4 @@
-from blog.model import Category, Article, CategoryArticleAssoc
+from blog.model import Category, Article
 from account.model import User, Permission
 
 from sqlalchemy import create_engine
@@ -55,4 +55,6 @@ a3=CategoryEntryAssoc()
 >>> session.add(ent1)
 >>> session.add(ent2)
 >>> session.commit()
+
+
 
