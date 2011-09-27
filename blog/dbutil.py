@@ -108,6 +108,13 @@ def category_tree2(pid=None):
 
     return html
 
+def get_category_ancestors(category):
+    ancestors = []
+    if category.parent is not None:
+        ancestors.extend(get_category_ancestors(category.parent))
+    ancestors.append((category.id, category.name))
+    return ancestors
+
 
 #-------------------------------
 # article persistent method
@@ -118,12 +125,14 @@ def new_article(data):
 def get_article(id):
     return web.ctx.orm.query(Article).get(id)
 
-def get_articles(catid=None):
+def get_articles(catid=None, limit=None):
     if catid is None:
-        return web.ctx.orm.query(Article).all()
+        return web.ctx.orm.query(Article).order_by(Article.id.desc()).all()
     else:
-        return web.ctx.orm.query(Article).filter(Article.categories.any(id=catid)).all()
-
+        if limit is None:
+            return web.ctx.orm.query(Article).filter(Article.categories.any(id=catid)).order_by(Article.id.desc()).all()
+        else:
+            return web.ctx.orm.query(Article).filter(Article.categories.any(id=catid)).order_by(Article.id.desc()).limit(limit)
 
 def save_article(id, data):
     if id == -1:
@@ -145,5 +154,11 @@ def save_article(id, data):
 def del_article(id):
     article = get_article(id)
     web.ctx.orm.delete(article)
+
+def get_articles_category_ancestors(article):
+    return get_category_ancestors(article.categories[0])
+
+def get_latest_articles(catid, count):
+    return get_articles(catid, count)
 
 

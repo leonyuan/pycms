@@ -20,7 +20,7 @@
 .header .nav-line li.line{background-position: 2px -215px; padding:0; width:10px; text-indent:-10000px}
 
 /* 搜索 */
-.main .search{float:left; width:960px;_width:auto; height:35px;background:#ededed}
+.main .search{float:left; width:960px;_width:auto; height:35px;background:#ededed; margin-bottom:5px}
 .main .search .bd{ background:#ededed; padding:4px; float:left;}
 .main .search .text{border:1px solid #e5e5e7;padding:4px 0 3px 40px; height:18px;width:360px;background:#fff url(../images/v9/icon.png) no-repeat}
 .main .search .button{ background:#3a6ea5; border:none; color:#fff; height:1.9em;margin-left:3px;width:4.2em; margin-left:6px;vertical-align:middle; text-align:center}

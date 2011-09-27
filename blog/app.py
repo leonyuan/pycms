@@ -7,7 +7,7 @@ urls = (
         '/new', article.new,
         '/edit/(\d+)', article.edit,
         '/del/(\d+)', article.delete,
-        '/(.*)', 'blog'
+        '/(.*)', article.get
 )
 
 class reindex:

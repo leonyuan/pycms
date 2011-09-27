@@ -7,9 +7,8 @@ import web
 from sqlalchemy import Table, Column, Integer, String, DateTime, TIMESTAMP, Text
 from sqlalchemy.dialects.mysql import MEDIUMTEXT
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship, backref, deferred
 
-from account.util import check_password, get_hexdigest
 from common import Base, engine
 from common.dbutil import utcnow
 from account.model import User
@@ -58,8 +57,8 @@ class Article(Base):
     __tablename__ = 'article'
     id = Column(Integer, primary_key=True)
     title = Column(String(64))
-    summary = Column(Text)
-    content = Column(MEDIUMTEXT)
+    summary = deferred(Column(Text), group='content')
+    content = deferred(Column(MEDIUMTEXT), group='content')
     keywords = Column(String(64))
     thumb = Column(String(100))
     posted_time = Column(TIMESTAMP, default=utcnow())

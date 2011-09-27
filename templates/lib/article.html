@@ -1,0 +1,6 @@
+
+<%def name="latest_articles(catid, count)">
+    % for article in get_latest_articles(catid, count):
+    <li>·<a style="" title="${article.title}" target="_blank" href="/blog/${article.id}">${article.title}</a></li>
+    % endfor
+</%def>

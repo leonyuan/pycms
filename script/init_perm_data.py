@@ -5,7 +5,7 @@ from account.model import User, Permission
 from common import DBSession
 
 
-def main():
+def init():
     session = DBSession()
 
     p1=Permission(u'内容', 'content')
@@ -39,4 +39,4 @@ def main():
     session.commit()
 
 if __name__ == '__main__':
-    main()
+    init()

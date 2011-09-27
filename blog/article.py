@@ -1,5 +1,5 @@
 import web
-from blog.dbutil import new_article, get_articles, get_article, save_article, del_article
+from blog.dbutil import new_article, get_articles, get_article, save_article, del_article, get_articles_category_ancestors
 from blog.util import render
 from common.util import login_required
 from blog.form import article_form
@@ -50,7 +50,6 @@ class delete:
         raise web.seeother('/')
 
 class index:
-
     def GET(self):
         """ Show page """
         articles = get_articles()
@@ -59,4 +58,15 @@ class index:
             'articles': articles,
             })
         return render.index(**req)
+
+class get:
+    def GET(self, id):
+        article = get_article(id)
+        category_ancestors = get_articles_category_ancestors(article)
+        req = web.ctx.req
+        req.update({
+            'article': article,
+            'category_ancestors': category_ancestors,
+            })
+        return render.display(**req)
 

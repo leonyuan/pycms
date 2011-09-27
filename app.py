@@ -1,3 +1,4 @@
+#!/bin/env python
 '''
 This file is main application file. It includes some things, database and session and hook, etc.
 A significant hook is defined,  The hook defines some http request scope object to used in template files.
@@ -11,6 +12,7 @@ from account import profile
 from admin.app import app_admin
 from blog.app import app_blog
 from common.util import context
+from blog.dbutil import get_latest_articles
 
 
 web.config.debug = debug
@@ -44,6 +46,7 @@ def request_hook():
     req['static_url'] = web.ctx.homedomain + web.ctx.homepath + '/static'
     req['_userid'] = web.ctx.session._userid
     req['_s'] = web.net.websafe
+    req['_uq'] = web.net.urlquote
     req['_ac'] = web.ctx.path.split('/')[-1]
     web.ctx.req = req
 
@@ -55,6 +58,7 @@ app.add_processor(load_sqla)
 class index:
     def GET(self):
         req = web.ctx.req
+        req['get_latest_articles'] = get_latest_articles
         return render.index(**req)
 
 class reindex:

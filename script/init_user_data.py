@@ -5,7 +5,7 @@ from account.model import User, Permission
 from common import DBSession
 
 
-def main():
+def init():
     session = DBSession()
 
     admin = User('admin', 'admin@xxxx.com')
@@ -21,4 +21,4 @@ def main():
     session.commit()
 
 if __name__ == '__main__':
-    main()
+    init()
