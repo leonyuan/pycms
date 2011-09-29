@@ -47,7 +47,10 @@ def request_hook():
     req['_userid'] = web.ctx.session._userid
     req['_s'] = web.net.websafe
     req['_uq'] = web.net.urlquote
-    req['_ac'] = web.ctx.path.split('/')[-1]
+    action = web.ctx.path.split('/')[-1]
+    if action.find('_'):
+        action = action.split('_')[-1]
+    req['_ac'] = action
     web.ctx.req = req
 
 app.add_processor(web.loadhook(session_hook))

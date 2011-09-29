@@ -34,3 +34,38 @@ def del_model(id):
     model = get_model(id)
     web.ctx.orm.delete(model)
 
+def activate_model(model):
+    model.is_active = True
+    web.ctx.orm.flush()
+
+def inactivate_model(model):
+    model.is_active = False
+    web.ctx.orm.flush()
+
+
+#-------------------------------
+# field persistent method
+#-------------------------------
+def get_fields(mid):
+    return web.ctx.orm.query(Field).filter_by(model_id=mid).order_by(Field.id).all()
+
+def get_field(id):
+    return web.ctx.orm.query(Field).get(id)
+
+def save_field(id, data):
+    if id == -1:
+        field = Field()
+    else:
+        field = get_field(id)
+
+    populate(field, data, Field)
+
+    if id == -1:
+        web.ctx.orm.add(field)
+    else:
+        web.ctx.orm.flush()
+
+def del_field(id):
+    field = get_field(id)
+    web.ctx.orm.delete(field)
+

@@ -1,4 +1,4 @@
-<%inherit file="template_base.html"/>
+<%inherit file="field_base.html"/>
 
 <form name="myform" action="?m=admin&c=category&a=listorder" method="post">
 <div class="pad_10">
@@ -9,21 +9,21 @@
         <thead>
             <tr>
             <th width="30">tid</th>
-            <th>模板名称</th>
-            <th>模板文件</th>
+            <th>属性名称</th>
+            <th>属性代码</th>
        		<th>管理操作</th>
             </tr>
         </thead>
     <tbody>
-    % for template in templates:
+    % for field in fields:
       <tr>
-         <td>${template.id}</td>
-         <td>${template.name}</td>
-         <td>${template.file}</td>
-         <td align='center' > <a href="${template.id}/edit">修改</a> | <a href="javascript:confirmurl('${template.id}/delete?1=1','确认要删除${template.name}吗？')">删除</a></td>
+         <td>${field.id}</td>
+         <td>${field.title}</td>
+         <td>${field.name}</td>
+         <td align='center' > <a href="${field.id}/edit?mid=${mid}">修改</a> | <a href="javascript:confirmurl('${field.id}/delete?mid=${mid}','确认要删除${field.name}吗？')">删除</a></td>
       </tr>
     % endfor
-				</tbody>
+	</tbody>
     </table>
 
     <div class="btn">

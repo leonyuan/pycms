@@ -1,5 +1,5 @@
 function confirmurl(url,message) {
-	url = url+'&pc_hash='+pc_hash;
+	//url = url+'&pc_hash='+pc_hash;
 	if(confirm(message)) redirect(url);
 }
 function redirect(url) {

@@ -24,7 +24,7 @@
                 <td>${cate.slug}</td>
                 <td>${cate.template.name}</td>
                 <td align='center'></td>
-                <td align='center' ><a href="add?parent_id=${cate.id}">添加子栏目</a> | <a href="edit/${cate.id}">修改</a> | <a href="javascript:confirmurl('delete/${cate.id}?1=1','确认要删除${cate.name}吗？')">删除</a> | <a href="?">批量移动</a></td>
+                <td align='center' ><a href="add?parent_id=${cate.id}">添加子栏目</a> | <a href="${cate.id}/edit">修改</a> | <a href="javascript:confirmurl('${cate.id}/delete?1=1','确认要删除${cate.name}吗？')">删除</a> | <a href="?">批量移动</a></td>
 		    </tr>
             % endfor
 		</tbody>

@@ -17,8 +17,10 @@ def init():
     p111.parent=p11
     p112=Permission(u'栏目管理', 'category_index')
     p112.parent=p11
-    p113=Permission(u'模板管理', 'template_index')
+    p113=Permission(u'模型管理', 'model_index')
     p113.parent=p11
+    p114=Permission(u'模板管理', 'template_index')
+    p114.parent=p11
 
     p21=Permission(u'用户管理', 'user_admin')
     p21.parent=p2

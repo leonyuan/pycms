@@ -30,11 +30,24 @@ admin_login_form = web.form.Form(
     web.form.Button('login', html=u'登录'),
 )
 
-template_form = web.form.Form(  #TemplateForm(
+model_form = web.form.Form(
+    MyTextbox('title', vnotnull, size=20, description=u"模型名称"),
+    MyTextbox('name', vnotnull, size=20, description=u"模型代码"),
+    web.form.Button('submit', html=u'提交'),
+)
+
+field_form = web.form.Form(
+    MyTextbox('type', vnotnull, size=20, description=u"属性类型"),
+    MyTextbox('title', vnotnull, size=20, description=u"属性名称"),
+    MyTextbox('name', vnotnull, size=20, description=u"属性代码"),
+    MyTextbox('length', vnotnull, size=20, description=u"数据长度"),
+    web.form.Button('submit', html=u'提交'),
+)
+
+template_form = web.form.Form(
     MyTextbox('name', vnotnull, size=20, description=u"模板名称"),
     MyTextbox('file', vnotnull, size=20, description=u"模板文件"),
     web.form.Button('submit', html=u'提交'),
-    template_name='template_form',
 )
 
 category_form = web.form.Form(

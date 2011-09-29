@@ -1,0 +1,42 @@
+<%inherit file="model_base.html"/>
+
+<form name="myform" action="?m=admin&c=category&a=listorder" method="post">
+<div class="pad_10">
+<div class="bk10"></div>
+
+<div class="table-list">
+    <table width="100%" cellspacing="0" >
+        <thead>
+            <tr>
+            <th width="30">tid</th>
+            <th>模型名称</th>
+            <th>模型代码</th>
+       		<th>管理操作</th>
+            </tr>
+        </thead>
+    <tbody>
+    % for model in models:
+      <tr>
+         <td>${model.id}</td>
+         <td>${model.title}</td>
+         <td>${model.name}</td>
+         <td align='center' >
+           <a href="../field/index?mid=${model.id}">属性管理</a>|
+           <a href="../relation/index?mid=${model.id}">关联管理</a> |
+           <a href="${model.id}/edit">修改</a> | <a href="javascript:confirmurl('${model.id}/delete?1=1','确认要删除${model.name}吗？')">删除</a>|
+           % if model.is_active:
+           <a href="${model.id}/drop_table">删除数据表</a></td>
+           % else:
+           <a href="${model.id}/create_table">创建数据表</a></td>
+           % endif
+      </tr>
+    % endfor
+				</tbody>
+    </table>
+
+    <div class="btn">
+	<input type="hidden" name="pc_hash" value="6armko" />
+	</div>  </div>
+</div>
+</div>
+</form>

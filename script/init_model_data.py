@@ -15,7 +15,7 @@ def init():
     job.fields.append(point)
 
     #r1 = Relation(name='category', title=u'栏目', type='many-to-one', target='Category', backref='jobs')
-    r1 = Relation(name='categories', title=u'栏目', type='many-to-many', target='Category', backref='jobs')
+    r1 = Relation(name='categories', title=u'栏目', type='many-to-many', target='Category')
     job.relations.append(r1)
 
     session.add(job)

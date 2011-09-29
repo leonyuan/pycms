@@ -58,3 +58,19 @@ a3=CategoryEntryAssoc()
 
 
 
+class Order(Base):
+    __tablename__ = 'order'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(16), nullable=False)
+    title = Column(String(32))
+    is_active = Column(Boolean, default=False)
+
+class Item(Base):
+    __tablename__ = 'item'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(16), nullable=False)
+    title = Column(String(32))
+    type = Column(String(16), nullable=False)
+    length = Column(Integer)
+    order_id = Column(Integer, ForeignKey('order.id'))
+

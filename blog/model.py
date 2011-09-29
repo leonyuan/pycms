@@ -79,6 +79,7 @@ category_table = Category.__table__
 article_table = Article.__table__
 metadata = Base.metadata
 
+#category_table.extend_existing
 
 if __name__ == "__main__":
     metadata.create_all(engine)

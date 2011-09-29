@@ -25,8 +25,8 @@
                 <td>${article.user.username}</td>
                 <td align='center'></td>
                 <td align='center' >
-                    <a href="edit/${article.id}?catid=${catid}">修改</a> |
-                    <a href="javascript:confirmurl('delete/${article.id}?1=1','确认要删除${article.title}吗？')">删除</a>
+                    <a href="${article.id}/edit?catid=${catid}">修改</a> |
+                    <a href="javascript:confirmurl('${article.id}/delete?1=1','确认要删除${article.title}吗？')">删除</a>
                 </td>
 		    </tr>
             % endfor
