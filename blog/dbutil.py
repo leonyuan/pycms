@@ -19,14 +19,11 @@ def get_template(id):
 
 def save_template(id, data):
     if id == -1:
-        template = Template('')
+        template = Template()
     else:
         template = get_template(id)
 
-    for column in Template.__mapper__.columns:
-        if column.name == 'id':
-            continue
-        setattr(template, column.name, getattr(data, column.name))
+    populate(template, data, Template)
 
     if id == -1:
         web.ctx.orm.add(template)
@@ -51,7 +48,7 @@ def new_category(data):
 
 def save_category(id, data):
     if id == -1:
-        category = Category('','')
+        category = Category()
     else:
         category = get_category(id)
 
@@ -98,7 +95,7 @@ def category_tree2(pid=None):
     cates = web.ctx.orm.query(Category).filter_by(parent_id=pid).all()
     html = ''
     for i, cate in enumerate(cates):
-        html += '<li><a href="article/index?catid=%s" target="right">%s</a>' % (cate.id, cate.name)
+        html += '<li><a href="article/index?cid=%s" target="right">%s</a>' % (cate.id, cate.name)
 
         if count_category_children(cate.id) > 0:
             html += '<ul>'
@@ -125,25 +122,25 @@ def new_article(data):
 def get_article(id):
     return web.ctx.orm.query(Article).get(id)
 
-def get_articles(catid=None, limit=None):
-    if catid is None:
+def get_articles(cid=None, limit=None):
+    if cid is None:
         return web.ctx.orm.query(Article).order_by(Article.id.desc()).all()
     else:
         if limit is None:
-            return web.ctx.orm.query(Article).filter(Article.categories.any(id=catid)).order_by(Article.id.desc()).all()
+            return web.ctx.orm.query(Article).filter(Article.categories.any(id=cid)).order_by(Article.id.desc()).all()
         else:
-            return web.ctx.orm.query(Article).filter(Article.categories.any(id=catid)).order_by(Article.id.desc()).limit(limit)
+            return web.ctx.orm.query(Article).filter(Article.categories.any(id=cid)).order_by(Article.id.desc()).limit(limit)
 
 def save_article(id, data):
     if id == -1:
-        article = Article('','')
+        article = Article()
     else:
         article = get_article(id)
 
     populate(article, data, Article)
 
-    catid = data.catid
-    category = get_category(catid)
+    cid = data.cid
+    category = get_category(cid)
     article.categories.append(category)
 
     if id == -1:
@@ -158,7 +155,7 @@ def del_article(id):
 def get_articles_category_ancestors(article):
     return get_category_ancestors(article.categories[0])
 
-def get_latest_articles(catid, count):
-    return get_articles(catid, count)
+def get_latest_articles(cid, count):
+    return get_articles(cid, count)
 
 

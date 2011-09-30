@@ -11,16 +11,16 @@
 <table width="100%" class="table_form ">
  <tbody>
  		<tr>
-            <th width="200">${form.template_id.description}</th>
+            <th width="200">${form.model_id.description}</th>
         <td>
-            <select onchange="change_tpl(this.value)" id="template_id" name="template_id">
-                <option value="">请选择模板</option>
-                % for t in templates:
-                <option value="${t.id}" ${'selected="selected"' if str(form.d.template_id) == str(t.id) else ''}>${t.name}</option>
+            <select onchange="change_tpl(this.value)" id="model_id" name="model_id">
+                <option value="">=请选择模型=</option>
+                % for t in models:
+                <option value="${t.id}" ${'selected="selected"' if str(form.d.model_id) == str(t.id) else ''}>${t.name}</option>
                 % endfor
             </select>
-            % if form.template_id.note:
-            <div id="modelidTip" class="onShow">${form.template_id.note}</div>
+            % if form.model_id.note:
+            <div id="modelidTip" class="onShow">${form.model_id.note}</div>
             % endif
         </td>
       </tr>

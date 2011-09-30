@@ -12,8 +12,7 @@ from sqlalchemy.orm import relationship, backref, deferred
 from common import Base, engine
 from common.dbutil import utcnow
 from account.model import User
-
-
+from models.model import Model
 
 class Template(Base):
     __tablename__ = 'template'
@@ -21,10 +20,7 @@ class Template(Base):
     name = Column(String(32), nullable=False)
     file = Column(String(100), nullable=False)
 
-    categories = relationship("Category", backref=backref('template'))
-
-    def __init__(self, name):
-        self.name = name
+    #categories = relationship("Category", backref=backref('template'))
 
     def __repr__(self):
         return "<Template('%s')>" % (self.name)
@@ -39,15 +35,12 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(64), nullable=False)
     slug = Column(String(32), nullable=False)
-    template_id = Column(Integer, ForeignKey('template.id'))
+    model_id = Column(Integer, ForeignKey('model.id'))
     parent_id = Column(Integer, ForeignKey('category.id'))
 
     children = relationship("Category", order_by=id, cascade='delete', backref=backref('parent', remote_side=[id]))
     articles = relationship("Article", secondary=category_article_asso_table, backref=backref('categories'))
-
-    def __init__(self, name, slug):
-        self.name = name
-        self.slug = slug
+    model = relationship(Model, backref=backref('categories'))
 
     def __repr__(self):
         return "<Category('%s')>" % (self.name)
@@ -66,10 +59,6 @@ class Article(Base):
     user_id = Column(Integer, ForeignKey('user.id'))
 
     user = relationship("User", backref=backref('articles', order_by=id))
-
-    def __init__(self, title, content):
-        self.title = title
-        self.content = content
 
     def __unicode__(self):
         return "<Article('%s')>" % (self.title)

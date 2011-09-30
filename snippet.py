@@ -3,7 +3,9 @@
                 <div id="catnameTip" class="onShow">${_verr['username']}</div>
                 % endif
 
-        '/field/index', field.index,
-        '/field/add', field.add,
-        '/field/edit/(\d+)', field.edit,
-        '/field/delete/(\d+)', field.delete,
+        '/relation/index', relation.index,
+        '/relation/add', relation.add,
+        '/relation/edit/(\d+)', relation.edit,
+        '/relation/delete/(\d+)', relation.delete,
+
+

@@ -72,8 +72,7 @@ class create_table:
     @admin_login_required
     def GET(self, id):
         model = get_model(id)
-        model_cls = build_model(model, True)
-        create_schema(model_cls)
+        create_schema(model)
         activate_model(model)
         raise web.seeother('/model/index')
 
@@ -81,8 +80,7 @@ class drop_table:
     @admin_login_required
     def GET(self, id):
         model = get_model(id)
-        model_cls = build_model(model)
-        drop_schema(model_cls)
+        drop_schema(model)
         inactivate_model(model)
         raise web.seeother('/model/index')
 

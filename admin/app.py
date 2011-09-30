@@ -1,5 +1,5 @@
 import web
-from admin import view, model, field, template, category, article
+from admin import view, model, field, relation, template, category, article, content
 
 urls = (
         '', 'reindex',
@@ -21,6 +21,11 @@ urls = (
         '/field/(\d+)/edit', field.edit,
         '/field/(\d+)/delete', field.delete,
 
+        '/relation/index', relation.index,
+        '/relation/add', relation.add,
+        '/relation/(\d+)/edit', relation.edit,
+        '/relation/(\d+)/delete', relation.delete,
+
         '/template/index', template.index,
         '/template/add', template.add,
         '/template/(\d+)/edit', template.edit,
@@ -36,6 +41,11 @@ urls = (
         '/article/index', article.index,
         '/article/add', article.add,
         '/article/(\d+)/edit', article.edit,
+
+        '/(.+)/index', content.index,
+        '/(.+)/add', content.add,
+        '/(.+)/(\d+)/edit', content.edit,
+        '/(.+)/(\d+)/delete', content.delete,
 )
 
 

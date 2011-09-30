@@ -56,7 +56,7 @@ a3=CategoryEntryAssoc()
 >>> session.add(ent2)
 >>> session.commit()
 
-
+from blog.model import *
 
 class Order(Base):
     __tablename__ = 'order'
@@ -72,5 +72,7 @@ class Item(Base):
     title = Column(String(32))
     type = Column(String(16), nullable=False)
     length = Column(Integer)
-    order_id = Column(Integer, ForeignKey('order.id'))
+    address = Column(String(200))
+    category_id = Column(Integer, ForeignKey('category.id'))
+    category = relationship(Category, backref='items')
 

@@ -1,0 +1,12 @@
+<%inherit file="na_base.html"/>
+
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+        <a href='/admin/model/index'}><em>返回模型管理</em></a><span>|</span>
+        <a href='/admin/relation/index?mid=${mid}' ${'class="on"' if _ac=='index' else ''}><em>关联管理</em></a><span>|</span>
+        <a href='/admin/relation/add?mid=${mid}' ${'class="on"' if _ac=='add' else ''}><em>添加关联</em></a>
+    </div>
+</div>
+
+${next.body()}
+

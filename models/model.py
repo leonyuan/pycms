@@ -21,8 +21,8 @@ class Model(Base):
     title = Column(String(32))
     is_active = Column(Boolean, default=False)
 
-    fields = relationship("Field", backref=backref('model'))
-    relations = relationship("Relation", backref=backref('model'))
+    fields = relationship("Field", cascade='delete', backref=backref('model'))
+    relations = relationship("Relation", cascade='delete', backref=backref('model'))
 
     def __repr__(self):
         return "<Model('%s')>" % (self.name)

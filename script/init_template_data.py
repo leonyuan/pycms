@@ -8,10 +8,10 @@ from common import DBSession
 def init():
     session = DBSession()
 
-    t1 = Template(u'新闻模板')
+    t1 = Template(name=u'新闻模板')
     t1.file = 'templates/template/news.html'
 
-    t2 = Template(u'博客模板')
+    t2 = Template(name=u'博客模板')
     t2.file = 'templates/template/blog.html'
 
     session.add(t1)

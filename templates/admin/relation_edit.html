@@ -1,0 +1,90 @@
+<%inherit file="relation_base.html"/>
+
+<form method="post" action="" id="myform" name="myform">
+<input type="hidden" name="mid" value="${mid}">
+<div class="pad-10">
+<div class="col-tab">
+<div class="contentList pad-10" id="div_setting_1" style="display: block;">
+
+<table width="100%" class="table_form ">
+ <tbody>
+   <tr>
+        <th>${form.type.description}</th>
+        <td>
+          <span id="normal_add">
+            <select onchange="" id="type" name="type">
+                <option value="">=请选择类型=</option>
+                <option value="many-to-one" ${'selected="selected"' if str(form.d.type) == 'many-to-one' else ''}>多对一</option>
+                <option value="many-to-many" ${'selected="selected"' if str(form.d.type) == 'many-to-many' else ''}>多对多</option>
+            </select>
+            % if form.type.note:
+            <div id="catnameTip" class="onShow">${form.type.note}</div>
+            % endif
+          </span>
+		</td>
+   </tr>
+   <tr>
+        <th>${form.title.description}</th>
+        <td>
+            <span id="normal_add"><input type="text" value="${_s(form.d.title)}" class="input-text" id="name" name="title">
+                % if form.title.note:
+                <div id="catnameTip" class="onShow">${form.title.note}</div>
+                % endif
+            </span>
+		</td>
+    </tr>
+   <tr>
+        <th>${form.name.description}</th>
+        <td>
+            <span id="normal_add"><input type="text" value="${_s(form.d.name)}" class="input-text" id="name" name="name">
+                % if form.name.note:
+                <div id="catnameTip" class="onShow">${form.name.note}</div>
+                % endif
+            </span>
+		</td>
+    </tr>
+    <tr>
+        <th>${form.target.description}</th>
+        <td>
+            <span id="normal_add">
+            <select onchange="" id="target" name="target">
+                <option value="">=请选择目的模型=</option>
+                <option value="Category" ${'selected="selected"' if str(form.d.target) == 'Category' else ''}>栏目</option>
+                <option value="User" ${'selected="selected"' if str(form.d.target) == 'User' else ''}>用户</option>
+            </select>
+            % if form.target.note:
+            <div id="catnameTip" class="onShow">${form.target.note}</div>
+            % endif
+            </span>
+		</td>
+    </tr>
+    <tr>
+        <th>${form.backref.description}</th>
+        <td>
+            <span id="normal_add"><input type="text" value="${_s(form.d.backref)}" class="input-text" id="backref" name="backref">
+                % if form.backref.note:
+                <div id="catnameTip" class="onShow">${form.backref.note}</div>
+                % endif
+            </span>
+		</td>
+   </tr>
+
+	<tr>
+        <th>描述：</th>
+        <td>
+		<textarea style="width:300px;height:60px;" maxlength="255" name="description"></textarea>
+		</td>
+    </tr>
+
+</tbody>
+</table>
+
+</div>
+
+ <div class="bk15"></div>
+	<input type="hidden" value="" name="catid">
+  <input type="submit" class="button" value="提交" name="dosubmit">
+</div>
+</div>
+<input type="hidden" name="pc_hash" value="6armko">
+</form>

@@ -38,9 +38,18 @@ model_form = web.form.Form(
 
 field_form = web.form.Form(
     MyTextbox('type', vnotnull, size=20, description=u"属性类型"),
-    MyTextbox('title', vnotnull, size=20, description=u"属性名称"),
+    MyTextbox('title', size=20, description=u"属性名称"),
     MyTextbox('name', vnotnull, size=20, description=u"属性代码"),
-    MyTextbox('length', vnotnull, size=20, description=u"数据长度"),
+    MyTextbox('length', size=20, description=u"数据长度"),
+    web.form.Button('submit', html=u'提交'),
+)
+
+relation_form = web.form.Form(
+    MyTextbox('type', vnotnull, size=20, description=u"关联类型"),
+    MyTextbox('title', size=20, description=u"关联名称"),
+    MyTextbox('name', vnotnull, size=20, description=u"关联代码"),
+    MyTextbox('target', vnotnull, size=20, description=u"目的模型"),
+    MyTextbox('backref', size=20, description=u"反向引用"),
     web.form.Button('submit', html=u'提交'),
 )
 
@@ -54,12 +63,12 @@ category_form = web.form.Form(
     MyTextbox('parent_id', size=20, description=u"上级栏目"),
     MyTextbox('name', vnotnull, size=20, description=u"栏目名称"),
     MyTextbox('slug', vnotnull, size=20, description=u"英文缩写"),
-    MyTextbox('template_id', vnotnull, size=20, description=u"所用模板"),
+    MyTextbox('model_id', vnotnull, size=20, description=u"默认模型"),
     web.form.Button('submit', html=u'提交'),
 )
 
 article_form = web.form.Form(
-    MyTextbox('catid', vnotnull, size=20, description=u"栏目"),
+    MyTextbox('cid', vnotnull, size=20, description=u"栏目"),
     MyTextbox('title', vnotnull, size=20, description=u"标题"),
     MyTextbox('keywords', size=20, description=u"关键词"),
     MyTextbox('summary', size=20, description=u"摘要"),

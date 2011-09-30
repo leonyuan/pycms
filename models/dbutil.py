@@ -69,3 +69,29 @@ def del_field(id):
     field = get_field(id)
     web.ctx.orm.delete(field)
 
+#-------------------------------
+# relation persistent method
+#-------------------------------
+def get_relations(mid):
+    return web.ctx.orm.query(Relation).filter_by(model_id=mid).order_by(Relation.id).all()
+
+def get_relation(id):
+    return web.ctx.orm.query(Relation).get(id)
+
+def save_relation(id, data):
+    if id == -1:
+        relation = Relation()
+    else:
+        relation = get_relation(id)
+
+    populate(relation, data, Relation)
+
+    if id == -1:
+        web.ctx.orm.add(relation)
+    else:
+        web.ctx.orm.flush()
+
+def del_relation(id):
+    relation = get_relation(id)
+    web.ctx.orm.delete(relation)
+

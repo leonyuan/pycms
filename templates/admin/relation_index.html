@@ -1,0 +1,40 @@
+<%inherit file="relation_base.html"/>
+
+<form name="myform" action="?m=admin&c=category&a=listorder" method="post">
+<div class="pad_10">
+<div class="bk10"></div>
+
+<div class="table-list">
+    <table width="100%" cellspacing="0" >
+        <thead>
+            <tr>
+            <th width="30">tid</th>
+            <th>关联名称</th>
+            <th>关联代码</th>
+            <th>关联类型</th>
+            <th>目的模型</th>
+            <th>反向引用</th>
+       		<th>管理操作</th>
+            </tr>
+        </thead>
+    <tbody>
+    % for relation in relations:
+      <tr>
+         <td>${relation.id}</td>
+         <td>${relation.title}</td>
+         <td>${relation.name}</td>
+         <td>${relation.type}</td>
+         <td>${relation.target}</td>
+         <td>${relation.backref}</td>
+         <td align='center' > <a href="${relation.id}/edit?mid=${mid}">修改</a> | <a href="javascript:confirmurl('${relation.id}/delete?mid=${mid}','确认要删除${relation.name}吗？')">删除</a></td>
+      </tr>
+    % endfor
+	</tbody>
+    </table>
+
+    <div class="btn">
+	<input type="hidden" name="pc_hash" value="6armko" />
+	</div>  </div>
+</div>
+</div>
+</form>

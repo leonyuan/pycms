@@ -99,7 +99,7 @@ class edit:
 class delete:
     @admin_login_required
     def GET(self, id):
-        del_category(id)
+        del_article(id)
         raise web.seeother('/category/index')
 
 
