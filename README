@@ -15,13 +15,12 @@ Installation
   run the "setup-env.sh" script in command line:
     $source setup-env.sh
   
-  Change to the "account" directory and run its database creation
-    $cd account
-    $python model.py
+  Change to the "script" directory and run its database creation
+    $cd script
+    $python init_tables.py
 
-  Change to the "blog" directory and run its database creation
-    $cd blog
-    $python model.py
+  If you are to import test data, then run following:
+    $python init_data.py
 
 2. Start the application for development
     $python app.py

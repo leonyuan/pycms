@@ -1,0 +1,85 @@
+<%inherit file="entity_base.html"/>
+
+<script language="javascript" type="text/javascript" src="${static_url}/js/content_addtop.js"></script>
+<script language="javascript" type="text/javascript" src="${static_url}/js/colorpicker.js"></script>
+<script language="javascript" type="text/javascript" src="${static_url}/js/hotkeys.js"></script>
+<script language="javascript" type="text/javascript" src="${static_url}/js/cookie.js"></script>
+<script type="text/javascript">var cid=13</script>
+
+<form name="myform" id="myform" action="" method="post" enctype="multipart/form-data">
+<div class="addContent">
+
+  <div class="col-right">
+  </div>
+
+  <div class="col-auto">
+  <div class="col-1">
+  <div class="content pad-6">
+  <table width="100%" cellspacing="0" class="table_form">
+    <tbody>
+	<tr>
+      <th width="80"> <font color="red">*</font>栏目</th>
+      <td><input type="hidden" name="cid" value="${cid}">${catname}</td>
+    </tr>
+    % for input in form.inputs:
+    <tr>
+      <th width="80">${'<font color="red">*</font>' if input.required else ''}${input.description}</th>
+      <td>
+        ${input.render()}
+      </td>
+    </tr>
+    % endfor
+  </tbody>
+  </table>
+
+  </div>
+  </div>
+  </div>
+        
+</div>
+
+<div class="bk15"></div>
+<div style="margin:0 20px;text-align:center">
+  <input type="submit" style="width:50px;" class="button" name="dosubmit" value="保存">
+  <input type="submit" style="width:130px;" class="button" name="dosubmit_continue" value="保存并继续发表">
+</div>
+
+</div>
+
+</form>
+
+<script type="text/javascript"> 
+<!--
+//只能放到最下面
+$(function(){
+	$.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({id:'check_content_id',content:msg,lock:true,width:'200',height:'50'}, 	function(){$(obj).focus();
+	boxid = $(obj).attr('id');
+	if($('#'+boxid).attr('boxid')!=undefined) {
+		check_content(boxid);
+	}
+	})}});
+	$("#title").formValidator({onshow:"",onfocus:"请输入标题"}).inputValidator({min:1,max:80,onerror:"标题不能为空"});$("#content").formValidator({onshow:"",onfocus:"内容不能为空"}).functionValidator({
+	    fun:function(val,elem){
+			var oEditor = CKEDITOR.instances.content;
+			var data = oEditor.getData();
+	        if($('#islink').attr('checked')){
+			    return true;
+		    } else if(($('#islink').attr('checked')==false) && (data=='')){
+			    return "内容不能为空";
+		    } else if (data=='' || $.trim(data)=='') {
+				return "内容不能为空";
+			}
+			return true;
+		}
+	});	
+/*
+ * 加载禁用外边链接
+ */
+
+	$('#linkurl').attr('disabled',true);
+	$('#islink').attr('checked',false);
+	$('.edit_content').hide();
+	jQuery(document).bind('keydown', 'Alt+x', function (){close_window();});
+})
+//-->
+</script>

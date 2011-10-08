@@ -1,17 +1,14 @@
-from os.path import abspath, dirname, join
-
 import web
-from web.contrib.template import render_mako
+from common.util import render_mako
 from account.dbutil import get_user
 from account.auth import is_logined, authenticate, login as auth_login, logout as auth_logout, get_logined_user
+from common.config import template_dir
 
 
 ERRCODE_NOTSUPERUSER = 11
 
-curdir = abspath(dirname(__file__))
-
 render = render_mako(
-            directories=[join(curdir, '../templates/admin/')],
+            directories=[template_dir+'admin/'],
             input_encoding='utf-8',
             output_encoding='utf-8',
          )

@@ -5,15 +5,13 @@ A significant hook is defined,  The hook defines some http request scope object 
 '''
 
 import web
-from web.contrib.template import render_mako
 from common import load_sqla, render
 from common.config import *
 from account import profile
 from admin.app import app_admin
-from blog.app import app_blog
 from common.util import context
-from blog.dbutil import get_latest_articles
-
+from basis import entity
+from models.dbutil import get_latest_entities
 
 web.config.debug = debug
 
@@ -25,7 +23,8 @@ urls = (
     '/logout', profile.logout,
 
     '/admin', app_admin,
-    '/blog', app_blog,
+
+    '/(.+)/(\d+)', entity.get,
 )
 
 app = web.application(urls, globals())
@@ -61,7 +60,7 @@ app.add_processor(load_sqla)
 class index:
     def GET(self):
         req = web.ctx.req
-        req['get_latest_articles'] = get_latest_articles
+        req['get_latest_entities'] = get_latest_entities
         return render.index(**req)
 
 class reindex:

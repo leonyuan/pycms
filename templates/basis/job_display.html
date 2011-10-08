@@ -10,24 +10,24 @@
       </div>
 
       <div id="Article">
-          <h1>${article.title}<br>
-              <span>${article.updated_time}&nbsp;&nbsp;&nbsp;编辑：${article.user.username}&nbsp;&nbsp;&nbsp;来源：&nbsp;&nbsp;&nbsp;评论：<a id="comment" href="#comment_iframe">0</a>
-        点击：</span><span id="hits">4</span></h1>
+          <h1>${entity.title}<br>
+              <span>&nbsp;&nbsp;&nbsp;编辑：&nbsp;&nbsp;&nbsp;来源：&nbsp;&nbsp;&nbsp;评论：<a id="comment" href="#comment_iframe">0</a>
+                  点击：</span><span id="hits">${entity.point}</span></h1>
 
         <div class="summary">
-            ${article.summary} 
+            ${'entity.summary'} 
         </div>
 
         <div class="content">
-            ${article.content} 
+            ${entity.content} 
         </div>
 
         <div class="text-c" id="pages">
         </div>
 
         <p style="margin-bottom:10px"><strong>相关热词搜索：</strong>
-        % if article.keywords:
-        % for kw in article.keywords.split():
+        % if entity__:
+        % for kw in entity.keywords.split():
         <a class="blue" href="tag=${_uq(kw)}">${kw}</a>
         % endfor
         % endif

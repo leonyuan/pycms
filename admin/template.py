@@ -1,7 +1,7 @@
 #encoding=utf-8
 import web
 from admin.util import render, admin_login_required
-from blog.dbutil import get_templates, save_template, get_template, del_template
+from basis.dbutil import get_templates, save_template, get_template, del_template
 from admin.form import template_form
 
 

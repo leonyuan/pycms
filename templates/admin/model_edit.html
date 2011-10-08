@@ -28,6 +28,21 @@
 		</td>
     </tr>
 	<tr>
+        <th width="200">${form.template_id.description}</th>
+        <td>
+            <select onchange="change_tpl(this.value)" id="template_id" name="template_id">
+                <option value="">=请选择模板=</option>
+                % for t in templates:
+                <option value="${t.id}" ${'selected="selected"' if str(form.d.template_id) == str(t.id) else ''}>${t.name}</option>
+                % endfor
+            </select>
+            % if form.template_id.note:
+            <div id="modelidTip" class="onShow">${form.template_id.note}</div>
+            % endif
+        </td>
+    </tr>
+
+	<tr>
         <th>描述：</th>
         <td>
 		<textarea style="width:300px;height:60px;" maxlength="255" name="description"></textarea>

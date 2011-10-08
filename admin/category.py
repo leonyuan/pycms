@@ -1,7 +1,7 @@
 #encoding=utf-8
 import web
 from admin.util import render, admin_login_required
-from blog.dbutil import get_category, get_categories, category_tree, category_tree2,\
+from basis.dbutil import get_category, get_categories, category_tree, category_tree2,\
         new_category, save_category, del_category
 from models.dbutil import get_models
 from admin.form import category_form
@@ -69,7 +69,16 @@ class edit:
     def POST(self, id):
         form = category_form()
         if not form.validates():
-            return render.category_edit(form=form)
+            models = get_models()
+            categories = category_tree()
+            req = web.ctx.req
+            req.update({
+                'form': form,
+                'models': models,
+                'categories': categories,
+                })
+            return render.category_edit(**req)
+
         save_category(int(id), form.d)
         raise web.seeother('/category/index')
 

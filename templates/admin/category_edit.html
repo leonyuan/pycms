@@ -16,7 +16,7 @@
             <select onchange="change_tpl(this.value)" id="model_id" name="model_id">
                 <option value="">=请选择模型=</option>
                 % for t in models:
-                <option value="${t.id}" ${'selected="selected"' if str(form.d.model_id) == str(t.id) else ''}>${t.name}</option>
+                <option value="${t.id}" ${'selected="selected"' if str(form.d.model_id) == str(t.id) else ''}>${t.title}</option>
                 % endfor
             </select>
             % if form.model_id.note:

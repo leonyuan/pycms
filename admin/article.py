@@ -1,7 +1,7 @@
 #encoding=utf-8
 import web
 from admin.util import render, admin_login_required
-from blog.dbutil import get_category, get_article, new_article, save_article, get_articles
+from basis.dbutil import get_category, get_article, new_article, save_article, get_articles
 from admin.form import article_form
 #from common.dbutil import utcnow
 from datetime import datetime

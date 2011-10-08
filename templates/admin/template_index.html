@@ -10,7 +10,9 @@
             <tr>
             <th width="30">tid</th>
             <th>模板名称</th>
-            <th>模板文件</th>
+            <th>频道页</th>
+            <th>列表页</th>
+            <th>内容页</th>
        		<th>管理操作</th>
             </tr>
         </thead>
@@ -19,7 +21,9 @@
       <tr>
          <td>${template.id}</td>
          <td>${template.name}</td>
-         <td>${template.file}</td>
+         <td>${template.index_file}</td>
+         <td>${template.list_file}</td>
+         <td>${template.display_file}</td>
          <td align='center' > <a href="${template.id}/edit">修改</a> | <a href="javascript:confirmurl('${template.id}/delete?1=1','确认要删除${template.name}吗？')">删除</a></td>
       </tr>
     % endfor

@@ -20,7 +20,9 @@ class Model(Base):
     name = Column(String(16), nullable=False)
     title = Column(String(32))
     is_active = Column(Boolean, default=False)
+    template_id = Column(Integer, ForeignKey('template.id'))
 
+    template = relationship('Template', backref=backref('models'))
     fields = relationship("Field", cascade='delete', backref=backref('model'))
     relations = relationship("Relation", cascade='delete', backref=backref('model'))
 
@@ -34,6 +36,7 @@ class Field(Base):
     title = Column(String(32))
     type = Column(String(16), nullable=False)
     length = Column(Integer)
+    required = Column(Boolean)
     model_id = Column(Integer, ForeignKey('model.id'))
 
     def __repr__(self):

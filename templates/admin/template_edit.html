@@ -6,32 +6,18 @@
 <div class="contentList pad-10" id="div_setting_1" style="display: block;">
 
 <table width="100%" class="table_form ">
- <tbody>
+  <tbody>
+    % for input in form.inputs:
     <tr>
-        <th>${form.name.description}</th>
-        <td>
-            <span id="normal_add"><input type="text" value="${_s(form.d.name)}" class="input-text" id="name" name="name">
-                % if form.name.note:
-                <div id="catnameTip" class="onShow">${form.name.note}</div>
-                % endif
-            </span>
-		</td>
+      <th>${'<font color="red">*</font>' if input.required else ''}${input.description}</th>
+      <td>
+          <span id="normal_add">
+              ${input.render()}
+          </span>
+      </td>
     </tr>
-	  <tr>
-        <th>${form.file.description}</th>
-        <td><script src="http://localhost/phpcms/statics/js/swfupload/swf2ckeditor.js" type="text/javascript"></script><input type="text" class="input-text" size="50" value="${_s(form.d.file)}" id="file" name="file">  <input type="button" value="上传模板" onclick="javascript:flashupload('image_images', '附件上传','image',submit_images,'1,jpg|jpeg|gif|bmp|png,1,,,0','content','','40b5333df0707b621d30f03e0236d899')" class="button">
-            % if form.file.note:
-            <div id="catnameTip" class="onShow">${form.file.note}</div>
-            % endif
-        </td>
-      </tr>
-	<tr>
-        <th>描述：</th>
-        <td>
-		<textarea style="width:300px;height:60px;" maxlength="255" name="info[description]"></textarea>
-		</td>
-      </tr>
-</tbody>
+    % endfor
+  </tbody>
 </table>
 
 </div>

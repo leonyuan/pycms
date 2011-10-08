@@ -1,7 +1,7 @@
 #!/bin/env python
 from common import Base, engine
 from account.model import *
-from blog.model import *
+from basis.model import *
 from models.model import *
 
 

@@ -1,0 +1,42 @@
+<%inherit file="entity_base.html"/>
+
+<style type="text/css">
+.showMsg {
+    border: 1px solid #1e64c8;
+    zoom: 1;
+    width: 450px;
+    height: 172px;
+    position: absolute;
+    top: 44%;
+    left: 50%;
+    margin: -87px 0 0 -225px
+}
+
+.showMsg h5 {
+    background-image:
+        url(${static_url}/images/msg_img/msg.png);
+    background-repeat: no-repeat;
+    color: #fff;
+    padding-left: 35px;
+    height: 25px;
+    line-height: 26px;
+    *line-height: 28px;
+    overflow: hidden;
+    font-size: 14px;
+    text-align: left
+}
+
+.showMsg .content {
+    margin-top: 50px;
+    font-size: 14px;
+    height: 64px;
+    position: relative
+}
+</style>
+
+<%block name="action_nav">
+</%block>
+<div style="text-align: center" class="showMsg">
+  <h5>操作提示</h5>
+  <div class="content">点选左侧栏目树中的栏目名称开始实体管理</div>
+</div>

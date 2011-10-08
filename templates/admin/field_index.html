@@ -11,6 +11,9 @@
             <th width="30">tid</th>
             <th>属性名称</th>
             <th>属性代码</th>
+            <th>属性类型</th>
+            <th>属性长度</th>
+            <th>是否必需</th>
        		<th>管理操作</th>
             </tr>
         </thead>
@@ -20,6 +23,9 @@
          <td>${field.id}</td>
          <td>${field.title}</td>
          <td>${field.name}</td>
+         <td>${field.type}</td>
+         <td>${field.length}</td>
+         <td>${field.required}</td>
          <td align='center' > <a href="${field.id}/edit?mid=${mid}">修改</a> | <a href="javascript:confirmurl('${field.id}/delete?mid=${mid}','确认要删除${field.name}吗？')">删除</a></td>
       </tr>
     % endfor

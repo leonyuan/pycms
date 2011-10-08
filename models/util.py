@@ -1,11 +1,12 @@
 import web
 from copy import deepcopy
-from sqlalchemy import ForeignKey, Table, Column, SmallInteger, Integer, Boolean, String, DateTime, TIMESTAMP, Text
+from sqlalchemy import ForeignKey, Table, Column, SmallInteger, Integer, Float, Boolean,\
+        String, DateTime, TIMESTAMP, Text
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
 from common import Base, engine
 from account.model import User
-from blog.model import Category
+from basis.model import Category
 
 
 DEFAULT_ATTR = {'id':Column(Integer, primary_key=True)}
@@ -13,6 +14,13 @@ DEFAULT_ATTR = {'id':Column(Integer, primary_key=True)}
 FIELD_TYPE = {
     'string': String,
     'integer': Integer,
+    'text': Text,
+    'float': Float,
+    'boolean': Boolean,
+    'select': String,
+    'radio': String,
+    'date': DateTime,
+    'datetime': TIMESTAMP,
 }
 
 class _cache_relation(object):

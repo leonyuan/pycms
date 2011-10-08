@@ -4,6 +4,7 @@ from admin.util import render, admin_login_required
 from models.dbutil import get_models, save_model, get_model, del_model, activate_model, inactivate_model
 from models.util import build_model, create_schema, drop_schema
 from admin.form import model_form
+from basis.dbutil import get_templates
 
 
 class index:
@@ -20,9 +21,11 @@ class add:
     @admin_login_required
     def GET(self):
         form = model_form()
+        templates = get_templates()
         req = web.ctx.req
         req.update({
             'form': form,
+            'templates': templates,
             })
         return render.model_edit(**req)
 
@@ -30,9 +33,11 @@ class add:
     def POST(self):
         form = model_form()
         if not form.validates():
+            templates = get_templates()
             req = web.ctx.req
             req.update({
                 'form': form,
+                'templates': templates,
                 })
             return render.model_edit(**req)
         save_model(-1, form.d)
@@ -41,12 +46,14 @@ class add:
 class edit:
     @admin_login_required
     def GET(self, id):
+        templates = get_templates()
         form = model_form()
         model = get_model(id)
         form.fill(model)
         req = web.ctx.req
         req.update({
             'form': form,
+            'templates': templates,
             })
         return render.model_edit(**req)
 
@@ -54,9 +61,11 @@ class edit:
     def POST(self, id):
         form = model_form()
         if not form.validates():
+            templates = get_templates()
             req = web.ctx.req
             req.update({
                 'form': form,
+                'templates': templates,
                 })
             return render.model_edit(**req)
         save_model(int(id), form.d)

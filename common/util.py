@@ -1,8 +1,9 @@
 import web
-from account.auth import is_logined
+from web.contrib.template import render_mako as _render_mako
 
 
 def login_required(view_func):
+    from account.auth import is_logined
     def __dec_func(viewobj, *args, **kwargs):
         if is_logined():
             return view_func(viewobj, *args, **kwargs)
@@ -86,5 +87,10 @@ class Context:
 
 
 context = Context
+
+class render_mako(_render_mako):
+    def render(self, filename, **kwargs):
+        t = self._lookup.get_template(filename)
+        return t.render(**kwargs)
 
 

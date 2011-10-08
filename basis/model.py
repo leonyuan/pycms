@@ -18,9 +18,9 @@ class Template(Base):
     __tablename__ = 'template'
     id = Column(Integer, primary_key=True)
     name = Column(String(32), nullable=False)
-    file = Column(String(100), nullable=False)
-
-    #categories = relationship("Category", backref=backref('template'))
+    index_file = Column(String(100), nullable=False)
+    list_file = Column(String(100), nullable=False)
+    display_file = Column(String(100), nullable=False)
 
     def __repr__(self):
         return "<Template('%s')>" % (self.name)

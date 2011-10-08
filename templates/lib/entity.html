@@ -1,0 +1,6 @@
+
+<%def name="latest_entities(mname, catid, count)">
+    % for entity in get_latest_entities(mname, catid, count):
+    <li>·<a style="" title="${entity.title}" target="_blank" href="/${mname}/${entity.id}">${entity.title}</a></li>
+    % endfor
+</%def>

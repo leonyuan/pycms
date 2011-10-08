@@ -1,7 +1,7 @@
 #encoding=utf-8
 import web
 from sqlalchemy import func
-from blog.model import *
+from basis.model import *
 from common.dbutil import populate
 
 #-------------------------------
@@ -95,7 +95,7 @@ def category_tree2(pid=None):
     cates = web.ctx.orm.query(Category).filter_by(parent_id=pid).all()
     html = ''
     for i, cate in enumerate(cates):
-        html += '<li><a href="article/index?cid=%s" target="right">%s</a>' % (cate.id, cate.name)
+        html += '<li><a href="%s/index?cid=%s" target="right">%s</a>' % (cate.model.name, cate.id, cate.name)
 
         if count_category_children(cate.id) > 0:
             html += '<ul>'

@@ -11,6 +11,7 @@
             <th width="30">tid</th>
             <th>模型名称</th>
             <th>模型代码</th>
+            <th>模板名称</th>
        		<th>管理操作</th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
          <td>${model.id}</td>
          <td>${model.title}</td>
          <td>${model.name}</td>
+         <td>${model.template.name}</td>
          <td align='center' >
            <a href="../field/index?mid=${model.id}">属性管理</a>|
            <a href="../relation/index?mid=${model.id}">关联管理</a> |

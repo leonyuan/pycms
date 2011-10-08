@@ -13,7 +13,7 @@ def init():
 
     p11=Permission(u'内容管理', 'content_admin')
     p11.parent=p1
-    p111=Permission(u'文章管理', 'article_admin')
+    p111=Permission(u'实体管理', 'entity_admin')
     p111.parent=p11
     p112=Permission(u'栏目管理', 'category_index')
     p112.parent=p11
