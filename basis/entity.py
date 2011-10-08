@@ -4,12 +4,17 @@ from models.dbutil import get_model_by_name, get_entities, get_entity, get_entit
 
 
 class index:
-    def GET(self):
-        """ Show page """
-        articles = get_articles()
+    def GET(self, mname):
         req = web.ctx.req
+        data = web.input()
+        cid = data.cid
+        model = get_model_by_name(mname)
+        entities = get_entities(model, cid)
         req.update({
-            'articles': articles,
+            'entities': entities,
+            'cid': cid,
+            'mname': mname,
+            'mtitle': model.title,
             })
         return render.index(**req)
 

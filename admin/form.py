@@ -78,14 +78,6 @@ category_form = web.form.Form(
     MyTextbox('model_id', vnotnull, required=True, size=20, description=u"默认模型"),
 )
 
-article_form = web.form.Form(
-    MyTextbox('cid', vnotnull, size=20, description=u"栏目"),
-    MyTextbox('title', vnotnull, size=20, description=u"标题"),
-    MyTextbox('keywords', size=20, description=u"关键词"),
-    MyTextbox('summary', size=20, description=u"摘要"),
-    MyTextbox('content', vnotnull, size=20, description=u"内容"),
-)
-
 WIDGET_TYPE = {
     'string': MyTextbox,
     'integer': MyTextbox,
