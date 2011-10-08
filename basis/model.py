@@ -25,10 +25,11 @@ class Template(Base):
     def __repr__(self):
         return "<Template('%s')>" % (self.name)
 
-category_article_asso_table = Table('category_article_asso', Base.metadata,
+'''category_article_asso_table = Table('category_article_asso', Base.metadata,
     Column('category_id', Integer, ForeignKey('category.id'), primary_key=True),
     Column('article_id', Integer, ForeignKey('article.id'), primary_key=True)
 )
+'''
 
 class Category(Base):
     __tablename__ = 'category'
@@ -39,13 +40,13 @@ class Category(Base):
     parent_id = Column(Integer, ForeignKey('category.id'))
 
     children = relationship("Category", order_by=id, cascade='delete', backref=backref('parent', remote_side=[id]))
-    articles = relationship("Article", secondary=category_article_asso_table, backref=backref('categories'))
+    #articles = relationship("Article", secondary=category_article_asso_table, backref=backref('categories'))
     model = relationship(Model, backref=backref('categories'))
 
     def __repr__(self):
         return "<Category('%s')>" % (self.name)
 
-
+'''
 class Article(Base):
     __tablename__ = 'article'
     id = Column(Integer, primary_key=True)
@@ -62,10 +63,10 @@ class Article(Base):
 
     def __unicode__(self):
         return "<Article('%s')>" % (self.title)
+'''
 
 template_table = Template.__table__
 category_table = Category.__table__
-article_table = Article.__table__
 metadata = Base.metadata
 
 #category_table.extend_existing

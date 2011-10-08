@@ -9,11 +9,11 @@ from common import DBSession
 def init():
     session = DBSession()
 
-    t1 = session.query(Template).get(1)
-    t2 = session.query(Template).get(2)
+    t1 = session.query(Template).filter_by(name=u'新闻模板').first()
+    t2 = session.query(Template).filter_by(name=u'职位模板').first()
 
     job = Model(name='job', title=u'职位')
-    job.template = t1
+    job.template = t2
 
     title = Field(name='title', title=u'名称', type='string', length=32, required=True)
     point = Field(name='point', title=u'点击数', type='integer')
@@ -40,7 +40,7 @@ def init():
 
 
     news = Model(name='news', title=u'新闻')
-    news.template = t2
+    news.template = t1
 
     title = Field(name='title', title=u'标题', type='string', length=32, required=True)
     keywords = Field(name='keywords', title=u'关键词', type='string', length=64)
