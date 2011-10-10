@@ -1,7 +1,4 @@
 #encoding=utf-8
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from account.model import User
 from basis.model import Category
 from models.model import Model
 from common import DBSession

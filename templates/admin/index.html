@@ -31,13 +31,13 @@ var pc_hash = '7YawBb'
 
     <div class="col-auto">
       <div class="log white cut_line">
-        您好！pycms [超级管理员]<span>|</span><a href="logout">[退出]</a><span>|</span> <a href="/" target="_blank" id=
+        您好！${_user.username} <span>|</span><a href="logout">[退出]</a><span>|</span> <a href="/" target="_blank" id=
         "site_homepage">站点首页</a>
       </div>
 
       <ul class="nav white" id="top_menu">
         % for menu in top_menus:
-        <li id="_M${menu.id}" class="on top_menu"><a href="javascript:_M(${menu.id},'')"
+        <li id="_M${menu.id}" class="top_menu"><a href="javascript:_M(${menu.id},'')"
             hidefocus="true" style="outline:none;">${menu.name}</a></li>
         % endfor
       </ul>
@@ -62,12 +62,12 @@ var pc_hash = '7YawBb'
 
     <div class="col-auto mr8">
       <div class="crumbs">
-        <div class="shortcut cu-span">
-            <a href="?m=content&amp;c=create_html&amp;a=public_index&amp;pc_hash=7YawBb" target="right"><span>生成首页</span></a>
-            <a href="?m=admin&amp;c=cache_all&amp;a=init&amp;pc_hash=7YawBb" target="right"><span>更新缓存</span></a>
-            <a href="javascript:art.dialog({id:'map',iframe:'?m=admin&amp;c=index&amp;a=public_map', title:'后台地图', width:'700', height:'500', lock:true});void(0);">
+        <!--div class="shortcut cu-span">
+            <a href="" target="right"><span>生成首页</span></a>
+            <a href="" target="right"><span>更新缓存</span></a>
+            <a href="">
           <span>后台地图</span></a>
-        </div>
+        </div-->
         当前位置：<span id="current_pos"></span>
       </div>
       <!-- -->

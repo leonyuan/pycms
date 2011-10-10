@@ -8,7 +8,7 @@ from common.config import template_dir
 
 
 dburl = '%s://%s:%s@%s/%s?charset=utf8' % (db_engine, db_user, db_password, db_host, db_name)
-engine = create_engine(dburl, echo=debug) #echo: if True print all sql statement, else False.
+engine = create_engine(dburl, pool_size=100, pool_recycle=7200, echo=debug) #echo: if True print all sql statement, else False.
 Base = declarative_base()
 DBSession = sessionmaker(bind=engine)
 

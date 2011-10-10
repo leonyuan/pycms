@@ -3,7 +3,15 @@
 <form method="post" action="" id="myform" name="myform">
 <input type="hidden" name="mid" value="${mid}">
 <div class="pad-10">
-<div class="col-tab">
+    <div class="col-tab">
+        <ul class="tabBut cu-li">
+            <li onclick="SwapTab('setting','on','',6,1);" class="on" id="tab_setting_1">短文本</li>
+            <li onclick="SwapTab('setting','on','',6,2);" id="tab_setting_2" class="">长文本</li>
+            <li onclick="SwapTab('setting','on','',6,3);" id="tab_setting_3" class="">选择框</li>
+            <li onclick="SwapTab('setting','on','',6,4);" id="tab_setting_4" class="">单选框</li>
+            <li onclick="SwapTab('setting','on','',6,5);" id="tab_setting_5" class="">日期</li>
+            <li onclick="SwapTab('setting','on','',6,6);" id="tab_setting_6" class="">时间</li>
+        </ul>
 <div class="contentList pad-10" id="div_setting_1" style="display: block;">
 
 <table width="100%" class="table_form ">

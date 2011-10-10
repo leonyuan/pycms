@@ -1,6 +1,4 @@
 #encoding=utf-8
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 from basis.model import Template
 from models.model import Model, Field, Relation
 from common import DBSession

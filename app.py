@@ -12,6 +12,8 @@ from admin.app import app_admin
 from common.util import context
 from basis import entity
 from models.dbutil import get_latest_entities
+from account.util import LazyUser
+
 
 web.config.debug = debug
 
@@ -50,11 +52,13 @@ def request_hook():
     if action.find('_'):
         action = action.split('_')[-1]
     req['_ac'] = action
+    web.ctx.__class__.user = LazyUser()
+    req['_user'] = web.ctx.user
     web.ctx.req = req
 
+app.add_processor(load_sqla)
 app.add_processor(web.loadhook(session_hook))
 app.add_processor(web.loadhook(request_hook))
-app.add_processor(load_sqla)
 
 
 class index:
