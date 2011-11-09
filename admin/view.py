@@ -1,7 +1,7 @@
 #encoding=utf-8
 import web
 from account.auth import is_logined, authenticate, login as auth_login, logout as auth_logout,\
-        ERRCODE_USER_NOTEXISTS, ERRCODE_OK, ERRCODE_PASSWORD_NOTCORRECT
+        ERRCODE_USER_NOTEXISTS, ERRCODE_OK, ERRCODE_PASSWORD_NOTCORRECT, ERRCODE_NOTACTIVE
 from admin.util import is_admin_logined, admin_authenticate, render, ERRCODE_NOTSUPERUSER, admin_login_required
 from admin.form import admin_login_form
 from admin.menu import get_menus, get_menu_namepath
@@ -41,6 +41,8 @@ class login:
         if errcode != ERRCODE_OK:
             if errcode == ERRCODE_USER_NOTEXISTS:
                 form.username.note = u'用户未注册'
+            elif errcode == ERRCODE_NOTACTIVE:
+                form.username.note = u'用户未激活'
             elif errcode == ERRCODE_PASSWORD_NOTCORRECT:
                 form.password.note = u'密码错误'
             elif errcode == ERRCODE_NOTSUPERUSER:

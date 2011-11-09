@@ -2,8 +2,9 @@
 import web
 from web import form
 from admin.util import render
-from admin.widget import MyTextbox, MyPassword, MyRadio, MyButton, MyDropdown, MyLongText
 from models.dbutil import get_model_by_name
+from common.widget import MyTextbox, MyPassword, MyRadio, MyButton, MyDropdown, MyLongText
+from common.form import *
 
 
 class TemplateForm(web.form.Form):
@@ -20,14 +21,17 @@ class TemplateForm(web.form.Form):
     def render(self):
         return self._render(d=self.d)
 
-vnotnull = form.Validator(u"请输入${description}", bool)
-vpass = form.regexp(r".{3,20}$", u'密码长度为3到20个字符')
-vemail = form.regexp(r".*@.*", u"要求有效的email地址")
-vsamepass = form.Validator(u"两次输入的密码必须相同", lambda i: i.password == i.password2)
 
 admin_login_form = web.form.Form(
     MyTextbox('username', vnotnull, required=True, size=20, description=u"用户名"),
     MyPassword('password', vnotnull, required=True, size=20, description=u"密码"),
+)
+
+user_form = web.form.Form(
+    MyTextbox('username', vnotnull, required=True, size=20, description=u"用户名"),
+    MyTextbox('email', vnotnull, required=True, size=20, description=u"电子邮件"),
+    MyRadio('is_active', ((1, u'是'), (0, u'否')), size=20, description=u"是否激活"),
+    MyRadio('is_superuser', ((1, u'是'), (0, u'否')), size=20, description=u"是否超级用户"),
 )
 
 model_form = web.form.Form(

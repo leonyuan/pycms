@@ -1,5 +1,7 @@
 #encoding=utf-8
 import web
+from common.form import *
+from common.widget import MyTextbox, MyPassword, MyRadio, MyButton, MyDropdown, MyLongText
 
 
 login_form = web.form.Form(
@@ -11,4 +13,5 @@ login_form = web.form.Form(
         description=u"密码:"),
     web.form.Button('login', html=u'登录'),
 )
+
 

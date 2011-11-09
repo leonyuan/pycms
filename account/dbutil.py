@@ -1,6 +1,7 @@
 #encoding=utf-8
 import web
 from account.model import *
+from common.dbutil import populate
 
 
 #-------------------------------
@@ -34,15 +35,30 @@ def get_nested_perms_by_pid(pid):
 #-------------------------------
 # user persistent method
 #-------------------------------
-def new_user(username, password, email):
-    user = User(username, email)
-    user.set_password(password)
-    web.ctx.orm.add(user)
+def get_users():
+    return web.ctx.orm.query(User).all()
 
 def get_user(username):
     return web.ctx.orm.query(User).filter_by(username=username).first()
 
-def get_user_by_id(id):
+def get_user_byid(id):
     return web.ctx.orm.query(User).get(id)
 
+def save_user(id, data):
+    if id == -1:
+        user = User()
+        user.set_password('pycms');
+    else:
+        user = get_user_byid(id)
+
+    populate(user, data, User)
+
+    if id == -1:
+        web.ctx.orm.add(user)
+    else:
+        web.ctx.orm.flush()
+
+def del_user(id):
+    user = get_user_byid(id)
+    web.ctx.orm.delete(user)
 

@@ -94,9 +94,9 @@ class User(Base):
     last_login = Column(TIMESTAMP, default=utcnow())
     joined_time = Column(TIMESTAMP, default=utcnow())
 
-    def __init__(self, username, email):
+    '''def __init__(self, username, email):
         self.username = username
-        self.email = email
+        self.email = email'''
 
     def set_password(self, raw_password):
         import random

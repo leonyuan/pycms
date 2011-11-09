@@ -1,3 +1,4 @@
+#encoding=utf-8
 import web
 from web.contrib.template import render_mako as _render_mako
 
@@ -93,4 +94,6 @@ class render_mako(_render_mako):
         t = self._lookup.get_template(filename)
         return t.render(**kwargs)
 
+def yesorno(b):
+    return b and u"是" or u"否"
 

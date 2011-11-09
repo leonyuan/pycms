@@ -41,7 +41,7 @@ class MyLongText(MyInput, form.Textarea):
         <script type="text/javascript" src="%s/js/ckeditor/ckeditor.js"></script><script type="text/javascript">
                       CKEDITOR.replace( '%s',{language:'zh-cn',height:200,pages:true,subtitle:true,textareaid:'content',module:'content',cid:'13',
         flashupload:true,alowuploadexts:'',allowbrowser:'1',allowuploadnum:'10',authkey:'1b8426a752d07b7232968152c952ccb8',
-        filebrowserUploadUrl : 'http://localhost/phpcms/index.php?m=attachment&c=attachments&a=upload&module=content&cid=13&dosubmit=1',
+        filebrowserUploadUrl : 'http://localhost/pycms/index.php?m=attachment&c=attachments&a=upload&module=content&cid=13&dosubmit=1',
         toolbar :
         [
         ['Source','-','Templates'],

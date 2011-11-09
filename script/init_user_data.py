@@ -6,12 +6,12 @@ from common import DBSession
 def init():
     session = DBSession()
 
-    admin = User('admin', 'admin@xxxx.com')
+    admin = User(username='admin', email='admin@xxxx.com')
     admin.set_password('asdfjk')
     admin.is_active=True
     admin.is_superuser=True
 
-    ahao = User('ahao', 'ahao@163.com')
+    ahao = User(username'ahao', email='ahao@163.com')
     ahao.set_password('asdfjk')
 
     session.add(admin)

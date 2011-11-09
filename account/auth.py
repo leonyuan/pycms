@@ -1,15 +1,18 @@
 import web
-from account.dbutil import get_user, get_user_by_id
+from account.dbutil import get_user, get_user_byid
 
 
 ERRCODE_OK = 0
 ERRCODE_USER_NOTEXISTS = 1
 ERRCODE_PASSWORD_NOTCORRECT = 2
+ERRCODE_NOTACTIVE = 3
 
 def authenticate(username, password):
     user = get_user(username)
     if user is None:
         return ERRCODE_USER_NOTEXISTS, None
+    if not user.is_active:
+        return ERRCODE_NOTACTIVE, user
     if user.check_password(password):
         return ERRCODE_OK, user
     else:
@@ -31,5 +34,5 @@ def is_logined():
 def get_logined_user():
     if is_logined():
         uid = web.ctx.session._userid
-        return get_user_by_id(uid)
+        return get_user_byid(uid)
 

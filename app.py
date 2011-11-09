@@ -7,12 +7,12 @@ A significant hook is defined,  The hook defines some http request scope object 
 import web
 from common import load_sqla, render
 from common.config import *
+from common.util import context, yesorno
 from account import profile
+from account.util import LazyUser
 from admin.app import app_admin
-from common.util import context
 from basis import entity
 from models.dbutil import get_latest_entities
-from account.util import LazyUser
 
 
 web.config.debug = debug
@@ -47,6 +47,7 @@ def request_hook():
     req['static_url'] = web.ctx.homedomain + web.ctx.homepath + '/static'
     req['_userid'] = web.ctx.session._userid
     req['_s'] = web.net.websafe
+    req['_yn'] = yesorno
     req['_uq'] = web.net.urlquote
     action = web.ctx.path.split('/')[-1]
     if action.find('_'):

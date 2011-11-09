@@ -3,7 +3,7 @@ import web
 from common import render
 from account.auth import is_logined, authenticate, login as auth_login, logout as auth_logout,\
         ERRCODE_USER_NOTEXISTS, ERRCODE_OK, ERRCODE_PASSWORD_NOTCORRECT
-from account.dbutil import new_user
+from account.dbutil import save_user
 from account.form import login_form
 
 
@@ -15,8 +15,9 @@ class signup:
 
     def POST(self):
         data = web.input()
-        new_user(data.username, data.password, data.email)
+        save_user(-1, data)
         raise web.seeother('/')
+
 
 class login:
     def GET(self):
