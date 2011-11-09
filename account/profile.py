@@ -2,7 +2,7 @@
 import web
 from common import render
 from account.auth import is_logined, authenticate, login as auth_login, logout as auth_logout,\
-        ERRCODE_USER_NOTEXISTS, ERRCODE_OK, ERRCODE_PASSWORD_NOTCORRECT
+        ERR_USER_NOTEXISTS, ERR_OK, ERR_PASSWORD_NOTCORRECT
 from account.dbutil import save_user
 from account.form import login_form
 
@@ -42,10 +42,10 @@ class login:
         data = web.input()
         errcode, user = authenticate(data.username, data.password)
         req = web.ctx.req
-        if errcode != ERRCODE_OK:
-            if errcode == ERRCODE_USER_NOTEXISTS:
+        if errcode != ERR_OK:
+            if errcode == ERR_USER_NOTEXISTS:
                 req.err(u'用户未注册')
-            elif errcode == ERRCODE_PASSWORD_NOTCORRECT:
+            elif errcode == ERR_PASSWORD_NOTCORRECT:
                 req.err(u'密码错误')
 
             if 'redirect_to' in data:

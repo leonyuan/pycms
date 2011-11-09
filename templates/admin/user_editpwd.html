@@ -1,0 +1,31 @@
+<%inherit file="user_base.html"/>
+
+<form method="post" action="" id="myform" name="myform">
+<div class="pad-10">
+<div class="col-tab">
+<div class="contentList pad-10" id="div_setting_1" style="display: block;">
+
+<table width="100%" class="table_form ">
+  <tbody>
+    % for input in form.inputs:
+    <tr>
+      <th>${'<font color="red">*</font>' if input.required else ''}${input.description}</th>
+      <td>
+          <span id="normal_add">
+              ${input.render()}
+          </span>
+      </td>
+    </tr>
+    % endfor
+  </tbody>
+</table>
+
+</div>
+
+ <div class="bk15"></div>
+	<input type="hidden" value="" name="catid">
+  <input type="submit" class="button" value="提交" name="dosubmit">
+</div>
+</div>
+<input type="hidden" name="pc_hash" value="6armko">
+</form>

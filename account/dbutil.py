@@ -53,6 +53,9 @@ def save_user(id, data):
 
     populate(user, data, User)
 
+    if hasattr(data, 'password') and data.password:
+        user.set_password(data.password)
+
     if id == -1:
         web.ctx.orm.add(user)
     else:

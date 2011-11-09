@@ -12,6 +12,7 @@ urls = (
         '/user/index', user.index,
         '/user/add', user.add,
         '/user/(\d+)/edit', user.edit,
+        '/user/(\d+)/editpwd', user.editpwd,
         '/user/(\d+)/delete', user.delete,
 
         '/model/index', model.index,

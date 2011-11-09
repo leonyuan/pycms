@@ -27,6 +27,11 @@ admin_login_form = web.form.Form(
     MyPassword('password', vnotnull, required=True, size=20, description=u"密码"),
 )
 
+editpwd_form = web.form.Form(
+    MyPassword('password', vnotnull, required=True, size=20, description=u"新密码"),
+    MyPassword('password2', vnotnull, required=True, size=20, description=u"确认密码"),
+)
+
 user_form = web.form.Form(
     MyTextbox('username', vnotnull, required=True, size=20, description=u"用户名"),
     MyTextbox('email', vnotnull, required=True, size=20, description=u"电子邮件"),

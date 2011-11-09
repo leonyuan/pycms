@@ -5,7 +5,7 @@ from account.auth import is_logined, authenticate, login as auth_login, logout a
 from common.config import template_dir
 
 
-ERRCODE_NOTSUPERUSER = 11
+ERR_NOTSUPERUSER = 11
 
 render = render_mako(
             directories=[template_dir+'admin/'],
@@ -24,7 +24,7 @@ def is_admin_logined():
 def admin_authenticate(username, password):
     errcode, user = authenticate(username, password)
     if user is not None and not user.is_superuser:
-        return ERRCODE_NOTSUPERUSER, user
+        return ERR_NOTSUPERUSER, user
     return errcode, user
 
 def admin_login_required(view_func):
