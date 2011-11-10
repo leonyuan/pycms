@@ -1,0 +1,51 @@
+<%inherit file="group_base.html"/>
+
+<link href="${static_url}/css/widgets.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="${static_url}/js/core.js"></script>
+<script language="javascript" type="text/javascript" src="${static_url}/js/SelectBox.js"></script>
+<script language="javascript" type="text/javascript" src="${static_url}/js/SelectFilter2.js"></script>
+<form method="post" action="" id="myform" name="myform" onsubmit="SelectBox.select_all('id_users_to')">
+<div class="pad-10">
+<div class="col-tab">
+<div class="contentList pad-10" id="div_setting_1" style="display: block;">
+
+<table width="100%" class="table_form ">
+  <tbody>
+    % for input in form.inputs:
+    <tr>
+      <th>${'<font color="red">*</font>' if input.required else ''}${input.description}</th>
+      <td>
+          <span id="normal_add">
+              ${input.render()}
+          </span>
+      </td>
+    </tr>
+    % endfor
+    <tr>
+      <th>用户</th>
+      <td>
+          <span id="normal_add">
+              <select id="id_users" name="users" class="filtered" multiple="multiple">
+                  % for user in users:
+                  <option value="${user.id}" ${"selected='selected'" if user in group_users else ""}>${user.username}</option>
+                  % endfor
+              </select>
+              <script type="text/javascript">
+                  addEvent(window, "load", function(e) {SelectFilter.init("id_users", "用户", 0, "${static_url}/images/"); });
+              </script>
+            </div>
+          </span>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+</div>
+
+ <div class="bk15"></div>
+  <input type="submit" class="button" value="提交" name="dosubmit">
+</div>
+</div>
+<input type="hidden" name="pc_hash" value="6armko">
+</form>

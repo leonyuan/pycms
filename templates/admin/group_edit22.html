@@ -1,0 +1,87 @@
+<%inherit file="group_base.html"/>
+
+<link href="${static_url}/css/widgets.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="${static_url}/js/core.js"></script>
+<script language="javascript" type="text/javascript" src="${static_url}/js/SelectBox.js"></script>
+<script language="javascript" type="text/javascript" src="${static_url}/js/SelectFilter2.js"></script>
+<form method="post" action="" id="myform" name="myform" onsubmit="SelectBox.select_all('id_users_to')">
+<div class="pad-10">
+<div class="col-tab">
+<div class="contentList pad-10" id="div_setting_1" style="display: block;">
+
+<table width="100%" class="table_form ">
+  <tbody>
+    % for input in form.inputs:
+    <tr>
+      <th>${'<font color="red">*</font>' if input.required else ''}${input.description}</th>
+      <td>
+          <span id="normal_add">
+              ${input.render()}
+          </span>
+      </td>
+    </tr>
+    % endfor
+    <tr>
+      <th>从属用户</th>
+      <td>
+          <span id="normal_add">
+            <div class="selector">
+              <div class="selector-available">
+                <h2>可用 用户</h2>
+
+                <p class="selector-filter">
+                <label for="id_users_input"style="width:16px;padding:2px;display:block;float:left;">
+                    <img src="${static_url}/images/admin_img/selector-search.gif" alt="过滤">
+                  </label><input type="text" name="srctxt" id="id_users_input">
+                </p>
+                <select id="id_users_from" name="users_old" class="filtered" multiple="multiple">
+                    % for user in users:
+                    <option value="${user.id}" ${"selected='selected'" if user in group_users else ""}>${user.username}</option>
+                    % endfor
+                </select><a href="javascript: (function(){ SelectBox.move_all('id_users_from', 'id_users_to'); })()"
+                 class="selector-chooseall">全选</a>
+              </div>
+
+              <ul class="selector-chooser">
+                <li><a href="javascript: (function(){ SelectBox.move('id_users_from','id_users_to');})()" class="selector-add">增加</a></li>
+                <li><a href="javascript: (function(){ SelectBox.move('id_users_to','id_users_from');})()" class="selector-remove">删除</a></li>
+              </ul>
+
+              <div class="selector-chosen">
+                <h2>选中的 用户</h2>
+
+                <p class="selector-filter">选择并点击 <img src="${static_url}/images/admin_img/selector-add.gif" alt="Add"></p>
+                <select id="id_users_to" multiple="multiple" size="0" name="users" class="filtered">
+                </select>
+                  <a href="javascript: (function() { SelectBox.move_all('id_users_to', 'id_users_from');})()"
+                 class="selector-clearall">清除全部</a>
+              </div>
+              <script type="text/javascript">
+                var filter_input = document.getElementById("id_users_input");
+                addEvent(filter_input, 'keyup', function(e) { SelectFilter.filter_key_up(e, "id_users"); });
+                addEvent(filter_input, 'keydown', function(e) { SelectFilter.filter_key_down(e, "id_users"); });
+
+                SelectBox.init("id_users_from");
+                SelectBox.init("id_users_to");
+                var from_box = document.getElementById("id_users_from");
+                var to_box = document.getElementById("id_users_to");
+                addEvent(from_box, 'dblclick', function() { SelectBox.move("id_users_from", "id_users_to"); });
+                addEvent(to_box, 'dblclick', function() { SelectBox.move("id_users_to", "id_users_from"); });
+                SelectBox.move('id_users_from','id_users_to');
+              </script>
+            </div>
+          </span>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+</div>
+
+ <div class="bk15"></div>
+  <input type="submit" class="button" value="提交" name="dosubmit">
+</div>
+</div>
+<input type="hidden" name="pc_hash" value="6armko">
+</form>

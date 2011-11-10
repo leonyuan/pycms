@@ -39,6 +39,10 @@ user_form = web.form.Form(
     MyRadio('is_superuser', ((1, u'是'), (0, u'否')), size=20, description=u"是否超级用户"),
 )
 
+group_form = web.form.Form(
+    MyTextbox('name', vnotnull, required=True, size=20, description=u"用户组名"),
+)
+
 model_form = web.form.Form(
     MyTextbox('title', vnotnull, required=True, size=20, description=u"模型名称"),
     MyTextbox('name', vnotnull, required=True, size=20, description=u"模型代码"),

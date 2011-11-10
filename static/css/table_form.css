@@ -38,8 +38,9 @@ select{ vertical-align:middle;background:none repeat scroll 0 0 #F9F9F9;border-c
 .search-form{ margin-bottom:10px}
 /*表格表单*/
 .table_form{font-size:12px}
+.table_form h2{font-size:12px;font-weight: bold;}
 .table_form td{padding-left:12px}
-.table_form th{font-weight:normal; text-align:right;padding-right:10px; color:#777}
+.table_form th{font-weight:normal; text-align:right;padding-right:10px; color:#777;vertical-align: top;}
 .table_form td label{ vertical-align:middle}
 .table_form td,.table_form th{padding:4px 0 4px 8px}
 .table_form tbody td,.table_form tbody th{border-bottom:1px solid #eee; }

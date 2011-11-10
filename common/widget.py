@@ -73,4 +73,6 @@ class MyDropdown(MyInput, form.Dropdown):
 class MyRadio(MyInput, form.Radio):
     pass
 
-
+class Selector(MyInput):
+    def render(self):
+        pass

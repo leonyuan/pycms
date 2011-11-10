@@ -1,33 +1,33 @@
-        <%block name="content">
-        ${next.body()}
-        </%block>
+            <div class="selector">
+              <div class="selector-available">
+                <h2>可用 用户</h2>
 
+                <p class="selector-filter">
+                <label for="id_groups_input"style="width:16px;padding:2px;display:block;float:left;">
+                    <img src="${static_url}/images/admin_img/selector-search.gif" alt="过滤">
+                  </label><input type="text" id="id_groups_input">
+                </p>
+                <select id="id_groups_from" name="groups_old" class="filtered" multiple="multiple">
+                    % for user in users:
+                    <option value="${user.id}">${user.username}</option>
+                    % endfor
+                </select><a href="javascript: (function(){ SelectBox.move_all('id_groups_from', 'id_groups_to'); })()"
+                 class="selector-chooseall">全选</a>
+              </div>
 
-        <%block name="nav-global"></%block>
+              <ul class="selector-chooser">
+                <li><a href="javascript: (function(){ SelectBox.move('id_groups_from','id_groups_to');})()" class="selector-add">增加</a></li>
+                <li><a href="javascript: (function(){ SelectBox.move('id_groups_to','id_groups_from');})()" class="selector-remove">删除</a></li>
+              </ul>
 
+              <div class="selector-chosen">
+                <h2>选中的 用户</h2>
 
-                % if _verr and _verr.has_key('username'):
-                <div id="catnameTip" class="onShow">${_verr['username']}</div>
-                % endif
-
-        '/relation/index', relation.index,
-        '/relation/add', relation.add,
-        '/relation/edit/(\d+)', relation.edit,
-        '/relation/delete/(\d+)', relation.delete,
-
-   <tr>
-        <th>${form.type.description}</th>
-        <td>
-          <span id="normal_add">
-            <select onchange="" id="type" name="type">
-                <option value="">=请选择类型=</option>
-                <option value="string" ${'selected="selected"' if str(form.d.type) == 'string' else ''}>字符串</option>
-                <option value="integer" ${'selected="selected"' if str(form.d.type) == 'integer' else ''}>整数</option>
-            </select>
-            % if form.type.note:
-            <div id="catnameTip" class="onShow">${form.type.note}</div>
-            % endif
-          </span>
-		</td>
-    </tr>
+                <p class="selector-filter">选择并点击 <img src="${static_url}/images/admin_img/selector-add.gif" alt="Add"></p>
+                <select id="id_groups_to" multiple="multiple" size="0" name="groups" class="filtered">
+                </select>
+                  <a href="javascript: (function() { SelectBox.move_all('id_groups_to', 'id_groups_from');})()"
+                 class="selector-clearall">清除全部</a>
+              </div>
+            </div>
 

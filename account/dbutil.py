@@ -65,3 +65,38 @@ def del_user(id):
     user = get_user_byid(id)
     web.ctx.orm.delete(user)
 
+
+#-------------------------------
+# group persistent method
+#-------------------------------
+def get_groups():
+    return web.ctx.orm.query(Group).all()
+
+def get_group(name):
+    return web.ctx.orm.query(Group).filter_by(name=name).first()
+
+def get_group_byid(id):
+    return web.ctx.orm.query(Group).get(id)
+
+def save_group(id, data):
+    if id == -1:
+        group = Group()
+    else:
+        group = get_group_byid(id)
+
+    populate(group, data, Group)
+
+    for i in range(len(group.users)-1,-1,-1):
+        del group.users[i]
+    for uid in data.uids:
+        group.users.append(get_user_byid(int(uid)))
+
+    if id == -1:
+        web.ctx.orm.add(group)
+    else:
+        web.ctx.orm.flush()
+
+def del_group(id):
+    group = get_group_byid(id)
+    web.ctx.orm.delete(group)
+

@@ -75,8 +75,8 @@ class Group(Base):
 
     users = relationship("User", secondary=group_user_asso_table, backref=backref('groups'))
 
-    def __init__(self, name):
-        self.name = name
+    #def __init__(self, name):
+    #    self.name = name
 
     def __repr__(self):
         return "<Group('%s')>" % (self.name)
