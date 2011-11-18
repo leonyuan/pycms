@@ -113,8 +113,10 @@ class delete:
         base_entity = get_base_entity(id)
         model = base_entity.model
         entity = getattr(base_entity, model.name)
-        web.ctx.orm.delete(entity)
-        web.ctx.orm.delete(base_entity)
+        if entity is not None:
+            web.ctx.orm.delete(entity)
+        if base_entity is not None:
+            web.ctx.orm.delete(base_entity)
         raise web.seeother('/entity/index')
 
 
