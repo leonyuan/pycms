@@ -84,5 +84,5 @@ class delete:
         del_field(id)
         data = web.input()
         mid = data.mid
-        raise web.seeother('/field/index?mid=%s' % mid)
+        raise web.seeother('/model/%s/edit' % mid)
 

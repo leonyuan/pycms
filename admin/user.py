@@ -1,7 +1,7 @@
 #encoding=utf-8
 import web
 from admin.util import render, admin_login_required
-from account.dbutil import get_users, save_user, get_user_byid, del_user
+from account.dbutil import get_groups, get_users, save_user, get_user_byid, del_user, change_password
 from admin.form import user_form, editpwd_form
 
 
@@ -19,9 +19,12 @@ class add:
     @admin_login_required
     def GET(self):
         form = user_form()
+        groups = get_groups()
         req = web.ctx.req
         req.update({
             'form': form,
+            'groups': groups,
+            'user_groups': [],
             })
         return render.user_edit(**req)
 
@@ -29,12 +32,18 @@ class add:
     def POST(self):
         form = user_form()
         if not form.validates():
+            groups = get_groups()
             req = web.ctx.req
             req.update({
                 'form': form,
+                'groups': groups,
+                'user_groups': [],
                 })
             return render.user_edit(**req)
-        save_user(-1, form.d)
+        data = web.input(groups=[])
+        form_data = form.d
+        form_data.gids = data.groups
+        save_user(-1, form_data)
         raise web.seeother('/user/index')
 
 class edit:
@@ -43,9 +52,14 @@ class edit:
         form = user_form()
         user = get_user_byid(id)
         form.fill(user)
+        groups = get_groups()
+        user_groups = user.groups
         req = web.ctx.req
         req.update({
+            'uid': user.id,
             'form': form,
+            'groups': groups,
+            'user_groups': user_groups,
             })
         return render.user_edit(**req)
 
@@ -53,12 +67,20 @@ class edit:
     def POST(self, id):
         form = user_form()
         if not form.validates():
+            groups = get_groups()
+            user_groups = user.groups
             req = web.ctx.req
             req.update({
+                'uid': user.id,
                 'form': form,
+                'groups': groups,
+                'user_groups': user_groups,
                 })
             return render.user_edit(**req)
-        save_user(int(id), form.d)
+        data = web.input(groups=[])
+        form_data = form.d
+        form_data.gids = data.groups
+        save_user(int(id), form_data)
         raise web.seeother('/user/index')
 
 class editpwd:
@@ -80,7 +102,7 @@ class editpwd:
                 'form': form,
                 })
             return render.user_editpwd(**req)
-        save_user(int(id), form.d)
+        change_password(int(id), form.d)
         raise web.seeother('/user/index')
 
 class delete:

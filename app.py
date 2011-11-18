@@ -12,7 +12,7 @@ from account import profile
 from account.util import LazyUser
 from admin.app import app_admin
 from basis import entity
-from models.dbutil import get_latest_entities
+from basis.dbutil import get_latest_entities
 
 
 web.config.debug = debug

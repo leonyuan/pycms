@@ -24,7 +24,9 @@ class MyInput(form.Input):
     def render(self):
         html = super(MyInput, self).render()
         if self.note:
-            html += '<div id="catnameTip" class="onShow">%s</div>' % (self.note,)
+
+            #html += '<span class="input-notification error png_bg">%s</span>' % (self.note,)
+            html += '<div class="input-notification error png_bg">%s</div>' % (self.note,)
         return html
 
 
@@ -32,16 +34,18 @@ class MyButton(MyInput, form.Button):
     pass
 
 class MyTextbox(MyInput, form.Textbox):
-    pass
+    def __init__(self, name, *validators, **attrs):
+        attrs['class_'] = 'text-input'
+        super(MyTextbox, self).__init__(name, *validators, **attrs)
 
 class MyLongText(MyInput, form.Textarea):
     def render(self):
         html = super(MyLongText, self).render()
         html +='''
         <script type="text/javascript" src="%s/js/ckeditor/ckeditor.js"></script><script type="text/javascript">
-                      CKEDITOR.replace( '%s',{language:'zh-cn',height:200,pages:true,subtitle:true,textareaid:'content',module:'content',cid:'13',
+                      CKEDITOR.replace( '%s',{language:'zh-cn',height:250,pages:true,subtitle:true,textareaid:'content',module:'content',cid:'13',
         flashupload:true,alowuploadexts:'',allowbrowser:'1',allowuploadnum:'10',authkey:'1b8426a752d07b7232968152c952ccb8',
-        filebrowserUploadUrl : 'http://localhost/pycms/index.php?m=attachment&c=attachments&a=upload&module=content&cid=13&dosubmit=1',
+        filebrowserUploadUrl : 'http://localhost/pycms',
         toolbar :
         [
         ['Source','-','Templates'],
@@ -71,6 +75,9 @@ class MyDropdown(MyInput, form.Dropdown):
     pass
 
 class MyRadio(MyInput, form.Radio):
+    pass
+
+class MyCheckbox(MyInput, form.Checkbox):
     pass
 
 class Selector(MyInput):

@@ -4,37 +4,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=7" />
 <title>PyCMS 后台管理中心</title>
-<link href="${static_url}/css/reset.css" rel="stylesheet" type="text/css" />
-<link href="${static_url}/css/admin.css" rel="stylesheet" type="text/css" />
-<link href="${static_url}/css/table_form.css" rel="stylesheet" type="text/css" />
-
-<script language="javascript" type="text/javascript" src="${static_url}/js/jquery.min.js"></script>
-<script language="javascript" type="text/javascript" src="${static_url}/js/admin_common.js"></script>
-<script language="javascript" type="text/javascript" src="${static_url}/js/styleswitch.js"></script>
-
-<style type="text/css">
-	html{_overflow-y:scroll}
-</style>
+<link rel="stylesheet" href="${static_url}/css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="${static_url}/css/style.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="${static_url}/css/invalid.css" type="text/css" media="screen" />	
+<script type="text/javascript" src="${static_url}/scripts/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="${static_url}/scripts/simpla.jquery.configuration.js"></script>
+<script type="text/javascript" src="${static_url}/scripts/facebox.js"></script>
+<script type="text/javascript" src="${static_url}/scripts/jquery.wysiwyg.js"></script>
+<script type="text/javascript" src="${static_url}/scripts/jquery.date.js"></script>
+<script type="text/javascript" src="${static_url}/scripts/admin_common.js"></script>
 </head>
 <body>
-<%block name="action_nav">
-<div class="subnav">
-    <div class="content-menu ib-a blue line-x">
-        <a href='/admin/${mname}/index?cid=${cid}' ${'class="on"' if _ac=='index' else ''}><em>${mtitle}管理</em></a><span>|</span><a href='/admin/${mname}/add?cid=${cid}' ${'class="on"' if _ac=='add' else ''}><em>添加${mtitle}</em></a>
+<div id="body-wrapper"> <!-- Wrapper for the radial gradient background -->
+    <div id="main-content"> <!-- Main Content Section with everything -->
+    ${next.body()}
     </div>
 </div>
-</%block>
 
-${self.body()}
 
-<script type="text/javascript">
-<!--
-if(window.top.$("#current_pos").data('clicknum')==1 || window.top.$("#current_pos").data('clicknum')==null) {
-    parent.document.getElementById('display_center_id').style.display='';
-    parent.document.getElementById('center_frame').src = './category_tree';
-    window.top.$("#current_pos").data('clicknum',0);
-}
-//-->
-</script>
 </body>
 </html>

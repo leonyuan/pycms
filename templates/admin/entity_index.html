@@ -1,39 +1,65 @@
-<%inherit file="entity_base.html"/>
+<%inherit file="na_base.html"/>
+<ul class="shortcut-buttons-set">
+    % for model in models:
+    <li><a class="shortcut-button" href="/admin/${model.name}/add"><span>添加${model.title}</span></a></li>
+    % endfor
+</ul>
 
+<div class="clear"></div>
+
+<div class="content-box">
 <form name="myform" action="?m=admin&c=category&a=listorder" method="post">
-<div class="pad_10">
-<div class="bk10"></div>
-
-<div class="table-list">
     <table width="100%" cellspacing="0" >
         <thead>
             <tr>
             <th width="30">id</th>
             <th>标题</th>
-            <th>点击量</th>
-            <th>更新时间</th>
-          	<th align='center'>管理操作</th>
+            <th>内容类型</th>
+            <th>状态</th>
+            <th>创建用户</th>
+            <th>创建时间</th>
+          	<th>管理操作</th>
             </tr>
         </thead>
+        <tfoot>
+            <tr>
+                <td colspan="7">
+                    <div class="bulk-actions align-left">
+                        <select name="dropdown">
+                            <option value="option1">选择一个操作...</option>
+                            <option value="option3">删除</option>
+                        </select>
+                        <a class="button" href="#">执行</a>
+                    </div>
+                    
+                    <div class="pagination">
+                        <a href="#" title="First Page">&laquo;首页</a><a href="#" title="Previous Page">&laquo;上一页</a>
+                        <a href="#" class="number" title="1">1</a>
+                        <a href="#" class="number" title="2">2</a>
+                        <a href="#" class="number current" title="3">3</a>
+                        <a href="#" class="number" title="4">4</a>
+                        <a href="#" title="Next Page">下一页&raquo;</a><a href="#" title="Last Page">末页&raquo;</a>
+                    </div> <!-- End .pagination -->
+                    <div class="clear"></div>
+                </td>
+            </tr>
+        </tfoot>
         <tbody>
             % for entity in entities:
             <tr>
                 <td>${entity.id}</td>
                 <td>${entity.title}</td>
-                <td></td>
-                <td align='center'></td>
-                <td align='center' >
-                    <a href="${entity.id}/edit?cid=${cid}">修改</a> |
-                    <a href="javascript:confirmurl('${entity.id}/delete?cid=${cid}','确认要删除${entity.title}吗？')">删除</a>
+                <td>${entity.model.title}</td>
+                <td>${entity.status}</td>
+                <td>${entity.user.username}</td>
+                <td>${entity.created_time}</td>
+                <td>
+                    <a href="${entity.id}/edit" title="修改"><img src="${static_url}/images/icons/pencil.png" alt="修改" /></a>
+                    <a href="javascript:confirmurl('${entity.id}/delete?1=1','确认要删除${entity.title}吗？')" title="删除"><img src="${static_url}/images/icons/cross.png" alt="删除" /></a> 
                 </td>
 		    </tr>
             % endfor
 		</tbody>
     </table>
-
-    <div class="btn">
-	<input type="hidden" name="pc_hash" value="6armko" />
-	</div>  </div>
-</div>
-</div>
 </form>
+</div>

@@ -1,31 +1,58 @@
 <%inherit file="user_base.html"/>
 
-<form method="post" action="" id="myform" name="myform">
-<div class="pad-10">
-<div class="col-tab">
-<div class="contentList pad-10" id="div_setting_1" style="display: block;">
+<link href="${static_url}/css/admin/widgets.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="${static_url}/js/core.js"></script>
+<script language="javascript" type="text/javascript" src="${static_url}/js/SelectBox.js"></script>
+<script language="javascript" type="text/javascript" src="${static_url}/js/SelectFilter2.js"></script>
+<form method="post" action="" id="myform" name="myform" onsubmit="SelectBox.select_all('id_groups_to')">
+<div class="content-box">
 
-<table width="100%" class="table_form ">
-  <tbody>
+<table>
+  <thead>
+      <tr><th colspan="2">用户信息</th></tr>
+  </thead>
+  <tfoot>
+      <tr>
+          <td colspan="2">
+            <input type="submit" class="button" value="提交" name="dosubmit">
+          </td>
+      </tr>
+  </tfoot>
+ <tbody>
     % for input in form.inputs:
     <tr>
       <th>${'<font color="red">*</font>' if input.required else ''}${input.description}</th>
       <td>
-          <span id="normal_add">
               ${input.render()}
-          </span>
       </td>
     </tr>
     % endfor
+    % if _ac!='add':
+    <tr>
+      <th>密码</th>
+      <td>
+          <span id="normal_add">
+              <a href="editpwd">修改密码</a> 
+          </span>
+      </td>
+    </tr>
+    % endif
+    <tr>
+      <th>组</th>
+      <td>
+          <span id="normal_add">
+              <select id="id_groups" name="groups" class="filtered" multiple="multiple">
+                  % for group in groups:
+                  <option value="${group.id}" ${"selected='selected'" if group in user_groups else ""}>${group.name}</option>
+                  % endfor
+              </select>
+              <script type="text/javascript">
+                  addEvent(window, "load", function(e) {SelectFilter.init("id_groups", "组", 0, "${static_url}/images/"); });
+              </script>
+          </span>
+      </td>
+    </tr>
   </tbody>
 </table>
-
 </div>
-
- <div class="bk15"></div>
-	<input type="hidden" value="" name="catid">
-  <input type="submit" class="button" value="提交" name="dosubmit">
-</div>
-</div>
-<input type="hidden" name="pc_hash" value="6armko">
 </form>

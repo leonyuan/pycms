@@ -84,5 +84,5 @@ class delete:
         del_relation(id)
         data = web.input()
         mid = data.mid
-        raise web.seeother('/relation/index?mid=%s' % mid)
+        raise web.seeother('/model/%s/edit' % mid)
 

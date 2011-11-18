@@ -23,8 +23,6 @@
          <td>${model.name}</td>
          <td>${model.template.name}</td>
          <td align='center' >
-           <a href="../field/index?mid=${model.id}">属性管理</a>|
-           <a href="../relation/index?mid=${model.id}">关联管理</a> |
            <a href="${model.id}/edit">修改</a> | <a href="javascript:confirmurl('${model.id}/delete?1=1','确认要删除${model.name}吗？')">删除</a>|
            % if model.is_active:
            <a href="${model.id}/drop_table">删除数据表</a></td>

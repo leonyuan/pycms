@@ -40,13 +40,13 @@ class login:
         errcode, user = admin_authenticate(data.username, data.password)
         if errcode != ERR_OK:
             if errcode == ERR_USER_NOTEXISTS:
-                form.username.note = u'用户未注册'
+                form.note = u'用户未注册'
             elif errcode == ERR_NOTACTIVE:
-                form.username.note = u'用户未激活'
+                form.note = u'用户未激活'
             elif errcode == ERR_PASSWORD_NOTCORRECT:
-                form.password.note = u'密码错误'
+                form.note = u'密码错误'
             elif errcode == ERR_NOTSUPERUSER:
-                form.username.note = u'不是管理员用户'
+                form.note = u'不是管理员用户'
 
             req.update({
                 'form': form,
@@ -78,4 +78,13 @@ class curpos:
         data = web.input()
         path = get_menu_namepath(data.menuid)
         return ' > '.join(path)
+
+class dashboard:
+    @admin_login_required
+    def GET(self):
+        req = web.ctx.req
+        req.update({
+            'top_menus': [],
+            })
+        return render.dashboard(**req)
 

@@ -21,14 +21,12 @@ class add:
     @admin_login_required
     def GET(self):
         form = category_form()
-        models = get_models()
         categories = category_tree()
         parent_id = web.input(parent_id=None).parent_id
         form.parent_id.set_value(parent_id)
         req = web.ctx.req
         req.update({
             'form': form,
-            'models': models,
             'categories': categories,
             })
         return render.category_edit(**req)
@@ -37,12 +35,10 @@ class add:
     def POST(self):
         form = category_form()
         if not form.validates():
-            models = get_models()
             categories = category_tree()
             req = web.ctx.req
             req.update({
                 'form': form,
-                'models': models,
                 'categories': categories,
                 })
             return render.category_edit(**req)
@@ -54,13 +50,11 @@ class edit:
     def GET(self, id):
         form = category_form()
         category = get_category(id)
-        models = get_models()
         categories = category_tree()
         form.fill(category)
         req = web.ctx.req
         req.update({
             'form': form,
-            'models': models,
             'categories': categories,
             })
         return render.category_edit(**req)
@@ -69,12 +63,10 @@ class edit:
     def POST(self, id):
         form = category_form()
         if not form.validates():
-            models = get_models()
             categories = category_tree()
             req = web.ctx.req
             req.update({
                 'form': form,
-                'models': models,
                 'categories': categories,
                 })
             return render.category_edit(**req)

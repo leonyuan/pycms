@@ -8,12 +8,11 @@
     <table width="100%" cellspacing="0" >
         <thead>
             <tr>
-            <th width="30">catid</th>
+            <th width="30">cid</th>
             <th>栏目名称</th>
             <th>英文缩写</th>
-            <th>默认模型</th>
-            <th align='center' width="40">数据量</th>
-          	<th align='center'>管理操作</th>
+            <th>数据量</th>
+          	<th>管理操作</th>
             </tr>
         </thead>
         <tbody>
@@ -22,7 +21,6 @@
                 <td>${cate.id}</td>
                 <td>${cate.prefix+cate.name}</td>
                 <td>${cate.slug}</td>
-                <td>${cate.model.title if cate.model else ''}</td>
                 <td align='center'></td>
                 <td align='center' ><a href="add?parent_id=${cate.id}">添加子栏目</a> | <a href="${cate.id}/edit">修改</a> | <a href="javascript:confirmurl('${cate.id}/delete?1=1','确认要删除${cate.name}吗？')">删除</a> | <a href="?">批量移动</a></td>
 		    </tr>

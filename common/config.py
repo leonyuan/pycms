@@ -19,6 +19,9 @@ template_dir = join(curdir, '../templates/')
 # session settings
 session_tablename = 'session'
 
+# default new user's password
+default_password = 'pycms'
+
 try:
     from local_config import *
 except ImportError:

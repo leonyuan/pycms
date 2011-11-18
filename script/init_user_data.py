@@ -11,7 +11,7 @@ def init():
     admin.is_active=True
     admin.is_superuser=True
 
-    ahao = User(username'ahao', email='ahao@163.com')
+    ahao = User(username='ahao', email='ahao@163.com')
     ahao.set_password('asdfjk')
 
     session.add(admin)

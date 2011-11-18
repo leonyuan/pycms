@@ -1,6 +1,7 @@
 #encoding=utf-8
 import web
 from account.model import *
+from common.config import default_password
 from common.dbutil import populate
 
 
@@ -47,7 +48,7 @@ def get_user_byid(id):
 def save_user(id, data):
     if id == -1:
         user = User()
-        user.set_password('pycms');
+        user.set_password(default_password);
     else:
         user = get_user_byid(id)
 
@@ -55,6 +56,11 @@ def save_user(id, data):
 
     if hasattr(data, 'password') and data.password:
         user.set_password(data.password)
+
+    for i in range(len(user.groups)-1,-1,-1):
+        del user.groups[i]
+    for gid in data.gids:
+        user.groups.append(get_group_byid(int(gid)))
 
     if id == -1:
         web.ctx.orm.add(user)
@@ -65,6 +71,10 @@ def del_user(id):
     user = get_user_byid(id)
     web.ctx.orm.delete(user)
 
+def change_password(id, data):
+    user = get_user_byid(id)
+    user.set_password(data.password)
+    web.ctx.orm.flush()
 
 #-------------------------------
 # group persistent method

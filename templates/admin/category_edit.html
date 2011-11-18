@@ -10,20 +10,6 @@
 
 <table width="100%" class="table_form ">
  <tbody>
- 		<tr>
-            <th width="200">${form.model_id.description}</th>
-        <td>
-            <select onchange="change_tpl(this.value)" id="model_id" name="model_id">
-                <option value="">=请选择模型=</option>
-                % for t in models:
-                <option value="${t.id}" ${'selected="selected"' if str(form.d.model_id) == str(t.id) else ''}>${t.title}</option>
-                % endfor
-            </select>
-            % if form.model_id.note:
-            <div id="modelidTip" class="onShow">${form.model_id.note}</div>
-            % endif
-        </td>
-      </tr>
       <tr>
         <th width="200">${form.parent_id.description}</th>
         <td>

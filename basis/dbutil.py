@@ -112,3 +112,43 @@ def get_category_ancestors(category):
     ancestors.append((category.id, category.name))
     return ancestors
 
+def get_entitys_category_ancestors(entity):
+    return get_category_ancestors(entity.categories[0])
+
+#-------------------------------
+# entity persistent method
+#-------------------------------
+def get_entities():
+    return web.ctx.orm.query(Entity).all()
+
+def get_entities2(mname=None, cid=None, limit=None):
+    if cid is None:
+        return web.ctx.orm.query(Entity).filter(Entity.model.has(name=mname)).order_by(Entity.id.desc()).all()
+    else:
+        if limit is None:
+            return web.ctx.orm.query(Entity).filter(Entity.model.has(name=mname)).filter(Entity.categories.any(id=cid)).order_by(Entity.id.desc()).all()
+        else:
+            return web.ctx.orm.query(Entity).filter(Entity.model.has(name=mname)).filter(Entity.categories.any(id=cid)).order_by(Entity.id.desc()).limit(limit)
+
+def get_entity(id):
+    return web.ctx.orm.query(Entity).get(id)
+
+def save_entity(id, data):
+    if id == -1:
+        entity = Entity()
+    else:
+        entity = get_entity(id)
+
+    populate(entity, data, Entity)
+
+    if id == -1:
+        web.ctx.orm.add(entity)
+    else:
+        web.ctx.orm.flush()
+
+def del_entity(id):
+    entity = get_entity(id)
+    web.ctx.orm.delete(entity)
+
+def get_latest_entities(mname, cid, count):
+    return get_entities2(mname, cid, count);

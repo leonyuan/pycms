@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn" xml:lang="zh-cn">
+  <head>
+    <meta name="generator" content="HTML Tidy, see www.w3.org" />
+    <title>登录 | Pycms管理员</title>
+    <link href="${static_url}/css/admin2.css" rel="stylesheet" type="text/css" />
+    <link href="${static_url}/css/admin_login.css" rel="stylesheet" type="text/css" />
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  </head>
+
+  <body class="login">
+    <!-- Container -->
+
+    <div id="container">
+      <!-- Header -->
+
+      <div id="header">
+        <div id="branding">
+          <h1 id="site-name">PyCMS 管理</h1>
+        </div>
+      </div>
+      <!-- END Header -->
+      <!-- Content -->
+
+      <div id="content" class="colM">
+        % if form.note:
+        <p class="errornote">${form.note}</p>
+        % endif
+        <div id="content-main">
+            <form action="" method="post" id="login-form">
+            <div class="form-row">
+              <span>
+                  <label for="id_username">${form.username.description}：</label> <input type="text" name="username" id="id_username" value="${_s(form.d.username)}"/>
+                % if form.username.note:
+                <div id="catnameTip" class="onShow">${form.username.note}</div>
+                % endif
+              </span>
+            </div>
+
+            <div class="form-row">
+              <span>
+                <label for="id_password">${form.password.description}：</label> <input type="password" name="password" id="id_password" value="${_s(form.d.password)}" />
+                % if form.password.note:
+                <div id="catnameTip" class="onShow">${form.password.note}</div>
+                % endif
+              </span>
+            </div>
+
+            <div class="submit-row">
+              <label>&nbsp;</label> <input type="submit" value="登录" />
+            </div>
+          </form>
+<script type="text/javascript">
+document.getElementById('id_username').focus()
+</script>
+        </div>
+        <br class="clear" />
+      </div>
+      <!-- END Content -->
+
+      <div id="footer">
+      </div>
+    </div>
+    <!-- END Container -->
+  </body>
+</html>
+

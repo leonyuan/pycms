@@ -6,10 +6,12 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
 from common import Base, engine
 from account.model import User
-from basis.model import Category
+from basis.model import Category, Entity
 
 
-DEFAULT_ATTR = {'id':Column(Integer, primary_key=True)}
+DEFAULT_ATTR = {
+        'id': Column(Integer, primary_key=True),
+}
 
 FIELD_TYPE = {
     'string': String,
@@ -59,6 +61,10 @@ def build_model(model, refresh=False):
             fld_attr = {field.name: Column(fld_type)}
             attrs.update(fld_attr)
 
+        #the default entity relation
+        attrs['entity_id'] = Column(Integer, ForeignKey('entity.id'))
+        attrs['entity'] = relationship('Entity', backref=backref(model.name.lower(), uselist=False))
+
         for rel in model.relations:
             if rel.type == 'many-to-one':
                 parent_model_name = rel.target.lower()
@@ -90,6 +96,7 @@ def remove_model_from_cache(sid):
     if sid in _models_cache:
         cls = _models_cache[sid]['cls']
         cache_model = _models_cache[sid]['model']
+        del cls.__mapper__.get_property('entity').mapper._props[cache_model.name.lower()]
         for rel in cache_model.relations:
             if rel.backref is not None:
                 if cls.__mapper__.has_property(rel.name) and rel.backref in cls.__mapper__.get_property(rel.name).mapper._props:

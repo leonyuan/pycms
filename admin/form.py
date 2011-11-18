@@ -1,9 +1,10 @@
 #encoding=utf-8
+from copy import deepcopy
 import web
 from web import form
 from admin.util import render
 from models.dbutil import get_model_by_name
-from common.widget import MyTextbox, MyPassword, MyRadio, MyButton, MyDropdown, MyLongText
+from common.widget import *
 from common.form import *
 
 
@@ -35,12 +36,13 @@ editpwd_form = web.form.Form(
 user_form = web.form.Form(
     MyTextbox('username', vnotnull, required=True, size=20, description=u"用户名"),
     MyTextbox('email', vnotnull, required=True, size=20, description=u"电子邮件"),
-    MyRadio('is_active', ((1, u'是'), (0, u'否')), size=20, description=u"是否激活"),
-    MyRadio('is_superuser', ((1, u'是'), (0, u'否')), size=20, description=u"是否超级用户"),
+    MyCheckbox('is_active', value='1', description=u"是否激活"),
+    #MyRadio('is_superuser', ((1, u'是'), (0, u'否')), size=20, description=u"是否超级用户"),
+    MyCheckbox('is_superuser', value='1', description=u"是否超级用户"),
 )
 
 group_form = web.form.Form(
-    MyTextbox('name', vnotnull, required=True, size=20, description=u"用户组名"),
+    MyTextbox('name', vnotnull, required=True, size=20, description=u"组名"),
 )
 
 model_form = web.form.Form(
@@ -88,7 +90,11 @@ category_form = web.form.Form(
     MyTextbox('parent_id', size=20, description=u"上级栏目"),
     MyTextbox('name', vnotnull, required=True, size=20, description=u"栏目名称"),
     MyTextbox('slug', vnotnull, required=True, size=20, description=u"英文缩写"),
-    MyTextbox('model_id', vnotnull, required=True, size=20, description=u"默认模型"),
+)
+
+base_entity_form = web.form.Form(
+    MyTextbox('title', vnotnull, required=True, size=40, description=u"标题"),
+    MyTextbox('slug', size=20, description=u"英文缩写"),
 )
 
 WIDGET_TYPE = {
@@ -103,6 +109,10 @@ WIDGET_TYPE = {
 
 _entity_forms_cache = {}
 
+DEFAULT_FORMITEM = [
+        MyTextbox('title', vnotnull, required=True, description=u'标题'),
+]
+
 def _entity_form(mname, refresh=False):
     if mname in _entity_forms_cache and not refresh:
         return _entity_forms_cache[mname]
@@ -110,8 +120,8 @@ def _entity_form(mname, refresh=False):
         remove_form_from_cache(mname)
         model = get_model_by_name(mname)
         form_items = []
+        #form_items.extend(deepcopy(DEFAULT_FORMITEM));
         for fld in model.fields:
-            web.debug('====fld.type:%s' % fld.type)
             if fld.required:
                 form_items.append(WIDGET_TYPE[fld.type](fld.name, vnotnull, required=True, description=fld.title))
             else:

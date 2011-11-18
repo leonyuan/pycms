@@ -2,9 +2,10 @@
 import web
 from sqlalchemy import func
 from models.model import *
-from common.dbutil import populate
 from models.util import build_model
-from basis.dbutil import get_category, get_category_ancestors
+from common.dbutil import populate
+from basis.model import Entity
+from basis.dbutil import get_category, get_category_ancestors, get_entity as get_base_entity
 
 #-------------------------------
 # some utility
@@ -117,23 +118,29 @@ def get_entity(model, id):
     model_cls = build_model(model)
     return web.ctx.orm.query(model_cls).get(id)
 
-def new_entity(model, data):
-    save_entity(model, -1, data)
+def new_entity(model, base_data, data):
+    save_entity(model, -1, base_data, data)
 
-def save_entity(model, id, data):
+def save_entity(model, id, base_data, data):
     model_cls = build_model(model)
     if id == -1:
+        base_entity = Entity()
         entity = model_cls()
     else:
-        entity = get_entity(model, id)
+        base_entity = get_base_entity(id)
+        entity = getattr(base_entity, model.name)
 
+    populate(base_entity, base_data, Entity)
     populate(entity, data, model_cls)
 
-    cid = data.cid
+    cid = 1  #data.cid
     category = get_category(cid)
-    entity.categories.append(category)
+    base_entity.categories.append(category)
 
     if id == -1:
+        base_entity.model = model
+        entity.entity = base_entity
+        web.ctx.orm.add(base_entity)
         web.ctx.orm.add(entity)
     else:
         web.ctx.orm.flush()
@@ -145,8 +152,11 @@ def del_entity(model, id):
 def get_entitys_category_ancestors(entity):
     return get_category_ancestors(entity.categories[0])
 
+#def get_latest_entities(mname, cid, count):
+#    model = get_model_by_name(mname)
+#    return get_entities(model, cid, count)
+
 def get_latest_entities(mname, cid, count):
     model = get_model_by_name(mname)
     return get_entities(model, cid, count)
-
 

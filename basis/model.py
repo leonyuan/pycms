@@ -25,20 +25,39 @@ class Template(Base):
     def __repr__(self):
         return "<Template('%s')>" % (self.name)
 
+category_entity_asso_table = Table('category_entity_asso', Base.metadata,
+    Column('category_id', Integer, ForeignKey('category.id'), primary_key=True),
+    Column('entity_id', Integer, ForeignKey('entity.id'), primary_key=True)
+)
 
 class Category(Base):
     __tablename__ = 'category'
     id = Column(Integer, primary_key=True)
     name = Column(String(64), nullable=False)
     slug = Column(String(32), nullable=False)
-    model_id = Column(Integer, ForeignKey('model.id'))
     parent_id = Column(Integer, ForeignKey('category.id'))
 
     children = relationship("Category", order_by=id, cascade='delete', backref=backref('parent', remote_side=[id]))
-    model = relationship(Model, backref=backref('categories'))
+    entities = relationship("Entity", secondary=category_entity_asso_table, backref=backref('categories'))
 
     def __repr__(self):
         return "<Category('%s')>" % (self.name)
+
+class Entity(Base):
+    __tablename__ = 'entity'
+    id = Column(Integer, primary_key=True)
+    title = Column(String(128), nullable=False)
+    slug = Column(String(32))
+    status = Column(String(8))
+    created_time = Column(TIMESTAMP, default=utcnow())
+    user_id = Column(Integer, ForeignKey('user.id'))
+    model_id = Column(Integer, ForeignKey('model.id'))
+
+    user = relationship(User, backref=backref('entities'))
+    model = relationship(Model, backref=backref('entities'))
+
+    def __repr__(self):
+        return "<Entity('%s')>" % (self.title)
 
 
 template_table = Template.__table__

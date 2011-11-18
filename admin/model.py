@@ -1,7 +1,8 @@
 #encoding=utf-8
 import web
 from admin.util import render, admin_login_required
-from models.dbutil import get_models, save_model, get_model, del_model, activate_model, inactivate_model
+from models.dbutil import get_models, save_model, get_model, del_model, activate_model,\
+    inactivate_model, get_fields, get_relations
 from models.util import build_model, create_schema, drop_schema
 from admin.form import model_form
 from basis.dbutil import get_templates
@@ -26,6 +27,8 @@ class add:
         req.update({
             'form': form,
             'templates': templates,
+            'fields': [],
+            'relations': [],
             })
         return render.model_edit(**req)
 
@@ -38,6 +41,8 @@ class add:
             req.update({
                 'form': form,
                 'templates': templates,
+                'fields': [],
+                'relations': [],
                 })
             return render.model_edit(**req)
         save_model(-1, form.d)
@@ -49,11 +54,15 @@ class edit:
         templates = get_templates()
         form = model_form()
         model = get_model(id)
+        fields = get_fields(id)
+        relations = get_relations(id)
         form.fill(model)
         req = web.ctx.req
         req.update({
             'form': form,
             'templates': templates,
+            'fields': fields,
+            'relations': relations,
             })
         return render.model_edit(**req)
 

@@ -1,4 +1,4 @@
-from blog.model import Category, Article
+from basis.model import Category, Entity
 from account.model import User, Permission
 
 from sqlalchemy import create_engine

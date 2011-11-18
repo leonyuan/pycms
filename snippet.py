@@ -1,4 +1,7 @@
-            <div class="selector">
+
+      %#<td><input type="hidden" name="cid" value="${cid}">${catname}</td>%
+
+<div class="selector">
               <div class="selector-available">
                 <h2>可用 用户</h2>
 

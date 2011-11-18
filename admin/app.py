@@ -8,6 +8,7 @@ urls = (
         '/logout', view.logout,
         '/submenu', view.submenu,
         '/curpos', view.curpos,
+        '/dashboard', view.dashboard,
 
         '/user/index', user.index,
         '/user/add', user.add,
@@ -49,10 +50,10 @@ urls = (
         '/category_tree', category.tree,
 
         '/entity/admin', entity.admin,
-        '/(.+)/index', entity.index,
+        '/entity/index', entity.index,
         '/(.+)/add', entity.add,
-        '/(.+)/(\d+)/edit', entity.edit,
-        '/(.+)/(\d+)/delete', entity.delete,
+        '/entity/(\d+)/edit', entity.edit,
+        '/entity/(\d+)/delete', entity.delete,
 )
 
 
