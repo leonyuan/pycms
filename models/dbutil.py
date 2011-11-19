@@ -17,6 +17,9 @@ from basis.dbutil import get_category, get_category_ancestors, get_entity as get
 def get_models():
     return web.ctx.orm.query(Model).all()
 
+def get_active_models():
+    return web.ctx.orm.query(Model).filter_by(is_active=True).all()
+
 def get_model_by_name(name):
     return web.ctx.orm.query(Model).filter_by(name=name).first()
 

@@ -13,6 +13,7 @@ from account.util import LazyUser
 from admin.app import app_admin
 from basis import entity
 from basis.dbutil import get_latest_entities
+from models.util import init_model_class
 
 
 web.config.debug = debug
@@ -62,6 +63,7 @@ app.add_processor(web.loadhook(session_hook))
 app.add_processor(web.loadhook(request_hook))
 
 
+
 class index:
     def GET(self):
         req = web.ctx.req
@@ -72,5 +74,8 @@ class reindex:
     def GET(self): raise web.seeother('/')
 
 if __name__ == '__main__':
+    # some system initiate activities
+    init_model_class()
+
     app.run()
 

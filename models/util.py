@@ -7,6 +7,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from common import Base, engine
 from account.model import User
 from basis.model import Category, Entity
+from sqlalchemy.orm import scoped_session
+from common import DBSession
+from models.model import Model
 
 
 DEFAULT_ATTR = {
@@ -122,4 +125,11 @@ def drop_schema(model):
     for asso_table in cls.asso_tables:
         asso_table.drop(engine, checkfirst=True)
     cls.__table__.drop(engine, checkfirst=True)
+
+def init_model_class():
+    #from models.dbutil import get_active_models
+    sess = scoped_session(DBSession)
+    models = sess.query(Model).filter_by(is_active=True).all()
+    for model in models:
+        build_model(model)
 
