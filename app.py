@@ -62,7 +62,8 @@ app.add_processor(load_sqla)
 app.add_processor(web.loadhook(session_hook))
 app.add_processor(web.loadhook(request_hook))
 
-
+# some system initiate activities
+init_model_class()
 
 class index:
     def GET(self):
@@ -74,8 +75,5 @@ class reindex:
     def GET(self): raise web.seeother('/')
 
 if __name__ == '__main__':
-    # some system initiate activities
-    init_model_class()
-
     app.run()
 
