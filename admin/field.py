@@ -46,7 +46,7 @@ class add:
         form_data = form.d
         form_data.model_id = mid
         save_field(-1, form_data)
-        raise web.seeother('/field/index?mid=%s' % mid)
+        raise web.seeother('/model/%s/edit' % mid)
 
 class edit:
     @admin_login_required
@@ -76,7 +76,7 @@ class edit:
                 })
             return render.field_edit(**req)
         save_field(int(id), form.d)
-        raise web.seeother('/field/index?mid=%s' % mid)
+        raise web.seeother('/model/%s/edit' % mid)
 
 class delete:
     @admin_login_required

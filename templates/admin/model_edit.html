@@ -72,19 +72,30 @@
                 <th>管理操作</th>
                 </tr>
             </thead>
-        <tbody>
-        % for field in fields:
-          <tr>
-             <td>${field.id}</td>
-             <td>${field.title}</td>
-             <td>${field.name}</td>
-             <td>${field.type}</td>
-             <td>${field.length}</td>
-             <td>${_yn(field.required)}</td>
-             <td align='center' > <a href="../../field/${field.id}/edit?mid=${field.model_id}">修改</a> | <a href="javascript:confirmurl('../../field/${field.id}/delete?mid=${field.model_id}','确认要删除${field.name}吗？')">删除</a></td>
-          </tr>
-        % endfor
-        </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7">
+                        <div class="bulk-actions align-left">
+                            <a class="button" href="../../field/add?mid=${mid}">添加属性</a>
+                        </div>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+            </tfoot>
+
+            <tbody>
+            % for field in fields:
+              <tr>
+                 <td>${field.id}</td>
+                 <td>${field.title}</td>
+                 <td>${field.name}</td>
+                 <td>${field.type}</td>
+                 <td>${field.length}</td>
+                 <td>${_yn(field.required)}</td>
+                 <td align='center' > <a href="../../field/${field.id}/edit?mid=${field.model_id}">修改</a> | <a href="javascript:confirmurl('../../field/${field.id}/delete?mid=${field.model_id}','确认要删除${field.name}吗？')">删除</a></td>
+              </tr>
+            % endfor
+            </tbody>
         </table>
 		</td>
     </tr>
@@ -103,19 +114,30 @@
                 <th>管理操作</th>
                 </tr>
             </thead>
-        <tbody>
-        % for relation in relations:
-          <tr>
-             <td>${relation.id}</td>
-             <td>${relation.title}</td>
-             <td>${relation.name}</td>
-             <td>${relation.type}</td>
-             <td>${relation.target}</td>
-             <td>${relation.backref}</td>
-             <td align='center' > <a href="../../relation/${relation.id}/edit?mid=${relation.model_id}">修改</a> | <a href="javascript:confirmurl('../../relation/${relation.id}/delete?mid=${relation.model_id}','确认要删除${relation.name}吗？')">删除</a></td>
-          </tr>
-        % endfor
-        </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7">
+                        <div class="bulk-actions align-left">
+                            <a class="button" href="../../relation/add?mid=${mid}">添加关联</a>
+                        </div>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+            </tfoot>
+
+            <tbody>
+            % for relation in relations:
+              <tr>
+                 <td>${relation.id}</td>
+                 <td>${relation.title}</td>
+                 <td>${relation.name}</td>
+                 <td>${relation.type}</td>
+                 <td>${relation.target}</td>
+                 <td>${relation.backref}</td>
+                 <td align='center' > <a href="../../relation/${relation.id}/edit?mid=${relation.model_id}">修改</a> | <a href="javascript:confirmurl('../../relation/${relation.id}/delete?mid=${relation.model_id}','确认要删除${relation.name}吗？')">删除</a></td>
+              </tr>
+            % endfor
+            </tbody>
         </table>
 		</td>
     </tr>

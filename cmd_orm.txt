@@ -1,5 +1,7 @@
 from basis.model import Category, Entity
 from account.model import User, Permission
+from models.model import Model
+from models.util import init_model_class
 
 from sqlalchemy import create_engine
 

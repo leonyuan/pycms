@@ -14,6 +14,7 @@
           <span id="normal_add">
             <select onchange="" id="type" name="type">
                 <option value="">=请选择类型=</option>
+                <option value="one-to-one" ${'selected="selected"' if str(form.d.type) == 'one-to-one' else ''}>一对一</option>
                 <option value="many-to-one" ${'selected="selected"' if str(form.d.type) == 'many-to-one' else ''}>多对一</option>
                 <option value="many-to-many" ${'selected="selected"' if str(form.d.type) == 'many-to-many' else ''}>多对多</option>
             </select>
@@ -49,8 +50,11 @@
             <span id="normal_add">
             <select onchange="" id="target" name="target">
                 <option value="">=请选择目的模型=</option>
-                <option value="Category" ${'selected="selected"' if str(form.d.target) == 'Category' else ''}>栏目</option>
-                <option value="User" ${'selected="selected"' if str(form.d.target) == 'User' else ''}>用户</option>
+            % for model in models:
+                % if model.id != int(mid):
+                <option value="${model.name}" ${'selected="selected"' if str(form.d.target) == '${model.name}' else ''}>${model.title}</option>
+                % endif
+            % endfor
             </select>
             % if form.target.note:
             <div id="catnameTip" class="onShow">${form.target.note}</div>

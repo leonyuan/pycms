@@ -1,7 +1,7 @@
 #encoding=utf-8
 import web
 from admin.util import render, admin_login_required
-from models.dbutil import get_relations, save_relation, get_relation, del_relation
+from models.dbutil import get_active_models, get_relations, save_relation, get_relation, del_relation
 from admin.form import relation_form
 
 
@@ -24,8 +24,10 @@ class add:
         form = relation_form()
         data = web.input()
         mid = data.mid
+        models = get_active_models()
         req = web.ctx.req
         req.update({
+            'models': models,
             'form': form,
             'mid': mid,
             })
@@ -37,8 +39,10 @@ class add:
         data = web.input()
         mid = data.mid
         if not form.validates():
+            models = get_active_models()
             req = web.ctx.req
             req.update({
+                'models': models,
                 'form': form,
                 'mid': mid,
                 })
@@ -46,7 +50,7 @@ class add:
         form_data = form.d
         form_data.model_id = mid
         save_relation(-1, form_data)
-        raise web.seeother('/relation/index?mid=%s' % mid)
+        raise web.seeother('/model/%s/edit' % mid)
 
 class edit:
     @admin_login_required
@@ -55,9 +59,11 @@ class edit:
         relation = get_relation(id)
         form.fill(relation)
         data = web.input()
+        models = get_active_models()
         mid = data.mid
         req = web.ctx.req
         req.update({
+            'models': models,
             'form': form,
             'mid': mid,
             })
@@ -69,14 +75,16 @@ class edit:
         data = web.input()
         mid = data.mid
         if not form.validates():
+            models = get_active_models()
             req = web.ctx.req
             req.update({
                 'form': form,
+                'models': models,
                 'mid': mid,
                 })
             return render.relation_edit(**req)
         save_relation(int(id), form.d)
-        raise web.seeother('/relation/index?mid=%s' % mid)
+        raise web.seeother('/model/%s/edit' % mid)
 
 class delete:
     @admin_login_required

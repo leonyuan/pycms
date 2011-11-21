@@ -59,6 +59,7 @@ class edit:
         form.fill(model)
         req = web.ctx.req
         req.update({
+            'mid': id,
             'form': form,
             'templates': templates,
             'fields': fields,
@@ -71,10 +72,15 @@ class edit:
         form = model_form()
         if not form.validates():
             templates = get_templates()
+            fields = get_fields(id)
+            relations = get_relations(id)
             req = web.ctx.req
             req.update({
+                'mid': id,
                 'form': form,
                 'templates': templates,
+                'fields': fields,
+                'relations': relations,
                 })
             return render.model_edit(**req)
         save_model(int(id), form.d)

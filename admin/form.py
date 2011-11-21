@@ -121,6 +121,8 @@ def _entity_form(mname, refresh=False):
                 form_items.append(WIDGET_TYPE[fld.type](fld.name, vnotnull, required=True, description=fld.title))
             else:
                 form_items.append(WIDGET_TYPE[fld.type](fld.name, description=fld.title))
+        for rel in model.relations:
+            form_items.append(WIDGET_TYPE['integer']('%s_id' % rel.target, description=rel.title))
 
         form = web.form.Form(*form_items)
         _entity_forms_cache[mname] = form

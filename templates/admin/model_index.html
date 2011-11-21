@@ -14,6 +14,7 @@
             <th>模型名称</th>
             <th>模型代码</th>
             <th>模板名称</th>
+            <th>是否激活</th>
        		<th>管理操作</th>
             </tr>
         </thead>
@@ -38,6 +39,7 @@
              <td>${model.title}</td>
              <td>${model.name}</td>
              <td>${model.template.name}</td>
+             <td>${_yn(model.is_active)}</td>
              <td align='center' >
                <a href="${model.id}/edit">修改</a> | <a href="javascript:confirmurl('${model.id}/delete?1=1','确认要删除${model.name}吗？')">删除</a>|
                % if model.is_active:
