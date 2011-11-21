@@ -1,10 +1,13 @@
-<%inherit file="category_base.html"/>
+<%inherit file="na_base.html"/>
 
+<ul class="shortcut-buttons-set">
+    <li><a class="shortcut-button" href="../category/add"><span>添加一级栏目</span></a></li>
+</ul>
+
+<div class="clear"></div>
+
+<div class="content-box">
 <form name="myform" action="?m=admin&c=category&a=listorder" method="post">
-<div class="pad_10">
-<div class="bk10"></div>
-
-<div class="table-list">
     <table width="100%" cellspacing="0" >
         <thead>
             <tr>
@@ -15,6 +18,20 @@
           	<th>管理操作</th>
             </tr>
         </thead>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <div class="bulk-actions align-left">
+                        <select name="dropdown">
+                            <option value="option1">选择一个操作...</option>
+                            <option value="option3">删除</option>
+                        </select>
+                        <a class="button" href="#">执行</a>
+                    </div>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+        </tfoot>
         <tbody>
             % for cate in categories:
             <tr>
@@ -28,9 +45,5 @@
 		</tbody>
     </table>
 
-    <div class="btn">
-	<input type="hidden" name="pc_hash" value="6armko" />
-	</div>  </div>
-</div>
-</div>
 </form>
+</div>

@@ -1,15 +1,24 @@
-<%inherit file="group_base.html"/>
+<%inherit file="na_base.html"/>
 
-<link href="${static_url}/css/widgets.css" rel="stylesheet" type="text/css" />
+<link href="${static_url}/css/admin/widgets.css" rel="stylesheet" type="text/css" />
 <script language="javascript" type="text/javascript" src="${static_url}/js/core.js"></script>
 <script language="javascript" type="text/javascript" src="${static_url}/js/SelectBox.js"></script>
 <script language="javascript" type="text/javascript" src="${static_url}/js/SelectFilter2.js"></script>
-<form method="post" action="" id="myform" name="myform" onsubmit="SelectBox.select_all('id_users_to')">
-<div class="pad-10">
-<div class="col-tab">
-<div class="contentList pad-10" id="div_setting_1" style="display: block;">
 
-<table width="100%" class="table_form ">
+<div class="content-box">
+<form method="post" action="" id="myform" name="myform" onsubmit="SelectBox.select_all('id_users_to')">
+  <table width="100%" class="table_form ">
+  <thead>
+      <tr><th colspan="2">编辑组信息</th></tr>
+  </thead>
+  <tfoot>
+      <tr>
+          <td colspan="2">
+            <input type="submit" class="button" value="提交" name="dosubmit">
+          </td>
+      </tr>
+  </tfoot>
+
   <tbody>
     % for input in form.inputs:
     <tr>
@@ -33,19 +42,11 @@
               <script type="text/javascript">
                   addEvent(window, "load", function(e) {SelectFilter.init("id_users", "用户", 0, "${static_url}/images/"); });
               </script>
-            </div>
           </span>
       </td>
     </tr>
 
   </tbody>
 </table>
-
-</div>
-
- <div class="bk15"></div>
-  <input type="submit" class="button" value="提交" name="dosubmit">
-</div>
-</div>
-<input type="hidden" name="pc_hash" value="6armko">
 </form>
+</div>

@@ -1,17 +1,27 @@
 <%inherit file="na_base.html"/>
 
+<div class="content-box">
 <script language="javascript" type="text/javascript" src="${static_url}/js/content_addtop.js"></script>
 <script language="javascript" type="text/javascript" src="${static_url}/js/colorpicker.js"></script>
 <script language="javascript" type="text/javascript" src="${static_url}/js/hotkeys.js"></script>
 <script language="javascript" type="text/javascript" src="${static_url}/js/cookie.js"></script>
 
 <form name="myform" id="myform" action="" method="post" enctype="multipart/form-data">
-<div class="addContent">
+<table width="100%" cellspacing="0" class="table_form">
+  <thead>
+      <tr><th colspan="2">编辑${mtitle}信息</th></tr>
+  </thead>
+  <tfoot>
+      <tr>
+          <td colspan="2">
+            <div style="margin:0 20px;text-align:center">
+              <input type="submit" style="width:50px;" class="button" name="dosubmit" value="保存">
+              <input type="submit" style="width:130px;" class="button" name="dosubmit_continue" value="保存并继续发表">
+            </div>
+          </td>
+      </tr>
+  </tfoot>
 
-  <div class="col-auto">
-  <div class="col-1">
-  <div class="content pad-6">
-  <table width="100%" cellspacing="0" class="table_form">
     <tbody>
 	<tr>
       <th width="80"> <font color="red">*</font>栏目</th>
@@ -36,22 +46,5 @@
     % endfor
   </tbody>
   </table>
-
-  </div>
-  </div>
-  </div>
-        
-</div>
-
-<div class="bk15"></div>
-<div style="margin:0 20px;text-align:center">
-  <input type="submit" style="width:50px;" class="button" name="dosubmit" value="保存">
-  <input type="submit" style="width:130px;" class="button" name="dosubmit_continue" value="保存并继续发表">
-</div>
-
-</div>
-
 </form>
-
-<script type="text/javascript"> 
-</script>
+</div>

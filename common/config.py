@@ -22,6 +22,9 @@ session_tablename = 'session'
 # default new user's password
 default_password = 'pycms'
 
+#publish html directory
+publish_dir = join(curdir, '../static/html/')
+
 try:
     from local_config import *
 except ImportError:

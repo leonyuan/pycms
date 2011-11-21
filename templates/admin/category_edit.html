@@ -1,14 +1,19 @@
-<%inherit file="category_base.html"/>
+<%inherit file="na_base.html"/>
 
-<form method="post" action="?m=admin&amp;c=category&amp;a=add" id="myform" name="myform">
-<div class="pad-10">
-<div class="col-tab">
-<ul class="tabBut cu-li">
-<li onclick="SwapTab('setting','on','',6,1);" class="on" id="tab_setting_1">基本选项</li>
-</ul>
-<div class="contentList pad-10" id="div_setting_1" style="display: block;">
-
+<div class="content-box">
+<form method="post" action="" id="myform" name="myform">
 <table width="100%" class="table_form ">
+  <thead>
+      <tr><th colspan="2">编辑栏目信息</th></tr>
+  </thead>
+  <tfoot>
+      <tr>
+          <td colspan="2">
+            <input type="submit" class="button" value="提交" name="dosubmit">
+          </td>
+      </tr>
+  </tfoot>
+
  <tbody>
       <tr>
         <th width="200">${form.parent_id.description}</th>
@@ -50,14 +55,8 @@
 		<textarea style="width:300px;height:60px;" maxlength="255" name="info[description]"></textarea>
 		</td>
       </tr>
-</tbody></table>
+    </tbody>
+</table>
 
-</div>
-
- <div class="bk15"></div>
-	<input type="hidden" value="" name="catid">
-  <input type="submit" class="button" value="提交" name="dosubmit">
-</div>
-</div>
-<input type="hidden" name="pc_hash" value="6armko">
 </form>
+</div>

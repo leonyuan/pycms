@@ -1,7 +1,7 @@
 <%inherit file="na_base.html"/>
 <ul class="shortcut-buttons-set">
     % for model in models:
-    <li><a class="shortcut-button" href="/admin/${model.name}/add"><span>添加${model.title}</span></a></li>
+    <li><a class="shortcut-button" href="../${model.name}/add"><span>添加${model.title}</span></a></li>
     % endfor
 </ul>
 

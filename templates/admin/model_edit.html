@@ -1,11 +1,19 @@
-<%inherit file="model_base.html"/>
+<%inherit file="na_base.html"/>
 
+<div class="content-box">
 <form method="post" action="" id="myform" name="myform">
-<div class="pad-10">
-<div class="col-tab">
-<div class="contentList pad-10" id="div_setting_1" style="display: block;">
-
 <table width="100%" class="table_form ">
+  <thead>
+      <tr><th colspan="2">编辑模型信息</th></tr>
+  </thead>
+  <tfoot>
+      <tr>
+          <td colspan="2">
+            <input type="submit" class="button" value="提交" name="dosubmit">
+          </td>
+      </tr>
+  </tfoot>
+
  <tbody>
     <tr>
         <th>${form.title.description}</th>
@@ -47,78 +55,75 @@
         <td>
 		<textarea style="width:300px;height:60px;" maxlength="255" name="description"></textarea>
 		</td>
-      </tr>
-</tbody>
-</table>
+    </tr>
 
 % if _ac!='add':
-<div class="bk10"></div>
-<div class="table-list">
-    <table width="100%" cellspacing="0" >
-        <thead>
-            <tr>
-            <th width="30">tid</th>
-            <th>属性名称</th>
-            <th>属性代码</th>
-            <th>属性类型</th>
-            <th>属性长度</th>
-            <th>是否必需</th>
-       		<th>管理操作</th>
-            </tr>
-        </thead>
-    <tbody>
-    % for field in fields:
-      <tr>
-         <td>${field.id}</td>
-         <td>${field.title}</td>
-         <td>${field.name}</td>
-         <td>${field.type}</td>
-         <td>${field.length}</td>
-         <td>${_yn(field.required)}</td>
-         <td align='center' > <a href="../../field/${field.id}/edit?mid=${field.model_id}">修改</a> | <a href="javascript:confirmurl('../../field/${field.id}/delete?mid=${field.model_id}','确认要删除${field.name}吗？')">删除</a></td>
-      </tr>
-    % endfor
-	</tbody>
-    </table>
-</div>
+	<tr>
+        <td colspan="2">
+        <table>
+            <thead>
+                <tr>
+                <th width="30">tid</th>
+                <th>属性名称</th>
+                <th>属性代码</th>
+                <th>属性类型</th>
+                <th>属性长度</th>
+                <th>是否必需</th>
+                <th>管理操作</th>
+                </tr>
+            </thead>
+        <tbody>
+        % for field in fields:
+          <tr>
+             <td>${field.id}</td>
+             <td>${field.title}</td>
+             <td>${field.name}</td>
+             <td>${field.type}</td>
+             <td>${field.length}</td>
+             <td>${_yn(field.required)}</td>
+             <td align='center' > <a href="../../field/${field.id}/edit?mid=${field.model_id}">修改</a> | <a href="javascript:confirmurl('../../field/${field.id}/delete?mid=${field.model_id}','确认要删除${field.name}吗？')">删除</a></td>
+          </tr>
+        % endfor
+        </tbody>
+        </table>
+		</td>
+    </tr>
 
-<div class="bk10"></div>
-<div class="table-list">
-    <table width="100%" cellspacing="0" >
-        <thead>
-            <tr>
-            <th width="30">tid</th>
-            <th>关联名称</th>
-            <th>关联代码</th>
-            <th>关联类型</th>
-            <th>目的模型</th>
-            <th>反向引用</th>
-       		<th>管理操作</th>
-            </tr>
-        </thead>
-    <tbody>
-    % for relation in relations:
-      <tr>
-         <td>${relation.id}</td>
-         <td>${relation.title}</td>
-         <td>${relation.name}</td>
-         <td>${relation.type}</td>
-         <td>${relation.target}</td>
-         <td>${relation.backref}</td>
-         <td align='center' > <a href="../../relation/${relation.id}/edit?mid=${relation.model_id}">修改</a> | <a href="javascript:confirmurl('../../relation/${relation.id}/delete?mid=${relation.model_id}','确认要删除${relation.name}吗？')">删除</a></td>
-      </tr>
-    % endfor
-	</tbody>
-    </table>
-</div>
+	<tr>
+        <td colspan="2">
+        <table width="100%" cellspacing="0" >
+            <thead>
+                <tr>
+                <th width="30">tid</th>
+                <th>关联名称</th>
+                <th>关联代码</th>
+                <th>关联类型</th>
+                <th>目的模型</th>
+                <th>反向引用</th>
+                <th>管理操作</th>
+                </tr>
+            </thead>
+        <tbody>
+        % for relation in relations:
+          <tr>
+             <td>${relation.id}</td>
+             <td>${relation.title}</td>
+             <td>${relation.name}</td>
+             <td>${relation.type}</td>
+             <td>${relation.target}</td>
+             <td>${relation.backref}</td>
+             <td align='center' > <a href="../../relation/${relation.id}/edit?mid=${relation.model_id}">修改</a> | <a href="javascript:confirmurl('../../relation/${relation.id}/delete?mid=${relation.model_id}','确认要删除${relation.name}吗？')">删除</a></td>
+          </tr>
+        % endfor
+        </tbody>
+        </table>
+		</td>
+    </tr>
 % endif
 
-</div>
 
- <div class="bk15"></div>
-	<input type="hidden" value="" name="catid">
-  <input type="submit" class="button" value="提交" name="dosubmit">
-</div>
-</div>
-<input type="hidden" name="pc_hash" value="6armko">
+  </tbody>
+</table>
+
 </form>
+</div>

@@ -1,10 +1,12 @@
-<%inherit file="group_base.html"/>
+<%inherit file="na_base.html"/>
+<ul class="shortcut-buttons-set">
+    <li><a class="shortcut-button" href="../group/add"><span>添加组</span></a></li>
+</ul>
 
+<div class="clear"></div>
+
+<div class="content-box">
 <form name="myform" action="" method="post">
-<div class="pad_10">
-<div class="bk10"></div>
-
-<div class="table-list">
     <table width="100%" cellspacing="0" >
         <thead>
             <tr>
@@ -14,21 +16,30 @@
        		<th>管理操作</th>
             </tr>
         </thead>
-    <tbody>
-    % for group in groups:
-      <tr>
-         <td>${group.id}</td>
-         <td>${group.name}</td>
-         <td>${len(group.users)}</td>
-         <td align='center' > <a href="${group.id}/edit">修改</a> | <a href="javascript:confirmurl('${group.id}/delete?1=1','确认要删除${group.name}吗？')">删除</a></td>
-      </tr>
-    % endfor
-				</tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">
+                    <div class="bulk-actions align-left">
+                        <select name="dropdown">
+                            <option value="option1">选择一个操作...</option>
+                            <option value="option3">删除</option>
+                        </select>
+                        <a class="button" href="#">执行</a>
+                    </div>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+        </tfoot>
+        <tbody>
+        % for group in groups:
+          <tr>
+             <td>${group.id}</td>
+             <td>${group.name}</td>
+             <td>${len(group.users)}</td>
+             <td align='center' > <a href="${group.id}/edit">修改</a> | <a href="javascript:confirmurl('${group.id}/delete?1=1','确认要删除${group.name}吗？')">删除</a></td>
+          </tr>
+        % endfor
+		</tbody>
     </table>
-
-    <div class="btn">
-	<input type="hidden" name="pc_hash" value="6armko" />
-	</div>  </div>
-</div>
-</div>
 </form>
+</div>

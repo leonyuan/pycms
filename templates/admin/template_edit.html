@@ -1,11 +1,19 @@
-<%inherit file="template_base.html"/>
+<%inherit file="na_base.html"/>
 
+<div class="content-box">
 <form method="post" action="?m=admin&amp;c=category&amp;a=add" id="myform" name="myform">
-<div class="pad-10">
-<div class="col-tab">
-<div class="contentList pad-10" id="div_setting_1" style="display: block;">
-
 <table width="100%" class="table_form ">
+  <thead>
+      <tr><th colspan="2">编辑模板信息</th></tr>
+  </thead>
+  <tfoot>
+      <tr>
+          <td colspan="2">
+            <input type="submit" class="button" value="提交" name="dosubmit">
+          </td>
+      </tr>
+  </tfoot>
+
   <tbody>
     % for input in form.inputs:
     <tr>
@@ -19,13 +27,5 @@
     % endfor
   </tbody>
 </table>
-
-</div>
-
- <div class="bk15"></div>
-	<input type="hidden" value="" name="catid">
-  <input type="submit" class="button" value="提交" name="dosubmit">
-</div>
-</div>
-<input type="hidden" name="pc_hash" value="6armko">
 </form>
+</div>

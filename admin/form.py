@@ -109,10 +109,6 @@ WIDGET_TYPE = {
 
 _entity_forms_cache = {}
 
-DEFAULT_FORMITEM = [
-        MyTextbox('title', vnotnull, required=True, description=u'标题'),
-]
-
 def _entity_form(mname, refresh=False):
     if mname in _entity_forms_cache and not refresh:
         return _entity_forms_cache[mname]
@@ -120,7 +116,6 @@ def _entity_form(mname, refresh=False):
         remove_form_from_cache(mname)
         model = get_model_by_name(mname)
         form_items = []
-        #form_items.extend(deepcopy(DEFAULT_FORMITEM));
         for fld in model.fields:
             if fld.required:
                 form_items.append(WIDGET_TYPE[fld.type](fld.name, vnotnull, required=True, description=fld.title))
@@ -136,6 +131,7 @@ def entity_form(mname, refresh=False):
     return form()
 
 def remove_form_from_cache(mname):
-    pass
+    if mname in _entity_forms_cache:
+        del _entity_forms_cache[mname]
 
 

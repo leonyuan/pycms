@@ -19,6 +19,8 @@ def init():
     p113.parent=p1
     p114=Permission(u'模板管理', 'template_index')
     p114.parent=p1
+    p115=Permission(u'发布管理', 'publish_index')
+    p115.parent=p1
 
     #p21=Permission(u'用户管理', 'user_admin')
     #p21.parent=p2
@@ -33,6 +35,8 @@ def init():
     session.add(p111)
     session.add(p112)
     session.add(p113)
+    session.add(p114)
+    session.add(p115)
     #session.add(p21)
     session.add(p211)
     session.add(p212)

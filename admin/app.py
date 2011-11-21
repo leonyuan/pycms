@@ -1,5 +1,5 @@
 import web
-from admin import view, user, group, model, field, relation, template, category, entity
+from admin import view, user, group, model, field, relation, template, category, entity, publish
 
 urls = (
         '', 'reindex',
@@ -54,6 +54,10 @@ urls = (
         '/(.+)/add', entity.add,
         '/entity/(\d+)/edit', entity.edit,
         '/entity/(\d+)/delete', entity.delete,
+
+        '/publish/index', publish.index,
+        '/publish/homepage', publish.homepage,
+        '/publish/entities', publish.entities,
 )
 
 

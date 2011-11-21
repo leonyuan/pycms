@@ -5,22 +5,22 @@ A significant hook is defined,  The hook defines some http request scope object 
 '''
 
 import web
-from common import load_sqla, render
+from common import load_sqla
 from common.config import *
 from common.util import context, yesorno
+from common import view
 from account import profile
 from account.util import LazyUser
 from admin.app import app_admin
 from basis import entity
-from basis.dbutil import get_latest_entities
 from models.util import init_model_class
 
 
 web.config.debug = debug
 
 urls = (
-    '', 'reindex',
-    '/', 'index',
+    '', view.reindex,
+    '/', view.index,
     '/signup', profile.signup,
     '/login', profile.login,
     '/logout', profile.logout,
@@ -36,6 +36,7 @@ store = web.session.DBStore(db, session_tablename)
 
 if web.config.get('_session') is None:
     session = web.session.Session(app, store, initializer={'_userid': -1})
+    web.debug("====session's id:%s" % id(session))
     web.config._session = session
 else:
     session = web.config._session
@@ -64,15 +65,6 @@ app.add_processor(web.loadhook(request_hook))
 
 # some system initiate activities
 init_model_class()
-
-class index:
-    def GET(self):
-        req = web.ctx.req
-        req['get_latest_entities'] = get_latest_entities
-        return render.index(**req)
-
-class reindex:
-    def GET(self): raise web.seeother('/')
 
 if __name__ == '__main__':
     app.run()
