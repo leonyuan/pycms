@@ -1,4 +1,5 @@
 from os.path import abspath, dirname, join
+import web
 
 
 curdir = abspath(dirname(__file__))
@@ -24,6 +25,9 @@ default_password = 'pycms'
 
 #publish html directory
 publish_dir = join(curdir, '../static/html/')
+
+#static url
+static_url = lambda: web.ctx.homedomain + '/static'
 
 try:
     from local_config import *

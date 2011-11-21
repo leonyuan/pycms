@@ -36,7 +36,6 @@ store = web.session.DBStore(db, session_tablename)
 
 if web.config.get('_session') is None:
     session = web.session.Session(app, store, initializer={'_userid': -1})
-    web.debug("====session's id:%s" % id(session))
     web.config._session = session
 else:
     session = web.config._session
@@ -46,7 +45,7 @@ def session_hook():
 
 def request_hook():
     req = context()
-    req['static_url'] = web.ctx.homedomain + web.ctx.homepath + '/static'
+    req['static_url'] = callable(static_url) and static_url() or static_url
     req['_userid'] = web.ctx.session._userid
     req['_s'] = web.net.websafe
     req['_yn'] = yesorno
