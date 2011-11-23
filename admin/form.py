@@ -93,6 +93,7 @@ category_form = web.form.Form(
 )
 
 base_entity_form = web.form.Form(
+    MyTextbox('cids', vnotnull, required=True, size=40, description=u"栏目"),
     MyTextbox('title', vnotnull, required=True, size=40, description=u"标题"),
     MyTextbox('slug', size=20, description=u"英文缩写"),
 )

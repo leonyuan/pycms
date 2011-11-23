@@ -32,7 +32,7 @@
         <td>
             <span id="normal_add"><input type="text" value="${_s(form.d.name)}" class="input-text" id="name" name="name">
             % if form.name.note:
-            <div id="catnameTip" class="onShow">${form.name.note}</div>
+            <div id="catnameTip" class="input-notification error png_bg">${form.name.note}</div>
             % endif
             </span>
 		</td>
@@ -41,7 +41,7 @@
         <th>${form.slug.description}</th>
         <td><input type="text" value="${_s(form.d.slug)}" class="input-text" id="slug" name="slug">
             % if form.slug.note:
-            <div id="catdirTip" class="onShow">${form.slug.note}</div>
+            <div id="catdirTip" class="input-notification error png_bg">${form.slug.note}</div>
             % endif
         </td>
       </tr>

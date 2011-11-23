@@ -24,7 +24,6 @@ class MyInput(form.Input):
     def render(self):
         html = super(MyInput, self).render()
         if self.note:
-
             #html += '<span class="input-notification error png_bg">%s</span>' % (self.note,)
             html += '<div class="input-notification error png_bg">%s</div>' % (self.note,)
         return html

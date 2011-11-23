@@ -136,9 +136,11 @@ def save_entity(model, id, base_data, data):
     populate(base_entity, base_data, Entity)
     populate(entity, data, model_cls)
 
-    cid = 1  #data.cid
-    category = get_category(cid)
-    base_entity.categories.append(category)
+    for i in range(len(base_entity.categories)-1,-1,-1):
+        del base_entity.categories[i]
+    for cid in base_data.cids:
+        if cid:
+            base_entity.categories.append(get_category(int(cid)))
 
     if id == -1:
         base_entity.model = model

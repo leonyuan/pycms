@@ -5,6 +5,22 @@
 <script language="javascript" type="text/javascript" src="${static_url}/js/colorpicker.js"></script>
 <script language="javascript" type="text/javascript" src="${static_url}/js/hotkeys.js"></script>
 <script language="javascript" type="text/javascript" src="${static_url}/js/cookie.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#add_cate_btn").click(function(){
+            template = $("#cidblk_0");
+            newcidblk = template.clone();
+            newcidblk.append("<a href=\"javascript:void(0)\" title=\"删除栏目\"><img src=\"${static_url}/images/admin_img/icon_deletelink.gif\"></a>&nbsp;&nbsp;&nbsp;");
+            rmbtn = newcidblk.find("a")
+            rmbtn.click(function(obj){
+                return function() {
+                    obj.remove();
+                }
+            }(newcidblk));
+            newcidblk.insertBefore($(this));
+        });
+    });
+</script>
 
 <form name="myform" id="myform" action="" method="post" enctype="multipart/form-data">
 <table width="100%" cellspacing="0" class="table_form">
@@ -23,15 +39,44 @@
   </tfoot>
 
     <tbody>
-	<tr>
-      <th width="80"> <font color="red">*</font>栏目</th>
-    </tr>
-
     % for input in base_form.inputs:
     <tr>
       <th width="80">${'<font color="red">*</font>' if input.required else ''}${input.description}</th>
       <td>
-        ${input.render()}
+          % if input.name == 'cids':
+              % if base_form.d.cids:
+                  % for i, cid in enumerate(base_form.d.cids):
+                    <span id="cidblk_${i}">
+                    <select id="cid${i}" name="cids">
+                        <option value="">≡ 选择栏目≡</option>
+                        % for cate in categories:
+                        <option value="${cate.id}" ${'selected="selected"' if str(cid) == str(cate.id) else ''}>${cate.prefix+cate.name}</option>
+                        % endfor
+                    </select>
+                    % if i != 0:
+                    <a href="javascript:void(0)" title="删除栏目" onclick="javascript:$(this).parent().remove()" ><img src="${static_url}/images/admin_img/icon_deletelink.gif"></a>&nbsp;
+                    % endif
+                    </span>
+                  % endfor
+                    &nbsp;&nbsp;<a id="add_cate_btn" href="javascript:void(0)" title="添加另一个栏目"><img src="${static_url}/images/admin_img/icon_addlink.gif"></a>
+              % else:
+                <span id="cidblk_0">
+                <select id="cid0" name="cids">
+                    <option value="">≡ 选择栏目 ≡</option>
+                    % for cate in categories:
+                    <option value="${cate.id}" >${cate.prefix+cate.name}</option>
+                    % endfor
+                </select>
+                </span>
+                &nbsp;&nbsp;<a id="add_cate_btn" href="javascript:void(0)" title="添加另一个栏目"><img src="${static_url}/images/admin_img/icon_addlink.gif"></a>
+              % endif
+              % if base_form.cids.note:
+                <div class="input-notification error png_bg">${base_form.cids.note}</div>
+              % endif
+
+          % else:
+            ${input.render()}
+          % endif
       </td>
     </tr>
     % endfor

@@ -1,7 +1,7 @@
 #encoding=utf-8
 import web
 from admin.util import render, admin_login_required
-from basis.dbutil import get_category, get_entities as get_base_entities, get_entity as get_base_entity
+from basis.dbutil import get_category, category_tree, get_entities as get_base_entities, get_entity as get_base_entity
 from models.dbutil import get_models, get_model_by_name, get_entities, new_entity, get_entity, save_entity, del_entity
 from admin.form import base_entity_form, entity_form
 from datetime import datetime
@@ -31,6 +31,7 @@ class add:
         model = get_model_by_name(mname)
         base_form = base_entity_form()
         form = entity_form(mname)
+        categories = category_tree()
         req = web.ctx.req
         req.update({
             'base_form': base_form,
@@ -38,6 +39,7 @@ class add:
             'mname': mname,
             'mtitle': model.title,
             'model': model,
+            'categories': categories,
             })
         return render.entity_edit(**req)
 
@@ -49,15 +51,22 @@ class add:
         bv = base_form.validates()
         v = form.validates()
         if not bv or not v:
+            categories = category_tree()
+            data = web.input(cids=[])
+            base_form.cids.set_value(data.cids)
             req = web.ctx.req
             req.update({
                 'base_form': base_form,
                 'form': form,
                 'mname': mname,
                 'mtitle': model.title,
+                'categories': categories,
             })
             return render.entity_edit(**req)
+
+        data = web.input(cids=[])
         base_form_data = base_form.d
+        base_form_data.cids = data.cids
         base_form_data.user_id = web.ctx.session._userid
         form_data = form.d
         new_entity(model, base_form_data, form_data)
@@ -67,12 +76,16 @@ class edit:
     @admin_login_required
     def GET(self, id):
         base_entity = get_base_entity(id)
+        cids = [cate.id for cate in base_entity.categories]
         model = base_entity.model
         base_form = base_entity_form()
+        base_form.cids.set_value(cids)
         form = entity_form(model.name)
         entity = getattr(base_entity, model.name)
         base_form.fill(base_entity)
+        base_form.cids.value = cids
         form.fill(entity)
+        categories = category_tree()
         data = web.input()
         req = web.ctx.req
         req.update({
@@ -80,6 +93,7 @@ class edit:
             'form': form,
             'mname': model.name,
             'mtitle': model.title,
+            'categories': categories,
         })
         return render.entity_edit(**req)
 
@@ -93,15 +107,21 @@ class edit:
         bv = base_form.validates()
         v = form.validates()
         if not bv or not v:
+            categories = category_tree()
+            data = web.input(cids=[])
+            base_form.cids.set_value(data.cids)
             req = web.ctx.req
             req.update({
                 'base_form': base_form,
                 'form': form,
                 'mname': model.name,
                 'mtitle': model.title,
+                'categories': categories,
             })
             return render.entity_edit(**req)
+        data = web.input(cids=[])
         base_form_data = base_form.d
+        base_form_data.cids = data.cids
         base_form_data.updated_time = datetime.now()
         form_data = form.d
         save_entity(model, int(id), base_form_data, form_data)

@@ -121,14 +121,14 @@ def get_entitys_category_ancestors(entity):
 def get_entities():
     return web.ctx.orm.query(Entity).all()
 
-def get_entities2(mname=None, cid=None, limit=None):
+def get_entities2(cid=None, limit=None):
     if cid is None:
-        return web.ctx.orm.query(Entity).filter(Entity.model.has(name=mname)).order_by(Entity.id.desc()).all()
+        return web.ctx.orm.query(Entity).order_by(Entity.id.desc()).all()
     else:
         if limit is None:
-            return web.ctx.orm.query(Entity).filter(Entity.model.has(name=mname)).filter(Entity.categories.any(id=cid)).order_by(Entity.id.desc()).all()
+            return web.ctx.orm.query(Entity).filter(Entity.categories.any(id=cid)).order_by(Entity.id.desc()).all()
         else:
-            return web.ctx.orm.query(Entity).filter(Entity.model.has(name=mname)).filter(Entity.categories.any(id=cid)).order_by(Entity.id.desc()).limit(limit)
+            return web.ctx.orm.query(Entity).filter(Entity.categories.any(id=cid)).order_by(Entity.id.desc()).limit(limit)
 
 def get_entity(id):
     return web.ctx.orm.query(Entity).get(id)
@@ -150,5 +150,5 @@ def del_entity(id):
     entity = get_entity(id)
     web.ctx.orm.delete(entity)
 
-def get_latest_entities(mname, cid, count):
-    return get_entities2(mname, cid, count);
+def get_latest_entities(cid, count):
+    return get_entities2(cid, count);
