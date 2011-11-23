@@ -15,9 +15,10 @@
             <th width="30">id</th>
             <th>标题</th>
             <th>内容类型</th>
-            <th>状态</th>
             <th>创建用户</th>
             <th>创建时间</th>
+            <th>所在栏目</th>
+            <th>状态</th>
           	<th>管理操作</th>
             </tr>
         </thead>
@@ -50,9 +51,10 @@
                 <td>${entity.id}</td>
                 <td>${entity.title}</td>
                 <td>${entity.model.title}</td>
-                <td>${entity.status}</td>
                 <td>${entity.user.username}</td>
                 <td>${entity.created_time}</td>
+                <td>${','.join([cate.name for cate in entity.categories])}</td>
+                <td>${entity.status}</td>
                 <td>
                     <a href="${entity.id}/edit" title="修改"><img src="${static_url}/images/icons/pencil.png" alt="修改" /></a>
                     <a href="javascript:confirmurl('${entity.id}/delete?1=1','确认要删除${entity.title}吗？')" title="删除"><img src="${static_url}/images/icons/cross.png" alt="删除" /></a> 
