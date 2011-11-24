@@ -2,9 +2,12 @@
 import web
 from admin.util import render, admin_login_required
 from basis.dbutil import get_category, category_tree, get_entities as get_base_entities, get_entity as get_base_entity
-from models.dbutil import get_models, get_model_by_name, get_entities, new_entity, get_entity, save_entity, del_entity
+from models.dbutil import get_active_models, get_model_by_name, get_entities, new_entity, get_entity, save_entity, del_entity
 from admin.form import base_entity_form, entity_form
 from datetime import datetime
+from common.util import Pagination
+from basis.model import Entity
+
 
 class admin:
     @admin_login_required
@@ -16,12 +19,14 @@ class index:
     @admin_login_required
     def GET(self):
         req = web.ctx.req
-        models = get_models()
-        data = web.input()
-        entities = get_base_entities()
+        models = get_active_models()
+        data = web.input(p=1)
+        pagination = Pagination(Entity, data.p)
+        entities = pagination.queryset
         req.update({
             'entities': entities,
             'models': models,
+            'pagination': pagination,
             })
         return render.entity_index(**req)
 

@@ -1,6 +1,8 @@
 #encoding=utf-8
 import web
 from web.contrib.template import render_mako as _render_mako
+from sqlalchemy import func
+from common.config import default_page_size
 
 
 def login_required(view_func):
@@ -96,4 +98,51 @@ class render_mako(_render_mako):
 
 def yesorno(b):
     return b and u"是" or u"否"
+
+def paging(pno, pnum):
+    pl = []
+    pl.extend(range(1, (pnum > 2 and 2 or pnum)+1))
+    pl.extend(range(pnum-1, pnum+1))
+    pl.extend(range(pno-2, pno+3))
+    for i in range(len(pl)-1,-1,-1):
+        if pl[i] < 1 or pl[i] > pnum:
+            del pl[i]
+
+    pl = set(pl)
+    pl = list(pl)
+    pl.sort()
+
+    if len(pl) > 4:
+        if pl[2] > pl[1]+1:
+            pl.insert(2, 0)
+        if pl[-3]+1 < pl[-2]:
+            pl.insert(-2, 0)
+
+    return pl
+
+class Pagination(object):
+    def __init__(self, cls, pno=1, psize=default_page_size):
+        self.cls = cls
+        self.pno = int(pno)
+        self.psize = psize
+        self.recnum = 0
+        self.pnum = 0
+        self._queryset = None
+        self._paginations = None
+
+    @property
+    def queryset(self):
+        if self._queryset is None:
+            offset = (self.pno-1) * self.psize
+            self.recnum = web.ctx.orm.query(func.count(self.cls.id)).scalar()
+            self.pnum = self.recnum / self.psize + (self.recnum % self.psize > 0 and 1 or 0)
+            self._queryset = web.ctx.orm.query(self.cls).order_by(self.cls.id.desc()).offset(offset).limit(self.psize)
+        return self._queryset
+
+    @property
+    def paginations(self):
+        if self._paginations is None:
+            self._pagination = paging(self.pno, self.pnum)
+        return self._pagination
+
 

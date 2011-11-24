@@ -1,0 +1,23 @@
+
+<%def name="paging(pgobj)">
+    <div class="pagination">
+        <span>${pgobj.recnum} 记录 </span>
+    % if pgobj.pno != 1:
+        <a href="?p=1" title="首页">&laquo;首页</a>
+        <a href="?p=${pgobj.pno-1}" title="上一页">&laquo;上一页</a>
+    % endif
+
+    % for p in pgobj.paginations:
+        % if p == 0:
+        <span class="number">...</span>
+        % else:
+        <a href="?p=${p}" class="number${p == pgobj.pno and ' current' or ''}" title="1">${p}</a>
+        % endif
+    % endfor
+
+    % if pgobj.pno != pgobj.pnum:
+        <a href="?p=${pgobj.pno+1}" title="下一页">下一页&raquo;</a>
+        <a href="?p=${pgobj.pnum}" title="末页">末页&raquo;</a>
+    % endif
+    </div> <!-- End .pagination -->
+</%def>

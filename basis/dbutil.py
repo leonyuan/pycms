@@ -4,6 +4,7 @@ from sqlalchemy import func
 from basis.model import *
 from common.dbutil import populate
 
+
 #-------------------------------
 # some utility
 #-------------------------------
@@ -118,10 +119,10 @@ def get_entitys_category_ancestors(entity):
 #-------------------------------
 # entity persistent method
 #-------------------------------
-def get_entities():
-    return web.ctx.orm.query(Entity).all()
+#def get_entities():
+#    return web.ctx.orm.query(Entity).all()
 
-def get_entities2(cid=None, limit=None):
+def get_entities(cid=None, limit=None):
     if cid is None:
         return web.ctx.orm.query(Entity).order_by(Entity.id.desc()).all()
     else:
@@ -151,4 +152,4 @@ def del_entity(id):
     web.ctx.orm.delete(entity)
 
 def get_latest_entities(cid, count):
-    return get_entities2(cid, count);
+    return get_entities(cid, count);

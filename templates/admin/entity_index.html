@@ -1,4 +1,6 @@
 <%inherit file="na_base.html"/>
+<%namespace file="../lib/util.html" import="*"/>
+
 <ul class="shortcut-buttons-set">
     % for model in models:
     <li><a class="shortcut-button" href="../${model.name}/add"><span>添加${model.title}</span></a></li>
@@ -12,6 +14,7 @@
     <table width="100%" cellspacing="0" >
         <thead>
             <tr>
+            <th width="15"><input class="check-all" type="checkbox" /></th>
             <th width="30">id</th>
             <th>标题</th>
             <th>内容类型</th>
@@ -32,15 +35,7 @@
                         </select>
                         <a class="button" href="#">执行</a>
                     </div>
-                    
-                    <div class="pagination">
-                        <a href="#" title="First Page">&laquo;首页</a><a href="#" title="Previous Page">&laquo;上一页</a>
-                        <a href="#" class="number" title="1">1</a>
-                        <a href="#" class="number" title="2">2</a>
-                        <a href="#" class="number current" title="3">3</a>
-                        <a href="#" class="number" title="4">4</a>
-                        <a href="#" title="Next Page">下一页&raquo;</a><a href="#" title="Last Page">末页&raquo;</a>
-                    </div> <!-- End .pagination -->
+                    ${paging(pagination)}
                     <div class="clear"></div>
                 </td>
             </tr>
@@ -48,6 +43,7 @@
         <tbody>
             % for entity in entities:
             <tr>
+                <td><input type="checkbox" /></td>
                 <td>${entity.id}</td>
                 <td>${entity.title}</td>
                 <td>${entity.model.title}</td>
