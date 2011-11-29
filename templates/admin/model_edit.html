@@ -1,69 +1,63 @@
 <%inherit file="na_base.html"/>
 
 <div class="content-box">
-<form method="post" action="" id="myform" name="myform">
-<table width="100%" class="table_form ">
-  <thead>
-      <tr><th colspan="2">编辑模型信息</th></tr>
-  </thead>
-  <tfoot>
-      <tr>
-          <td colspan="2">
-            <input type="submit" class="button" value="提交" name="dosubmit">
-          </td>
-      </tr>
-  </tfoot>
+    <div class="content-box-header">
+        <h4>模型基本信息</h4>
+        <div class="clear"></div>
+    </div>
+    <div class="content-box-content">
+        <div class="tab-content default-tab">
+        <form method="post" action="" id="myform" name="myform">
+        <table width="100%" class="table_form ">
+          <tfoot>
+              <tr>
+                  <td colspan="2">
+                    <input type="submit" class="button" value="提交" name="dosubmit">
+                  </td>
+              </tr>
+          </tfoot>
 
- <tbody>
-    <tr>
-        <th>${form.title.description}</th>
-        <td>
-            <span id="normal_add"><input type="text" value="${_s(form.d.title)}" class="input-text" id="name" name="title">
-                % if form.title.note:
-                <div class="input-notification error png_bg">${form.title.note}</div>
-                % endif
-            </span>
-		</td>
-    </tr>
-    <tr>
-        <th>${form.name.description}</th>
-        <td>
-            <span id="normal_add"><input type="text" value="${_s(form.d.name)}" class="input-text" id="name" name="name">
-                % if form.name.note:
-                <div class="input-notification error png_bgon">${form.name.note}</div>
-                % endif
-            </span>
-		</td>
-    </tr>
-	<tr>
-        <th width="200">${form.template_id.description}</th>
-        <td>
-            <select onchange="change_tpl(this.value)" id="template_id" name="template_id">
-                <option value="">=请选择模板=</option>
-                % for t in templates:
-                <option value="${t.id}" ${'selected="selected"' if str(form.d.template_id) == str(t.id) else ''}>${t.name}</option>
-                % endfor
-            </select>
-            % if form.template_id.note:
-            <div class="input-notification error png_bgon">${form.template_id.note}</div>
-            % endif
-        </td>
-    </tr>
+          <tbody>
+            % for input in form.inputs:
+            <tr>
+              <th width="80">${'<font color="red">*</font>' if input.required else ''}${input.description}</th>
+              <td>
+                  % if input.name == 'template_id':
+                    <select onchange="change_tpl(this.value)" id="template_id" name="template_id">
+                        <option value="">=请选择模板=</option>
+                        % for t in templates:
+                        <option value="${t.id}" ${'selected="selected"' if str(form.d.template_id) == str(t.id) else ''}>${t.name}</option>
+                        % endfor
+                    </select>
+                    % if input.note:
+                    <div class="input-notification error png_bg">${input.note}</div>
+                    % endif
+                  % else:
+                    ${input.render()}
+                  % endif
+              </td>
+            </tr>
+            % endfor
+          </tbody>
+        </table>
+        </form>
 
-	<tr>
-        <th>描述</th>
-        <td>
-		<textarea style="width:300px;height:60px;" maxlength="255" name="description"></textarea>
-		</td>
-    </tr>
+        </div>
+    </div>
+</div>
 
 % if _ac!='add':
-	<tr>
-        <td colspan="2">
-        <table>
+<div class="content-box">
+    <div class="content-box-header">
+        <h4>属性信息</h4>
+        <div class="clear"></div>
+    </div>
+    <div class="content-box-content">
+        <div class="tab-content default-tab">
+        <form method="post" action="" id="myform" name="myform">
+        <table width="100%" class="table_form ">
             <thead>
                 <tr>
-                <th width="30">tid</th>
                 <th>属性名称</th>
                 <th>属性代码</th>
                 <th>属性类型</th>
@@ -86,10 +80,9 @@
             <tbody>
             % for field in fields:
               <tr>
-                 <td>${field.id}</td>
                  <td>${field.title}</td>
                  <td>${field.name}</td>
-                 <td>${field.type}</td>
+                 <td>${_typetext(field.type)}</td>
                  <td>${field.length}</td>
                  <td>${_yn(field.required)}</td>
                  <td align='center' > <a href="../../field/${field.id}/edit?mid=${field.model_id}">修改</a> | <a href="javascript:confirmurl('../../field/${field.id}/delete?mid=${field.model_id}','确认要删除${field.name}吗？')">删除</a></td>
@@ -97,15 +90,23 @@
             % endfor
             </tbody>
         </table>
-		</td>
-    </tr>
+        </form>
 
-	<tr>
-        <td colspan="2">
-        <table width="100%" cellspacing="0" >
+        </div>
+    </div>
+</div>
+
+<div class="content-box">
+    <div class="content-box-header">
+        <h4>关联信息</h4>
+        <div class="clear"></div>
+    </div>
+    <div class="content-box-content">
+        <div class="tab-content default-tab">
+        <form method="post" action="" id="myform" name="myform">
+        <table width="100%" class="table_form ">
             <thead>
                 <tr>
-                <th width="30">tid</th>
                 <th>关联名称</th>
                 <th>关联代码</th>
                 <th>关联类型</th>
@@ -124,11 +125,9 @@
                     </td>
                 </tr>
             </tfoot>
-
             <tbody>
             % for relation in relations:
               <tr>
-                 <td>${relation.id}</td>
                  <td>${relation.title}</td>
                  <td>${relation.name}</td>
                  <td>${relation.type}</td>
@@ -136,16 +135,11 @@
                  <td>${relation.backref}</td>
                  <td align='center' > <a href="../../relation/${relation.id}/edit?mid=${relation.model_id}">修改</a> | <a href="javascript:confirmurl('../../relation/${relation.id}/delete?mid=${relation.model_id}','确认要删除${relation.name}吗？')">删除</a></td>
               </tr>
-            % endfor
+              % endfor
             </tbody>
         </table>
-		</td>
-    </tr>
-% endif
-
-
-  </tbody>
-</table>
-
-</form>
+        </form>
+        </div>
+    </div>
 </div>
+% endif

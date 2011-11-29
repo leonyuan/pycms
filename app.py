@@ -46,6 +46,7 @@ def session_hook():
 def request_hook():
     req = context()
     req['static_url'] = callable(static_url) and static_url() or static_url
+    req['admin_url'] = web.ctx.homepath + '/admin'
     req['_userid'] = web.ctx.session._userid
     req['_s'] = web.net.websafe
     req['_yn'] = yesorno

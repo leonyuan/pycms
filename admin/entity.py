@@ -7,6 +7,7 @@ from admin.form import base_entity_form, entity_form
 from datetime import datetime
 from common.util import Pagination
 from basis.model import Entity
+from common.widget import MyCheckboxGroup
 
 
 class admin:
@@ -50,6 +51,7 @@ class add:
 
     @admin_login_required
     def POST(self, mname):
+        data = web.input(cids=[])
         base_form = base_entity_form()
         form = entity_form(mname)
         model = get_model_by_name(mname)
@@ -57,8 +59,17 @@ class add:
         v = form.validates()
         if not bv or not v:
             categories = category_tree()
-            data = web.input(cids=[])
             base_form.cids.set_value(data.cids)
+
+            # populate multi value field
+            pd = {}
+            for item in form.inputs:
+                if isinstance(item, MyCheckboxGroup):
+                    pd[item.name] = []
+            pdata = web.input(**pd)
+            for k in pd.keys():
+                getattr(form, k).set_value(getattr(pdata, k))
+
             req = web.ctx.req
             req.update({
                 'base_form': base_form,
@@ -69,11 +80,19 @@ class add:
             })
             return render.entity_edit(**req)
 
-        data = web.input(cids=[])
         base_form_data = base_form.d
         base_form_data.cids = data.cids
         base_form_data.user_id = web.ctx.session._userid
         form_data = form.d
+        # populate multi value field
+        pd = {}
+        for item in form.inputs:
+            if isinstance(item, MyCheckboxGroup):
+                pd[item.name] = []
+        pdata = web.input(**pd)
+        for k in pd.keys():
+            setattr(form_data, k, str(getattr(pdata, k)))
+
         new_entity(model, base_form_data, form_data)
         raise web.seeother('/entity/index')
 
@@ -90,6 +109,14 @@ class edit:
         base_form.fill(base_entity)
         base_form.cids.value = cids
         form.fill(entity)
+        # populate multi value field
+        pd = []
+        for item in form.inputs:
+            if isinstance(item, MyCheckboxGroup):
+                pd.append(item.name)
+        for k in pd:
+            getattr(form, k).set_value(eval(getattr(entity, k)))
+
         categories = category_tree()
         data = web.input()
         req = web.ctx.req
@@ -108,13 +135,21 @@ class edit:
         model = base_entity.model
         base_form = base_entity_form()
         form = entity_form(model.name)
-        data = web.input()
+        data = web.input(cids=[])
         bv = base_form.validates()
         v = form.validates()
         if not bv or not v:
             categories = category_tree()
-            data = web.input(cids=[])
             base_form.cids.set_value(data.cids)
+            # populate multi value field
+            pd = {}
+            for item in form.inputs:
+                if isinstance(item, MyCheckboxGroup):
+                    pd[item.name] = []
+            pdata = web.input(**pd)
+            for k in pd.keys():
+                getattr(form, k).set_value(getattr(pdata, k))
+
             req = web.ctx.req
             req.update({
                 'base_form': base_form,
@@ -124,11 +159,19 @@ class edit:
                 'categories': categories,
             })
             return render.entity_edit(**req)
-        data = web.input(cids=[])
         base_form_data = base_form.d
         base_form_data.cids = data.cids
         base_form_data.updated_time = datetime.now()
         form_data = form.d
+        # populate multi value field
+        pd = {}
+        for item in form.inputs:
+            if isinstance(item, MyCheckboxGroup):
+                pd[item.name] = []
+        pdata = web.input(**pd)
+        for k in pd.keys():
+            setattr(form_data, k, str(getattr(pdata, k)))
+
         save_entity(model, int(id), base_form_data, form_data)
         raise web.seeother('/entity/index')
 

@@ -24,6 +24,7 @@ FIELD_TYPE = {
     'boolean': Boolean,
     'select': String,
     'radio': String,
+    'checkbox': String,
     'date': DateTime,
     'datetime': TIMESTAMP,
 }

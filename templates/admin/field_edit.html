@@ -1,42 +1,291 @@
-<%inherit file="field_base.html"/>
+<%inherit file="na_base.html"/>
 
-<form method="post" action="" id="myform" name="myform">
-<input type="hidden" name="mid" value="${mid}">
-<div class="pad-10">
-    <div class="col-tab">
-        <ul class="tabBut cu-li">
-            <li onclick="SwapTab('setting','on','',6,1);" class="on" id="tab_setting_1">短文本</li>
-            <li onclick="SwapTab('setting','on','',6,2);" id="tab_setting_2" class="">长文本</li>
-            <li onclick="SwapTab('setting','on','',6,3);" id="tab_setting_3" class="">选择框</li>
-            <li onclick="SwapTab('setting','on','',6,4);" id="tab_setting_4" class="">单选框</li>
-            <li onclick="SwapTab('setting','on','',6,5);" id="tab_setting_5" class="">日期</li>
-            <li onclick="SwapTab('setting','on','',6,6);" id="tab_setting_6" class="">时间</li>
+<script>
+    function init_addbtn_click(prefix) {
+        return function(){
+            $("#"+prefix+"add_opt_btn").click(function(){
+                template = $("#"+prefix+"optblk_0");
+                newoptblk = template.clone();
+                newoptblk.find("input").val("");
+                newoptblk.append("<a href=\"javascript:void(0)\" title=\"删除选项\"><img src=\"${static_url}/images/admin_img/icon_deletelink.gif\"></a>&nbsp;&nbsp;&nbsp;");
+                rmbtn = newoptblk.find("a")
+                rmbtn.click(function(obj){
+                    return function() {
+                        obj.remove();
+                    }
+                }(newoptblk));
+                newoptblk.insertBefore($(this).parent());
+            });
+        };
+    }
+
+</script>
+
+<ul class="shortcut-buttons-set">
+    <li><a class="shortcut-button" href="${admin_url}/model/${mid}/edit"><span>返回"${mtitle}"模型属性页</span></a></li>
+</ul>
+
+<div class="clear"></div>
+<div class="content-box">
+    <div class="content-box-header">
+        <h3>编辑属性信息</h3>
+        <ul class="content-box-tabs">
+            % if type == '__all__' or type == 'string':
+            <li><a href="#tab1" ${'class="default-tab"' if type == '__all__' or type == 'string' else ''}>短文本</a></li>
+            % endif
+            % if type == '__all__' or type == 'text':
+            <li><a href="#tab2" ${'class="default-tab"' if type == 'text' else ''}>长文本</a></li>
+            % endif
+            % if type == '__all__' or type == 'select':
+            <li><a href="#tab3" ${'class="default-tab"' if type == 'select' else ''}>列表框</a></li>
+            % endif
+            % if type == '__all__' or type == 'radio':
+            <li><a href="#tab4" ${'class="default-tab"' if type == 'radio' else ''}>单选钮</a></li>
+            % endif
+            % if type == '__all__' or type == 'checkbox':
+            <li><a href="#tab5" ${'class="default-tab"' if type == 'checkbox' else ''}>复选钮</a></li>
+            % endif
+            % if type == '__all__' or type == 'date':
+            <li><a href="#tab6" ${'class="default-tab"' if type == 'date' else ''}>日期</a></li>
+            % endif
+            % if type == '__all__' or type == 'time':
+            <li><a href="#tab7" ${'class="default-tab"' if type == 'time' else ''}>时间</a></li>
+            % endif
         </ul>
-<div class="contentList pad-10" id="div_setting_1" style="display: block;">
+        <div class="clear"></div>
+    </div>
+    <div class="content-box-content">
+        % if type == '__all__' or type == 'string':
+        <div class="tab-content${' default-tab' if type == '__all__' or type == 'string' else ''}" id="tab1">
+            <form method="post" action="" id="myform" name="myform">
+                <input type="hidden" name="mid" value="${mid}">
+                <input type="hidden" name="type" value="string">
+                <table width="100%" class="table_form ">
+                  <tfoot>
+                      <tr>
+                          <td colspan="2">
+                            <input type="submit" class="button" value="提交" name="dosubmit">
+                          </td>
+                      </tr>
+                  </tfoot>
+                  <tbody>
+                    % for input in string_form.inputs:
+                    <tr>
+                      <th>${'<font color="red">*</font>' if input.required else ''}${input.description}</th>
+                      <td>
+                          <span id="normal_add">
+                              ${input.render()}
+                          </span>
+                      </td>
+                    </tr>
+                    % endfor
+                  </tbody>
+                </table>
+            </form>
+        </div>
+        % endif
+        % if type == '__all__' or type == 'text':
+        <div class="tab-content${' default-tab' if type == 'text' else ''}" id="tab2">
+            <form method="post" action="" id="myform" name="myform">
+                <input type="hidden" name="mid" value="${mid}">
+                <input type="hidden" name="type" value="text">
+                <table width="100%" class="table_form ">
+                  <tfoot>
+                      <tr>
+                          <td colspan="2">
+                            <input type="submit" class="button" value="提交" name="dosubmit">
+                          </td>
+                      </tr>
+                  </tfoot>
+                  <tbody>
+                    % for input in text_form.inputs:
+                    <tr>
+                      <th>${'<font color="red">*</font>' if input.required else ''}${input.description}</th>
+                      <td>
+                        ${input.render()}
+                      </td>
+                    </tr>
+                    % endfor
+                  </tbody>
+                </table>
+            </form>
+        </div>
+        % endif
+        % if type == '__all__' or type == 'select':
+        <div class="tab-content${' default-tab' if type == 'select' else ''}" id="tab3">
+            <form method="post" action="" id="myform" name="myform">
+                <input type="hidden" name="mid" value="${mid}">
+                <input type="hidden" name="type" value="select">
+                <table width="100%" class="table_form ">
+                  <tfoot>
+                      <tr>
+                          <td colspan="2">
+                            <input type="submit" class="button" value="提交" name="dosubmit">
+                          </td>
+                      </tr>
+                  </tfoot>
+                  <tbody>
+                    % for input in select_form.inputs:
+                    <tr>
+                      <th>${'<font color="red">*</font>' if input.required else ''}${input.description}</th>
+                      <td>
+                          % if input.name == 'options':
+                              % if input.get_value():
+                                  % for i, option in enumerate(input.get_value()):
+                                      <div id="select_optblk_0" style="padding:2px">
+                                          <input type="text" size="20" name="options" value="${option}" class="text-input input-text" id="options"/>
+                                      % if i != 0:
+                                        <a href="javascript:void(0)" title="删除选项" onclick="javascript:$(this).parent().remove()" ><img src="${static_url}/images/admin_img/icon_deletelink.gif"></a>&nbsp;
+                                      % endif
+                                      </div>
+                                  % endfor
+                                      <div>
+                                        &nbsp;&nbsp;<a id="select_add_opt_btn" href="javascript:void(0)" title="添加另一个选项"><img src="${static_url}/images/admin_img/icon_addlink.gif"></a>
+                                      </div>
+                              % else:
+                                <div id="select_optblk_0" style="padding:2px">
+                                    <input type="text" size="20" name="options" class="text-input input-text" id="options"/>
+                                </div>
+                                <div>
+                                    &nbsp;&nbsp;<a id="select_add_opt_btn" href="javascript:void(0)" title="添加另一个选项"><img src="${static_url}/images/admin_img/icon_addlink.gif"></a>
+                                </div>
+                              % endif
 
-<table width="100%" class="table_form ">
- <tbody>
+                              % if input.note:
+                                <div class="input-notification error png_bg">${input.note}</div>
+                              % endif
+                          % else:
+                            ${input.render()}
+                          % endif
+                      </td>
+                    </tr>
+                    % endfor
+                  </tbody>
+              </table>
+              <script>
+                $(document).ready(init_addbtn_click('select_'));
+              </script>
+            </form>
+        </div>
+        % endif
+        % if type == '__all__' or type == 'radio':
+        <div class="tab-content${' default-tab' if type == 'radio' else ''}" id="tab4">
+            <form method="post" action="" id="myform" name="myform">
+                <input type="hidden" name="mid" value="${mid}">
+                <input type="hidden" name="type" value="radio">
+                <table width="100%" class="table_form ">
+                  <tfoot>
+                      <tr>
+                          <td colspan="2">
+                            <input type="submit" class="button" value="提交" name="dosubmit">
+                          </td>
+                      </tr>
+                  </tfoot>
+                  <tbody>
+                    % for input in radio_form.inputs:
+                    <tr>
+                      <th>${'<font color="red">*</font>' if input.required else ''}${input.description}</th>
+                      <td>
+                          % if input.name == 'options':
+                              % if input.get_value():
+                                  % for i, option in enumerate(input.get_value()):
+                                      <div id="radio_optblk_0" style="padding:2px">
+                                          <input type="text" size="20" name="options" value="${option}" class="text-input input-text" id="options"/>
+                                      % if i != 0:
+                                        <a href="javascript:void(0)" title="删除选项" onclick="javascript:$(this).parent().remove()" ><img src="${static_url}/images/admin_img/icon_deletelink.gif"></a>&nbsp;
+                                      % endif
+                                      </div>
+                                  % endfor
+                                      <div>
+                                        &nbsp;&nbsp;<a id="radio_add_opt_btn" href="javascript:void(0)" title="添加另一个选项"><img src="${static_url}/images/admin_img/icon_addlink.gif"></a>
+                                      </div>
+                              % else:
+                                <div id="radio_optblk_0" style="padding:2px">
+                                    <input type="text" size="20" name="options" class="text-input input-text" id="options"/>
+                                </div>
+                                <div>
+                                    &nbsp;&nbsp;<a id="radio_add_opt_btn" href="javascript:void(0)" title="添加另一个选项"><img src="${static_url}/images/admin_img/icon_addlink.gif"></a>
+                                </div>
+                              % endif
 
-    % for input in form.inputs:
-    <tr>
-      <th>${'<font color="red">*</font>' if input.required else ''}${input.description}</th>
-      <td>
-          <span id="normal_add">
-              ${input.render()}
-          </span>
-      </td>
-    </tr>
-    % endfor
+                              % if input.note:
+                                <div class="input-notification error png_bg">${input.note}</div>
+                              % endif
+                          % else:
+                            ${input.render()}
+                          % endif
+                      </td>
+                    </tr>
+                    % endfor
+                  </tbody>
+              </table>
+              <script>
+                $(document).ready(init_addbtn_click('radio_'));
+              </script>
+            </form>
+        </div>
+        % endif
+        % if type == '__all__' or type == 'checkbox':
+        <div class="tab-content${' default-tab' if type == 'checkbox' else ''}" id="tab5">
+            <form method="post" action="" id="myform" name="myform">
+                <input type="hidden" name="mid" value="${mid}">
+                <input type="hidden" name="type" value="checkbox">
+                <table width="100%" class="table_form ">
+                  <tfoot>
+                      <tr>
+                          <td colspan="2">
+                            <input type="submit" class="button" value="提交" name="dosubmit">
+                          </td>
+                      </tr>
+                  </tfoot>
+                  <tbody>
+                    % for input in checkbox_form.inputs:
+                    <tr>
+                      <th>${'<font color="red">*</font>' if input.required else ''}${input.description}</th>
+                      <td>
+                          % if input.name == 'options':
+                              % if input.get_value():
+                                  % for i, option in enumerate(input.get_value()):
+                                      <div id="checkbox_optblk_0" style="padding:2px">
+                                          <input type="text" size="20" name="options" value="${option}" class="text-input input-text" id="options"/>
+                                      % if i != 0:
+                                        <a href="javascript:void(0)" title="删除选项" onclick="javascript:$(this).parent().remove()" ><img src="${static_url}/images/admin_img/icon_deletelink.gif"></a>&nbsp;
+                                      % endif
+                                      </div>
+                                  % endfor
+                                      <div>
+                                        &nbsp;&nbsp;<a id="checkbox_add_opt_btn" href="javascript:void(0)" title="添加另一个选项"><img src="${static_url}/images/admin_img/icon_addlink.gif"></a>
+                                      </div>
+                              % else:
+                                <div id="checkbox_optblk_0" style="padding:2px">
+                                    <input type="text" size="20" name="options" class="text-input input-text" id="options"/>
+                                </div>
+                                <div>
+                                    &nbsp;&nbsp;<a id="checkbox_add_opt_btn" href="javascript:void(0)" title="添加另一个选项"><img src="${static_url}/images/admin_img/icon_addlink.gif"></a>
+                                </div>
+                              % endif
 
-</tbody>
-</table>
+                              % if input.note:
+                                <div class="input-notification error png_bg">${input.note}</div>
+                              % endif
+                          % else:
+                            ${input.render()}
+                          % endif
+                      </td>
+                    </tr>
+                    % endfor
+                  </tbody>
+              </table>
+              <script>
+                $(document).ready(init_addbtn_click('checkbox_'));
+              </script>
+            </form>
+        </div>
+        % endif
+
+
+    </div>
 
 </div>
 
- <div class="bk15"></div>
-	<input type="hidden" value="" name="catid">
-  <input type="submit" class="button" value="提交" name="dosubmit">
-</div>
-</div>
-<input type="hidden" name="pc_hash" value="6armko">
-</form>
+

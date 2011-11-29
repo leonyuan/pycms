@@ -68,6 +68,15 @@ def save_field(id, data):
         field = get_field(id)
 
     populate(field, data, Field)
+    if hasattr(data, 'type'):
+        if data.type == 'text':
+            prop_dict = dict(lines=data.lines, editor=data.editor)
+            field.props = str(prop_dict)
+        elif data.type == 'select' or data.type == 'radio' or data.type == 'checkbox':
+            prop_dict = dict(options=data.options)
+            if data.type == 'select':
+                prop_dict['is_multisel'] = data.is_multisel
+            field.props = str(prop_dict)
 
     if id == -1:
         web.ctx.orm.add(field)

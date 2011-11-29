@@ -108,17 +108,23 @@ def paging(pno, pnum):
         if pl[i] < 1 or pl[i] > pnum:
             del pl[i]
 
-    pl = set(pl)
-    pl = list(pl)
-    pl.sort()
+    uniqs = set()
+    pl2 = []
+    for p in pl:
+        if p in uniqs:
+            continue
+        uniqs.add(p)
+        pl2.append(p)
 
-    if len(pl) > 4:
-        if pl[2] > pl[1]+1:
-            pl.insert(2, 0)
-        if pl[-3]+1 < pl[-2]:
-            pl.insert(-2, 0)
+    pl2.sort()
 
-    return pl
+    if len(pl2) > 4:
+        if pl2[2] > pl2[1]+1:
+            pl2.insert(2, 0)
+        if pl2[-3]+1 < pl2[-2]:
+            pl2.insert(-2, 0)
+
+    return pl2
 
 class Pagination(object):
     def __init__(self, cls, pno=1, psize=default_page_size):

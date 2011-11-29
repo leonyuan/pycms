@@ -308,14 +308,14 @@ a.remove-link:hover {
                 height: 40px;
                 }
 
-.content-box-header h3 {
+.content-box-header h3, .content-box-header h4 {
                 padding: 12px 15px 10px;
                 float: left;
                 }
 
 ul.content-box-tabs {
-                float: right;
-                padding: 12px 15px 0 0 !important;
+                float: left;
+                padding: 12px 15px 0 15px !important;
 				margin: 0 !important;
                 }
 
@@ -425,14 +425,14 @@ ul.content-box-tabs li a.current {
                 border: 1px solid #ccc;
                 background: #f7f7f7 url('../../images/shortcut-button-bg.gif') top left no-repeat;
                 display: block;
-                width: 120px;
+                /*width: 120px;*/
                 margin: 0 0 10px 0;
                 }
 
 .shortcut-button span {
                 border: 1px solid #fff;
                 display:block;
-                padding: 5px 10px;
+                padding: 5px 20px;
                 text-align: center;
                 color: #555;
                 font-size: 13px;

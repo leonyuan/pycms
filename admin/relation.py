@@ -1,7 +1,7 @@
 #encoding=utf-8
 import web
 from admin.util import render, admin_login_required
-from models.dbutil import get_active_models, get_relations, save_relation, get_relation, del_relation
+from models.dbutil import get_model, get_active_models, get_relations, save_relation, get_relation, del_relation
 from admin.form import relation_form
 
 
@@ -24,12 +24,14 @@ class add:
         form = relation_form()
         data = web.input()
         mid = data.mid
+        model = get_model(mid)
         models = get_active_models()
         req = web.ctx.req
         req.update({
             'models': models,
             'form': form,
             'mid': mid,
+            'mtitle': model.title,
             })
         return render.relation_edit(**req)
 
@@ -39,12 +41,14 @@ class add:
         data = web.input()
         mid = data.mid
         if not form.validates():
+            model = get_model(mid)
             models = get_active_models()
             req = web.ctx.req
             req.update({
                 'models': models,
                 'form': form,
                 'mid': mid,
+                'mtitle': model.title,
                 })
             return render.relation_edit(**req)
         form_data = form.d
@@ -61,11 +65,13 @@ class edit:
         data = web.input()
         models = get_active_models()
         mid = data.mid
+        model = get_model(mid)
         req = web.ctx.req
         req.update({
             'models': models,
             'form': form,
             'mid': mid,
+            'mtitle': model.title,
             })
         return render.relation_edit(**req)
 
@@ -75,12 +81,14 @@ class edit:
         data = web.input()
         mid = data.mid
         if not form.validates():
+            model = get_model(mid)
             models = get_active_models()
             req = web.ctx.req
             req.update({
                 'form': form,
                 'models': models,
                 'mid': mid,
+                'mtitle': model.title,
                 })
             return render.relation_edit(**req)
         save_relation(int(id), form.d)

@@ -33,11 +33,11 @@ $(document).ready(function(){
 
     //Minimize Content Box
 		
-		$(".content-box-header h3").css({ "cursor":"s-resize" }); // Give the h3 in Content Box Header a different cursor
+		$(".content-box-header h4").css({ "cursor":"s-resize" }); // Give the h3 in Content Box Header a different cursor
 		$(".closed-box .content-box-content").hide(); // Hide the content of the header if it has the class "closed"
 		$(".closed-box .content-box-tabs").hide(); // Hide the tabs in the header if it has the class "closed"
 		
-		$(".content-box-header h3").click( // When the h3 is clicked...
+		$(".content-box-header h4").click( // When the h3 is clicked...
 			function () {
 			  $(this).parent().next().toggle(); // Toggle the Content Box
 			  $(this).parent().parent().toggleClass("closed-box"); // Toggle the class "closed-box" on the content box
@@ -94,6 +94,4 @@ $(document).ready(function(){
 		$(".wysiwyg").wysiwyg(); // Applies WYSIWYG editor to any textarea with the class "wysiwyg"
 
 });
-  
-  
   

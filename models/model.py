@@ -19,6 +19,7 @@ class Model(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(16), nullable=False)
     title = Column(String(32))
+    description = Column(String(255))
     is_active = Column(Boolean, default=False)
     template_id = Column(Integer, ForeignKey('template.id'))
 
@@ -37,6 +38,7 @@ class Field(Base):
     type = Column(String(16), nullable=False)
     length = Column(Integer)
     required = Column(Boolean)
+    props = Column(Text)
     model_id = Column(Integer, ForeignKey('model.id'))
 
     def __repr__(self):

@@ -44,8 +44,8 @@
       <th width="80">${'<font color="red">*</font>' if input.required else ''}${input.description}</th>
       <td>
           % if input.name == 'cids':
-              % if base_form.d.cids:
-                  % for i, cid in enumerate(base_form.d.cids):
+              % if input.get_value():
+                  % for i, cid in enumerate(input.get_value()):
                     <span id="cidblk_${i}">
                     <select id="cid${i}" name="cids">
                         <option value="">≡ 选择栏目≡</option>
@@ -70,8 +70,8 @@
                 </span>
                 &nbsp;&nbsp;<a id="add_cate_btn" href="javascript:void(0)" title="添加另一个栏目"><img src="${static_url}/images/admin_img/icon_addlink.gif"></a>
               % endif
-              % if base_form.cids.note:
-                <div class="input-notification error png_bg">${base_form.cids.note}</div>
+              % if input.note:
+                <div class="input-notification error png_bg">${input.note}</div>
               % endif
 
           % else:

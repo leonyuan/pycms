@@ -4,7 +4,7 @@ from admin.util import render, admin_login_required
 from models.dbutil import get_models, save_model, get_model, del_model, activate_model,\
     inactivate_model, get_fields, get_relations
 from models.util import build_model, create_schema, drop_schema
-from admin.form import model_form
+from admin.form import model_form, typetext
 from basis.dbutil import get_templates
 
 
@@ -64,6 +64,7 @@ class edit:
             'templates': templates,
             'fields': fields,
             'relations': relations,
+            '_typetext': typetext,
             })
         return render.model_edit(**req)
 

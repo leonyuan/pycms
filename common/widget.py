@@ -24,7 +24,6 @@ class MyInput(form.Input):
     def render(self):
         html = super(MyInput, self).render()
         if self.note:
-            #html += '<span class="input-notification error png_bg">%s</span>' % (self.note,)
             html += '<div class="input-notification error png_bg">%s</div>' % (self.note,)
         return html
 
@@ -36,6 +35,9 @@ class MyTextbox(MyInput, form.Textbox):
     def __init__(self, name, *validators, **attrs):
         attrs['class_'] = 'text-input'
         super(MyTextbox, self).__init__(name, *validators, **attrs)
+
+class MyTextarea(MyInput, form.Textarea):
+    pass
 
 class MyLongText(MyInput, form.Textarea):
     def render(self):
@@ -78,6 +80,29 @@ class MyRadio(MyInput, form.Radio):
 
 class MyCheckbox(MyInput, form.Checkbox):
     pass
+
+class MyCheckboxGroup(MyInput):
+    def __init__(self, name, args, *validators, **attrs):
+        self.args = args
+        super(MyCheckboxGroup, self).__init__(name, *validators, **attrs)
+
+    def render(self):
+        x = '<span>'
+        for arg in self.args:
+            if isinstance(arg, (tuple, list)):
+                value, desc= arg
+            else:
+                value, desc = arg, arg
+            attrs = self.attrs.copy()
+            attrs['id'] = self.name + '_' + web.utils.safeunicode(value or "").replace(' ', '_')
+            attrs['name'] = self.name
+            attrs['type'] = 'checkbox'
+            attrs['value'] = value
+            if value in self.value:
+                attrs['checked'] = 'checked'
+            x += '<input %s/> %s' % (attrs, web.net.websafe(desc))
+        x += '</span>'
+        return x
 
 class Selector(MyInput):
     def render(self):
