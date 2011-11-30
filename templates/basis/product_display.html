@@ -1,0 +1,81 @@
+<%inherit file="../base.html"/>
+
+    <div class="col-left">
+      <div class="crumbs">
+          <a href="/">首页</a> <span>&gt;</span>
+          % for cat in category_ancestors:
+          <a href="html/category/${cat[0]}">${cat[1]}</a> &gt;
+          % endfor
+          正文
+      </div>
+
+      <div id="Article">
+          <h1>${base_entity.title}<br>
+              <span>&nbsp;&nbsp;&nbsp;编辑：&nbsp;&nbsp;&nbsp;来源：&nbsp;&nbsp;&nbsp;评论：<a id="comment" href="#comment_iframe">0</a>
+                  点击：</span><span id="hits"></span></h1>
+
+        <div class="content">
+            ${product.prdname} 
+        </div>
+
+        <div class="content">
+            ${product.category} 
+        </div>
+
+        <div class="content">
+            ${product.prdtype} 
+        </div>
+
+        <div class="content">
+            ${product.iscanbuy} 
+        </div>
+
+        <div class="content">
+            ${','.join(eval(product.postablecities))}
+        </div>
+
+        <div class="content">
+            ${product.prddesc} 
+        </div>
+
+        <div class="text-c" id="pages">
+        </div>
+
+        <p style="margin-bottom:10px"><strong>相关热词搜索：</strong>
+        % if entity__:
+        % for kw in entity.keywords.split():
+        <a class="blue" href="tag=${_uq(kw)}">${kw}</a>
+        % endfor
+        % endif
+        </p>
+        <p class="f14"><strong>上一篇：</strong><a href="javascript:alert('第一页');">第一页</a><br>
+         <strong>下一篇：</strong><a href="javascript:alert('最后一页');">最后一页</a></p>
+      </div>
+    </div>
+
+    <div class="col-auto">
+      <div class="box">
+        <h5 class="title-2">频道总排行</h5>
+
+        <ul class="content digg">
+          <li><a title="ddd" target="_blank" href=
+          "_id=4">ddd</a></li>
+
+          <li><a title="sdcsdcsdcsdc" target="_blank" href=
+          "_id=2">sdcsdcsdcsdc</a></li>
+        </ul>
+      </div>
+      <div class="bk10"></div>
+      <div class="box">
+        <h5 class="title-2">频道本月排行</h5>
+
+        <ul class="content rank">
+          <li><span>1</span><a title="ddd" class="title" style="" href=
+          "_id=4">ddd</a></li>
+
+          <li><span>0</span><a title="sdcsdcsdcsdc" class="title" style="" href=
+          "_id=2">sdcsdcsdcsdc</a></li>
+        </ul>
+      </div>
+    </div>
+
