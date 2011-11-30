@@ -148,7 +148,7 @@ def _entity_form(mname, refresh=False):
         for fld in model.fields:
             if fld.type == 'select' or fld.type == 'radio' or fld.type == 'checkbox':
                 prop_dict = eval(fld.props)
-                item = WIDGET_TYPE[fld.type](fld.name, prop_dict['options'], value=[], description=fld.title)
+                item = WIDGET_TYPE[fld.type](fld.name, prop_dict['options'], description=fld.title)
             else:
                 item = WIDGET_TYPE[fld.type](fld.name, description=fld.title)
 

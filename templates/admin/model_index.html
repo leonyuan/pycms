@@ -41,12 +41,14 @@
              <td>${model.template.name}</td>
              <td>${_yn(model.is_active)}</td>
              <td align='center' >
-               <a href="${model.id}/edit">修改</a> | <a href="javascript:confirmurl('${model.id}/delete?1=1','确认要删除${model.name}吗？')">删除</a>|
+                <a href="${model.id}/edit" title="修改"><img src="${static_url}/images/icons/pencil.png" alt="修改" /></a>
+                <a href="javascript:confirmurl('${model.id}/delete?1=1','确认要删除${model.title}吗？')" title="删除"><img src="${static_url}/images/icons/cross.png" alt="删除" /></a> 
                % if model.is_active:
-               <a href="${model.id}/drop_table">删除数据表</a></td>
+                <a href="${model.id}/drop_table" title="删除模型表"><img src="${static_url}/images/icons/gear_disable.png" alt="删除模型表" /></a>
                % else:
-               <a href="${model.id}/create_table">创建数据表</a></td>
+                <a href="${model.id}/create_table" title="创建模型表"><img src="${static_url}/images/icons/gear_enable.png" alt="创建模型表" /></a>
                % endif
+             </td>
           </tr>
         % endfor
         </tbody>

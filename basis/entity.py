@@ -26,6 +26,7 @@ class get:
         entity = getattr(base_entity, model.name)
         category_ancestors = get_entitys_category_ancestors(base_entity)
         req = web.ctx.req
+        req[model.name] = entity
         req.update({
             'base_entity': base_entity,
             'entity': entity,

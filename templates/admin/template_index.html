@@ -40,7 +40,10 @@
              <td>${template.index_file}</td>
              <td>${template.list_file}</td>
              <td>${template.display_file}</td>
-             <td align='center' > <a href="${template.id}/edit">修改</a> | <a href="javascript:confirmurl('${template.id}/delete?1=1','确认要删除${template.name}吗？')">删除</a></td>
+             <td align='center' > 
+                <a href="${template.id}/edit" title="修改"><img src="${static_url}/images/icons/pencil.png" alt="修改" /></a>
+                <a href="javascript:confirmurl('${template.id}/delete?1=1','确认要删除${template.name}吗？')" title="删除"><img src="${static_url}/images/icons/cross.png" alt="删除" /></a> 
+             </td>
           </tr>
         % endfor
 	    </tbody>

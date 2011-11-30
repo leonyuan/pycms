@@ -39,7 +39,11 @@
                 <td>${cate.prefix+cate.name}</td>
                 <td>${cate.slug}</td>
                 <td align='center'></td>
-                <td align='center' ><a href="add?parent_id=${cate.id}">添加子栏目</a> | <a href="${cate.id}/edit">修改</a> | <a href="javascript:confirmurl('${cate.id}/delete?1=1','确认要删除${cate.name}吗？')">删除</a> | <a href="?">批量移动</a></td>
+                <td align='center' >
+                    <a href="add?parent_id=${cate.id}" title="添加子栏目"><img src="${static_url}/images/icons/child_node.png" alt="添加子栏目" /></a>
+                    <a href="${cate.id}/edit" title="修改"><img src="${static_url}/images/icons/pencil.png" alt="修改" /></a>
+                    <a href="javascript:confirmurl('${cate.id}/delete?1=1','确认要删除${cate.name}吗？')" title="删除"><img src="${static_url}/images/icons/cross.png" alt="删除" /></a> 
+                </td>
 		    </tr>
             % endfor
 		</tbody>

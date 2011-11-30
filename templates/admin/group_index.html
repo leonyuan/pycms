@@ -36,7 +36,10 @@
              <td>${group.id}</td>
              <td>${group.name}</td>
              <td>${len(group.users)}</td>
-             <td align='center' > <a href="${group.id}/edit">修改</a> | <a href="javascript:confirmurl('${group.id}/delete?1=1','确认要删除${group.name}吗？')">删除</a></td>
+             <td align='center' >
+                <a href="${group.id}/edit" title="修改"><img src="${static_url}/images/icons/pencil.png" alt="修改" /></a>
+                <a href="javascript:confirmurl('${group.id}/delete?1=1','确认要删除${group.name}吗？')" title="删除"><img src="${static_url}/images/icons/cross.png" alt="删除" /></a> 
+             </td>
           </tr>
         % endfor
 		</tbody>

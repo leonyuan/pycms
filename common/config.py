@@ -30,7 +30,7 @@ publish_dir = join(curdir, '../static/html/')
 static_url = lambda: web.ctx.homedomain + '/static'
 
 #default pagination record number
-default_page_size = 10
+default_page_size = 20
 
 try:
     from local_config import *

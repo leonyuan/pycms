@@ -98,7 +98,7 @@ class MyCheckboxGroup(MyInput):
             attrs['name'] = self.name
             attrs['type'] = 'checkbox'
             attrs['value'] = value
-            if value in self.value:
+            if self.value and value in self.value:
                 attrs['checked'] = 'checked'
             x += '<input %s/> %s' % (attrs, web.net.websafe(desc))
         x += '</span>'

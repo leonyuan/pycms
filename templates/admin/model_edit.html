@@ -85,7 +85,10 @@
                  <td>${_typetext(field.type)}</td>
                  <td>${field.length}</td>
                  <td>${_yn(field.required)}</td>
-                 <td align='center' > <a href="../../field/${field.id}/edit?mid=${field.model_id}">修改</a> | <a href="javascript:confirmurl('../../field/${field.id}/delete?mid=${field.model_id}','确认要删除${field.name}吗？')">删除</a></td>
+                 <td align='center' >
+                    <a href="${admin_url}/field/${field.id}/edit?mid=${field.model_id}" title="修改"><img src="${static_url}/images/icons/pencil.png" alt="修改" /></a>
+                    <a href="javascript:confirmurl('${admin_url}/field/${field.id}/delete?mid=${field.model_id}','确认要删除${field.name}吗？')" title="删除"><img src="${static_url}/images/icons/cross.png" alt="删除" /></a> 
+                 </td>
               </tr>
             % endfor
             </tbody>
@@ -133,7 +136,10 @@
                  <td>${relation.type}</td>
                  <td>${relation.target}</td>
                  <td>${relation.backref}</td>
-                 <td align='center' > <a href="../../relation/${relation.id}/edit?mid=${relation.model_id}">修改</a> | <a href="javascript:confirmurl('../../relation/${relation.id}/delete?mid=${relation.model_id}','确认要删除${relation.name}吗？')">删除</a></td>
+                 <td align='center' >
+                    <a href="${admin_url}/relation/${relation.id}/edit?mid=${relation.model_id}" title="修改"><img src="${static_url}/images/icons/pencil.png" alt="修改" /></a>
+                    <a href="javascript:confirmurl('${admin_url}/relation/${relation.id}/delete?mid=${relation.model_id}','确认要删除${relation.name}吗？')" title="删除"><img src="${static_url}/images/icons/cross.png" alt="删除" /></a> 
+                </td>
               </tr>
               % endfor
             </tbody>
