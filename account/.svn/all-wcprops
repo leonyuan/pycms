@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svn/!svn/ver/309/pycms/trunk/account
+END
+admin.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/143/pycms/trunk/account/admin.py
+END
+view.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/103/pycms/trunk/account/view.py
+END
+admin_form.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/143/pycms/trunk/account/admin_form.py
+END
+util.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/284/pycms/trunk/account/util.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/103/pycms/trunk/account/__init__.py
+END
+app.py
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/103/pycms/trunk/account/app.py
+END
+model.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/103/pycms/trunk/account/model.py
+END
+auth.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/298/pycms/trunk/account/auth.py
+END
+form.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/103/pycms/trunk/account/form.py
+END
+db.py
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/309/pycms/trunk/account/db.py
+END
